@@ -2,12 +2,16 @@
   "name": "sqaaas-api",
   "version": "1.0.0",
   "dependencies": {
-    "@redocly/openapi-cli": "^1.0.0-beta.5"
+    "@redocly/openapi-cli": "^1.0.0-beta.5",
+    "redoc-cli": "^0.9.8",
+    "gh-pages": "^3.1.0"
   },
   "private": true,
   "scripts": {
     "start": "openapi preview-docs",
-    "build": "openapi bundle -o dist",
-    "test": "openapi lint"
-  }
+    "build": "openapi bundle -o build/dist",
+    "test": "openapi lint",
+    "deploy": "openapi bundle -o build/dist && redoc-cli bundle build/dist.yaml --output build/index.html && gh-pages -d build"
+  },
+  "homepage": "https://eosc-synergy.github.io/sqaaas-api-spec"
 }
