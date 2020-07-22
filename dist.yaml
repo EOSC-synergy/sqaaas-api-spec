@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: SQAaaS API
+  description: >-
+    API for the Software and Service Quality Assurance as a Service (SQAaaS)
+    component.
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 0.1.0
+servers:
+  - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
+    description: 'Optional server description, e.g. Main (production) server'
+  - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
+    description: 'Optional server description, e.g. Internal staging server for testing'
+paths:
+  /pipeline:
+    post:
+      summary: Creates a pipeline.
+      description: >
+        Provides a ready-to-use Jenkins pipeline based on the v2 series of
+        jenkins-pipeline-library.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pipeline'
+      responses:
+        '201':
+          description: Created
+  /reports:
+    get:
+      description: Returns the reports stored in the database backend.
+      responses:
+        '200':
+          description: Successfully returned a list of reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Report'
+components:
+  schemas:
+    SQA_qc_style:
+      type: object
+    SQA_qc_coverage:
+      type: object
+    SQA_qc_functional:
+      type: object
+    SQA_qc_security:
+      type: object
+    SQA_qc_doc:
+      type: object
+    SQA_Criteria:
+      type: array
+      items:
+        anyOf:
+          - $ref: '#/components/schemas/SQA_qc_style'
+          - $ref: '#/components/schemas/SQA_qc_coverage'
+          - $ref: '#/components/schemas/SQA_qc_functional'
+          - $ref: '#/components/schemas/SQA_qc_security'
+          - $ref: '#/components/schemas/SQA_qc_doc'
+    Pipeline:
+      type: object
+      properties:
+        sqa_criteria:
+          $ref: '#/components/schemas/SQA_Criteria'
+        run:
+          type: boolean
+    PID_Unique:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uri
+          example: 'https://digital.csic.es/handle/10261/214441'
+    PID_Commit:
+      type: object
+      properties:
+        commit_id:
+          type: string
+          example: 58218ada2ea61b42399e1225a078367c076bbdca
+        repository_url:
+          type: string
+          format: uri
+          example: 'https://github.com/eosc-synergy/sqaaas'
+    Report:
+      type: object
+      properties:
+        report_id:
+          type: string
+          format: uuid
+          example: b815d535-b482-4527-8084-d27aeec51df2
+        pid_type:
+          oneOf:
+            - $ref: '#/components/schemas/PID_Unique'
+            - $ref: '#/components/schemas/PID_Commit'
