@@ -1,0 +1,11 @@
+get:
+  description: Returns the reports stored in the database backend.
+  responses:
+    '200':
+      description: Successfully returned a list of reports.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/Report.yaml

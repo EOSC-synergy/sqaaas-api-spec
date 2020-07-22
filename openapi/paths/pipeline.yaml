@@ -1,0 +1,14 @@
+post:
+  summary: Creates a pipeline.
+  description: >
+    Provides a ready-to-use Jenkins pipeline based on the v2 series of
+    jenkins-pipeline-library.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Pipeline.yaml
+  responses:
+    '201':
+      description: Created

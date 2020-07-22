@@ -1,0 +1,6 @@
+type: object
+properties:
+  sqa_criteria:
+    $ref: ./SQA_Criteria.yaml
+  run:
+    type: boolean

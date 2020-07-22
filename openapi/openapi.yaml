@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  title: SQAaaS API
+  description: >-
+    API for the Software and Service Quality Assurance as a Service (SQAaaS)
+    component.
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 0.1.0
+servers:
+  - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
+    description: 'Optional server description, e.g. Main (production) server'
+  - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
+    description: 'Optional server description, e.g. Internal staging server for testing'
+paths:
+  /pipeline:
+    $ref: paths/pipeline.yaml
+  /reports:
+    $ref: paths/reports.yaml
