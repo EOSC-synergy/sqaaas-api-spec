@@ -1,0 +1,14 @@
+config:
+  credentials:
+      - id: orviz-github-basic
+        username_var: GIT_USER
+        password_var: GIT_PASSWORD
+
+sqa_criteria:
+  qc_doc:
+    repos:
+      sqaaas-api-spec:
+        container: node
+        commands:
+          - /sqaaas-api-spec/testing/.git_credential_helper.sh get
+          - cd /sqaaas-api-spec && npm run deploy
