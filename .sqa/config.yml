@@ -11,5 +11,7 @@ sqa_criteria:
         container: node
         commands:
           - /sqaaas-api-spec/.git_credential_helper.sh get
+          - git config --global user.name "Pablo Orviz"
+          - git config --global user.email "orviz@ifca.unican.es"
           - npm --prefix /sqaaas-api-spec install
           - npm --prefix /sqaaas-api-spec run deploy
