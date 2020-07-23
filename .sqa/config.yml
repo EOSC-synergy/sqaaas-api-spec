@@ -11,4 +11,4 @@ sqa_criteria:
         container: node
         commands:
           - /sqaaas-api-spec/testing/.git_credential_helper.sh get
-          - cd /sqaaas-api-spec && npm run deploy
+          - cd /sqaaas-api-spec && npm install && npm run deploy
