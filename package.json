@@ -9,9 +9,9 @@
   "private": true,
   "scripts": {
     "start": "openapi preview-docs",
-    "build": "openapi bundle -o build/dist",
+    "build": "openapi bundle -o build/dist && redoc-cli bundle build/dist.yaml --output build/index.html",
     "test": "openapi lint",
-    "deploy": "openapi bundle -o build/dist && redoc-cli bundle build/dist.yaml --output build/index.html && gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "homepage": "https://eosc-synergy.github.io/sqaaas-api-spec"
 }

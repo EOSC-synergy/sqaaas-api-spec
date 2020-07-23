@@ -14,4 +14,5 @@ sqa_criteria:
           - git config --global user.name "Pablo Orviz"
           - git config --global user.email "orviz@ifca.unican.es"
           - npm --prefix /sqaaas-api-spec install
-          - npm --prefix /sqaaas-api-spec run deploy
+          - npm --prefix /sqaaas-api-spec run build
+          - npm --prefix /sqaaas-api-spec run deploy -- --user="Pablo Orviz <orviz@ifca.unican.es>"
