@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  node:
+    image: node
+    container_name: node
+    hostname: "sqaaas-api-spec-node"
+    volumes:
+     - type: bind
+       source: ./
+       target: /sqaaas-api-spec
+    command: sleep infinity
