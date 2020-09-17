@@ -1,5 +1,7 @@
 get:
+  operationId: addReport
   description: Returns the reports stored in the database backend.
+  summary: Gets all reports.
   responses:
     '200':
       description: Successfully returned a list of reports.

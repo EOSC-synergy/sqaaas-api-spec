@@ -1,4 +1,5 @@
 post:
+  operationId: addPipeline
   summary: Creates a pipeline.
   description: >
     Provides a ready-to-use Jenkins pipeline based on the v2 series of
