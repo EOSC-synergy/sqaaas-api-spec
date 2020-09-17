@@ -16,6 +16,7 @@ servers:
 paths:
   /pipeline:
     post:
+      operationId: addPipeline
       summary: Creates a pipeline.
       description: >
         Provides a ready-to-use Jenkins pipeline based on the v2 series of
@@ -31,7 +32,9 @@ paths:
           description: Created
   /reports:
     get:
+      operationId: addReport
       description: Returns the reports stored in the database backend.
+      summary: Gets all reports.
       responses:
         '200':
           description: Successfully returned a list of reports.
