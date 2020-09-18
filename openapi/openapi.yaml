@@ -1,9 +1,7 @@
 openapi: 3.0.0
 info:
   title: SQAaaS API
-  description: >-
-    API for the Software and Service Quality Assurance as a Service (SQAaaS)
-    component.
+  description: API for the Software and Service Quality Assurance as a Service (SQAaaS) component.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
