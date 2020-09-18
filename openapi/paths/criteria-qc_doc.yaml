@@ -1,0 +1,19 @@
+get:
+  summary: Gets qc_doc criteria.
+  description: >
+    Obtains info about the qc_doc criteria as defined in JePL.
+  operationId: getCriteriaDoc
+  tags:
+    - criteria
+  responses:
+    '200':
+      description: Array of all supported criteria.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              repos:
+                type: array
+                items:
+                  $ref: ../components/schemas/CriteriaRepository.yaml
