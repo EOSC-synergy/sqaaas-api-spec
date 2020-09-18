@@ -1,0 +1,14 @@
+type: object
+properties:
+  tox:
+    type: object
+    properties:
+      testenv:
+        type: array
+        example: 'cover'
+      tox_file:
+        type: string
+        default: 'tox.ini'
+        example: 'tox.ini'
+    required:
+      - testenv
