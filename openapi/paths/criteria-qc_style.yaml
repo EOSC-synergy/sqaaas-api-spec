@@ -1,0 +1,16 @@
+get:
+  summary: Gets qc_style criteria.
+  description: >
+    Obtains info about the qc_style criteria as defined in JePL.
+  operationId: getCriteriaStyle
+  tags:
+    - criteria
+  responses:
+    '200':
+      description: Array of all supported criteria.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../components/schemas/Command.yaml
+              - $ref: ../components/schemas/Tox.yaml
