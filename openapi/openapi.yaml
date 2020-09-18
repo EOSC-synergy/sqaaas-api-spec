@@ -18,5 +18,13 @@ paths:
     $ref: paths/criteria.yaml
   /criteria/style:
     $ref: paths/criteria-qc_style.yaml
+  /criteria/unit:
+    $ref: paths/criteria-qc_unit.yaml
+  /criteria/functional:
+    $ref: paths/criteria-qc_functional.yaml
+  /criteria/security:
+    $ref: paths/criteria-qc_security.yaml
+  /criteria/doc:
+    $ref: paths/criteria-qc_doc.yaml
   /pipeline:
     $ref: paths/pipeline.yaml

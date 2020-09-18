@@ -1,0 +1,19 @@
+get:
+  summary: Gets qc_functional criteria.
+  description: >
+    Obtains info about the qc_functional criteria as defined in JePL.
+  operationId: getCriteriaFunctional
+  tags:
+    - criteria
+  responses:
+    '200':
+      description: Array of all supported criteria.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              repos:
+                type: array
+                items:
+                  $ref: ../components/schemas/CriteriaRepository.yaml
