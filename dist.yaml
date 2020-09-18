@@ -14,6 +14,127 @@ servers:
   - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
     description: 'Optional server description, e.g. Internal staging server for testing'
 paths:
+  /criteria:
+    get:
+      summary: Gets all supported criteria.
+      description: |
+        Obtains all the criteria supported by the JePL.
+      operationId: getCriteria
+      tags:
+        - criteria
+      responses:
+        '200':
+          description: Array of all supported criteria.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  - $ref: '#/components/schemas/SQA_qc_style'
+                  - $ref: '#/components/schemas/SQA_qc_coverage'
+                  - $ref: '#/components/schemas/SQA_qc_functional'
+                  - $ref: '#/components/schemas/SQA_qc_security'
+                  - $ref: '#/components/schemas/SQA_qc_doc'
+  /criteria/style:
+    get:
+      summary: Gets qc_style criteria.
+      description: |
+        Obtains info about the qc_style criteria as defined in JePL.
+      operationId: getCriteriaStyle
+      tags:
+        - criteria
+      responses:
+        '200':
+          description: Array of all supported criteria.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CriteriaRepository'
+  /criteria/unit:
+    get:
+      summary: Gets qc_unit criteria.
+      description: |
+        Obtains info about the qc_unit criteria as defined in JePL.
+      operationId: getCriteriaUnit
+      tags:
+        - criteria
+      responses:
+        '200':
+          description: Array of all supported criteria.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CriteriaRepository'
+  /criteria/functional:
+    get:
+      summary: Gets qc_functional criteria.
+      description: |
+        Obtains info about the qc_functional criteria as defined in JePL.
+      operationId: getCriteriaFunctional
+      tags:
+        - criteria
+      responses:
+        '200':
+          description: Array of all supported criteria.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CriteriaRepository'
+  /criteria/security:
+    get:
+      summary: Gets qc_security criteria.
+      description: |
+        Obtains info about the qc_security criteria as defined in JePL.
+      operationId: getCriteriaSecurity
+      tags:
+        - criteria
+      responses:
+        '200':
+          description: Array of all supported criteria.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CriteriaRepository'
+  /criteria/doc:
+    get:
+      summary: Gets qc_doc criteria.
+      description: |
+        Obtains info about the qc_doc criteria as defined in JePL.
+      operationId: getCriteriaDoc
+      tags:
+        - criteria
+      responses:
+        '200':
+          description: Array of all supported criteria.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CriteriaRepository'
   /pipeline:
     post:
       operationId: addPipeline
@@ -56,6 +177,44 @@ components:
       type: object
     SQA_qc_doc:
       type: object
+    Command:
+      type: object
+      properties:
+        commands:
+          type: array
+          items:
+            type: string
+          default: []
+          example:
+            - make clean
+            - make html
+    Tox:
+      type: object
+      properties:
+        tox:
+          type: object
+          properties:
+            testenv:
+              type: array
+              example: cover
+            tox_file:
+              type: string
+              default: tox.ini
+              example: tox.ini
+          required:
+            - testenv
+    CriteriaRepository:
+      type: object
+      properties:
+        '[a-z0-9_-]*':
+          type: object
+          properties:
+            container:
+              type: string
+            additionalProperties:
+              oneOf:
+                - $ref: '#/components/schemas/Command'
+                - $ref: '#/components/schemas/Tox'
     SQA_Criteria:
       type: array
       items:
