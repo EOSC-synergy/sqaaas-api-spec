@@ -11,6 +11,9 @@ get:
       content:
         application/json:
           schema:
-            oneOf:
-              - $ref: ../components/schemas/Command.yaml
-              - $ref: ../components/schemas/Tox.yaml
+            type: object
+            properties:
+              repos:
+                type: array
+                items:
+                  $ref: ../components/schemas/CriteriaRepository.yaml
