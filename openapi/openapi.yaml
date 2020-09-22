@@ -16,5 +16,3 @@ servers:
 paths:
   /pipeline:
     $ref: paths/pipeline.yaml
-  /reports:
-    $ref: paths/reports.yaml
