@@ -14,127 +14,6 @@ servers:
   - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
     description: 'Optional server description, e.g. Internal staging server for testing'
 paths:
-  /criteria:
-    get:
-      summary: Gets all supported criteria.
-      description: |
-        Obtains all the criteria supported by the JePL.
-      operationId: getCriteria
-      tags:
-        - criteria
-      responses:
-        '200':
-          description: Array of all supported criteria.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  - $ref: '#/components/schemas/SQA_qc_style'
-                  - $ref: '#/components/schemas/SQA_qc_coverage'
-                  - $ref: '#/components/schemas/SQA_qc_functional'
-                  - $ref: '#/components/schemas/SQA_qc_security'
-                  - $ref: '#/components/schemas/SQA_qc_doc'
-  /criteria/style:
-    get:
-      summary: Gets qc_style criteria.
-      description: |
-        Obtains info about the qc_style criteria as defined in JePL.
-      operationId: getCriteriaStyle
-      tags:
-        - criteria
-      responses:
-        '200':
-          description: Array of all supported criteria.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  repos:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CriteriaRepository'
-  /criteria/unit:
-    get:
-      summary: Gets qc_unit criteria.
-      description: |
-        Obtains info about the qc_unit criteria as defined in JePL.
-      operationId: getCriteriaUnit
-      tags:
-        - criteria
-      responses:
-        '200':
-          description: Array of all supported criteria.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  repos:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CriteriaRepository'
-  /criteria/functional:
-    get:
-      summary: Gets qc_functional criteria.
-      description: |
-        Obtains info about the qc_functional criteria as defined in JePL.
-      operationId: getCriteriaFunctional
-      tags:
-        - criteria
-      responses:
-        '200':
-          description: Array of all supported criteria.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  repos:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CriteriaRepository'
-  /criteria/security:
-    get:
-      summary: Gets qc_security criteria.
-      description: |
-        Obtains info about the qc_security criteria as defined in JePL.
-      operationId: getCriteriaSecurity
-      tags:
-        - criteria
-      responses:
-        '200':
-          description: Array of all supported criteria.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  repos:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CriteriaRepository'
-  /criteria/doc:
-    get:
-      summary: Gets qc_doc criteria.
-      description: |
-        Obtains info about the qc_doc criteria as defined in JePL.
-      operationId: getCriteriaDoc
-      tags:
-        - criteria
-      responses:
-        '200':
-          description: Array of all supported criteria.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  repos:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CriteriaRepository'
   /pipeline:
     post:
       operationId: addPipeline
@@ -151,20 +30,6 @@ paths:
       responses:
         '201':
           description: Created
-  /reports:
-    get:
-      operationId: addReport
-      description: Returns the reports stored in the database backend.
-      summary: Gets all reports.
-      responses:
-        '200':
-          description: Successfully returned a list of reports.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Report'
 components:
   schemas:
     SQA_qc_style:
@@ -177,44 +42,6 @@ components:
       type: object
     SQA_qc_doc:
       type: object
-    Command:
-      type: object
-      properties:
-        commands:
-          type: array
-          items:
-            type: string
-          default: []
-          example:
-            - make clean
-            - make html
-    Tox:
-      type: object
-      properties:
-        tox:
-          type: object
-          properties:
-            testenv:
-              type: array
-              example: cover
-            tox_file:
-              type: string
-              default: tox.ini
-              example: tox.ini
-          required:
-            - testenv
-    CriteriaRepository:
-      type: object
-      properties:
-        '[a-z0-9_-]*':
-          type: object
-          properties:
-            container:
-              type: string
-            additionalProperties:
-              oneOf:
-                - $ref: '#/components/schemas/Command'
-                - $ref: '#/components/schemas/Tox'
     SQA_Criteria:
       type: array
       items:
@@ -231,31 +58,3 @@ components:
           $ref: '#/components/schemas/SQA_Criteria'
         run:
           type: boolean
-    PID_Unique:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uri
-          example: 'https://digital.csic.es/handle/10261/214441'
-    PID_Commit:
-      type: object
-      properties:
-        commit_id:
-          type: string
-          example: 58218ada2ea61b42399e1225a078367c076bbdca
-        repository_url:
-          type: string
-          format: uri
-          example: 'https://github.com/eosc-synergy/sqaaas'
-    Report:
-      type: object
-      properties:
-        report_id:
-          type: string
-          format: uuid
-          example: b815d535-b482-4527-8084-d27aeec51df2
-        pid_type:
-          oneOf:
-            - $ref: '#/components/schemas/PID_Unique'
-            - $ref: '#/components/schemas/PID_Commit'
