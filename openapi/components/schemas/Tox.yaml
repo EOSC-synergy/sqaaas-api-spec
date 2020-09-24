@@ -5,6 +5,8 @@ properties:
     properties:
       testenv:
         type: array
+        items:
+          type: string
         example: 'cover'
       tox_file:
         type: string
