@@ -13,8 +13,9 @@ get:
           schema:
             type: array
             items:
-              - $ref: ../components/schemas/SQA_qc_style.yaml
-              - $ref: ../components/schemas/SQA_qc_coverage.yaml
-              - $ref: ../components/schemas/SQA_qc_functional.yaml
-              - $ref: ../components/schemas/SQA_qc_security.yaml
-              - $ref: ../components/schemas/SQA_qc_doc.yaml
+              allOf:
+                - $ref: ../components/schemas/SQA_qc_style.yaml
+                - $ref: ../components/schemas/SQA_qc_coverage.yaml
+                - $ref: ../components/schemas/SQA_qc_functional.yaml
+                - $ref: ../components/schemas/SQA_qc_security.yaml
+                - $ref: ../components/schemas/SQA_qc_doc.yaml
