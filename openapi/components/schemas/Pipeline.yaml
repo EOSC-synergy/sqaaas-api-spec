@@ -1,6 +1,9 @@
 type: object
 properties:
+  id:
+    type: integer
   sqa_criteria:
-    $ref: ./SQA_Criteria.yaml
-  run:
-    type: boolean
+    type: array
+    items:
+      type: string
+      enum: [qc_style, qc_unit, qc_functional, qc_security, qc_doc]

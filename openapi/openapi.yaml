@@ -14,3 +14,5 @@ servers:
 paths:
   /pipeline:
     $ref: paths/pipeline.yaml
+  /pipeline/{pipeline_id}:
+    $ref: paths/pipeline_by_id.yaml
