@@ -26,5 +26,3 @@ paths:
     $ref: paths/criteria-qc_doc.yaml
   /pipeline:
     $ref: paths/pipeline.yaml
-  /reports:
-    $ref: paths/reports.yaml
