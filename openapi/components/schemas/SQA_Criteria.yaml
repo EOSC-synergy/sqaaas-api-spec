@@ -1,8 +1,0 @@
-type: array
-items:
-  anyOf:
-    - $ref: ./SQA_qc_style.yaml
-    - $ref: ./SQA_qc_coverage.yaml
-    - $ref: ./SQA_qc_functional.yaml
-    - $ref: ./SQA_qc_security.yaml
-    - $ref: ./SQA_qc_doc.yaml
