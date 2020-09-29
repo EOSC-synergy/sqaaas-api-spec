@@ -1,6 +1,6 @@
 type: object
 properties:
-  id:
+  pipeline_id:
     type: string
   sqa_criteria:
     type: array
