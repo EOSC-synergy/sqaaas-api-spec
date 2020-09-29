@@ -13,3 +13,17 @@ post:
   responses:
     '201':
       description: Created
+get:
+  operationId: get_pipelines
+  summary: Gets pipeline IDs.
+  description: >
+    Returns the list of IDs for the defined pipelines.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Pipeline.yaml'
