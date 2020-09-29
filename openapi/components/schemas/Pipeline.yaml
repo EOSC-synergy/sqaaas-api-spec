@@ -1,7 +1,5 @@
 type: object
 properties:
-  pipeline_id:
-    type: string
   sqa_criteria:
     type: array
     items:
