@@ -1,7 +1,7 @@
 type: object
 properties:
   id:
-    type: integer
+    type: string
   sqa_criteria:
     type: array
     items:
