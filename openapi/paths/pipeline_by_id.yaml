@@ -1,0 +1,21 @@
+get:
+  operationId: get_pipeline_by_id
+  summary: Find pipeline by ID
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Pipeline.yaml'
+    400:
+      description: Invalid ID supplied
+    404:
+      description: Pipeline not found

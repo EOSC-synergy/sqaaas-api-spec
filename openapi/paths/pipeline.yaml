@@ -1,5 +1,5 @@
 post:
-  operationId: addPipeline
+  operationId: add_pipeline
   summary: Creates a pipeline.
   description: >
     Provides a ready-to-use Jenkins pipeline based on the v2 series of
@@ -9,7 +9,21 @@ post:
     content:
       application/json:
         schema:
-          $ref: ../components/schemas/Pipeline.yaml
+          $ref: '../components/schemas/Pipeline.yaml'
   responses:
     '201':
       description: Created
+get:
+  operationId: get_pipelines
+  summary: Gets pipeline IDs.
+  description: >
+    Returns the list of IDs for the defined pipelines.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Pipeline.yaml'

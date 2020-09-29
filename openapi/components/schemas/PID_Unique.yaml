@@ -1,6 +1,0 @@
-type: object
-properties:
-  id:
-    type: string
-    format: uri
-    example: 'https://digital.csic.es/handle/10261/214441'
