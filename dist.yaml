@@ -16,7 +16,7 @@ servers:
 paths:
   /pipeline:
     post:
-      operationId: addPipeline
+      operationId: add_pipeline
       summary: Creates a pipeline.
       description: >
         Provides a ready-to-use Jenkins pipeline based on the v2 series of
@@ -30,31 +30,54 @@ paths:
       responses:
         '201':
           description: Created
+    get:
+      operationId: get_pipelines
+      summary: Gets pipeline IDs.
+      description: |
+        Returns the list of IDs for the defined pipelines.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pipeline'
+  '/pipeline/{pipeline_id}':
+    get:
+      operationId: get_pipeline_by_id
+      summary: Find pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pipeline not found
 components:
   schemas:
-    SQA_qc_style:
-      type: object
-    SQA_qc_coverage:
-      type: object
-    SQA_qc_functional:
-      type: object
-    SQA_qc_security:
-      type: object
-    SQA_qc_doc:
-      type: object
-    SQA_Criteria:
-      type: array
-      items:
-        anyOf:
-          - $ref: '#/components/schemas/SQA_qc_style'
-          - $ref: '#/components/schemas/SQA_qc_coverage'
-          - $ref: '#/components/schemas/SQA_qc_functional'
-          - $ref: '#/components/schemas/SQA_qc_security'
-          - $ref: '#/components/schemas/SQA_qc_doc'
     Pipeline:
       type: object
       properties:
         sqa_criteria:
-          $ref: '#/components/schemas/SQA_Criteria'
-        run:
-          type: boolean
+          type: array
+          items:
+            type: string
+            enum:
+              - qc_style
+              - qc_unit
+              - qc_functional
+              - qc_security
+              - qc_doc
