@@ -6,7 +6,7 @@ This repository contains the OpenAPI specification of the SQAaaS platform.
 
 The documented API can be accessed here: [https://eosc-synergy.github.io/sqaaas-api-spec/](https://eosc-synergy.github.io/sqaaas-api-spec/)
 
-The API is automatically rebuilt on master branch changes, by means of [JePL](https://indigo-dc.github.io/jenkins-pipeline-library/) solution.
+The API docs are automatically rebuilt on master branch changes, by means of [JePL](https://indigo-dc.github.io/jenkins-pipeline-library/) solution.
 
 ## Structure
 
