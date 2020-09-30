@@ -10,7 +10,7 @@ pipeline {
             when {
                 anyOf {
                     branch 'master'
-                    branch 'add-jpl'
+                    branch 'feature/linter'
                 }
             }
             steps {
