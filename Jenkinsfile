@@ -10,6 +10,7 @@ pipeline {
             when {
                 anyOf {
                     branch 'master'
+                    branch 'prototype/1.0'
                 }
             }
             steps {
