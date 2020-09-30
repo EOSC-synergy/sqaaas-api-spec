@@ -68,16 +68,48 @@ paths:
           description: Pipeline not found
 components:
   schemas:
+    Repository:
+      type: object
+      properties:
+        repo:
+          type: string
+          format: uri
+        branch:
+          type: string
+    CriterionWithRepo:
+      type: object
+      properties:
+        criterion:
+          type: string
+          enum:
+            - qc_style
+            - qc_unit
+            - qc_functional
+            - qc_security
+            - qc_doc
+        repos:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Repository'
+              - type: object
+                properties:
+                  container:
+                    type: string
+                  build_tool:
+                    type: string
+                    enum:
+                      - Tox
+                      - Command
+                required:
+                  - container
+      required:
+        - criterion
+        - repos
     Pipeline:
       type: object
       properties:
         sqa_criteria:
           type: array
           items:
-            type: string
-            enum:
-              - qc_style
-              - qc_unit
-              - qc_functional
-              - qc_security
-              - qc_doc
+            $ref: '#/components/schemas/CriterionWithRepo'
