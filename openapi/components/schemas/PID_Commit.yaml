@@ -1,9 +1,0 @@
-type: object
-properties:
-  commit_id:
-    type: string
-    example: 58218ada2ea61b42399e1225a078367c076bbdca
-  repository_url:
-    type: string
-    format: uri
-    example: 'https://github.com/eosc-synergy/sqaaas'

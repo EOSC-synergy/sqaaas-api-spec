@@ -1,5 +1,36 @@
 # SQAaaS API OpenAPI Definition
 
+This repository contains the OpenAPI specification of the SQAaaS platform.
+
+## API documentation
+
+The documented API can be accessed here: [https://eosc-synergy.github.io/sqaaas-api-spec/](https://eosc-synergy.github.io/sqaaas-api-spec/)
+
+The API is automatically rebuilt on master branch changes, by means of [JePL](https://indigo-dc.github.io/jenkins-pipeline-library/) solution.
+
+## Structure
+
+The API definition is organized in a folder structure to avoid the existence of a single-file definition, which 
+can be unmanageable at the long term. Hence, the `$ref` syntax is used in order to point to definitions located
+in separated files within such folder structure.
+
+```
+project
+│
+└───openapi
+│   │   openapi.yaml
+│   │
+│   └───paths
+│       │   <path-one>.yaml
+│       │   <path-two>.yaml
+│       │   .. 
+│   └───components
+|       └───schemas
+│           │   <schema-one>.yaml
+│           │   <schema-two>.yaml
+│           │   ..
+```
+
 ## Working on your OpenAPI Definition
 
 ### Install
