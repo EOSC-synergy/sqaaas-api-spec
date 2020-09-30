@@ -1,0 +1,7 @@
+type: object
+properties:
+  repo:
+    type: string
+    format: uri
+  branch:
+    type: string
