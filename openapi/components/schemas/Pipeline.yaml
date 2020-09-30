@@ -3,5 +3,4 @@ properties:
   sqa_criteria:
     type: array
     items:
-      type: string
-      enum: [qc_style, qc_unit, qc_functional, qc_security, qc_doc]
+      $ref: './CriterionWithRepo.yaml'

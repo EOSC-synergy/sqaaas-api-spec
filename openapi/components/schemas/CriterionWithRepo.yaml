@@ -1,0 +1,22 @@
+type: object
+properties:
+  criterion:
+    type: string
+    enum: [qc_style, qc_unit, qc_functional, qc_security, qc_doc]
+  repos:
+    type: array
+    items:
+      allOf:
+        - $ref: './Repository.yaml'
+        - type: object
+          properties:
+            container:
+              type: string
+            build_tool:
+              type: string
+              enum: [Tox, Command]
+          required:
+            - container
+required:
+  - criterion
+  - repos
