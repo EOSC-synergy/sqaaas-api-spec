@@ -17,6 +17,7 @@ properties:
               enum: [Tox, Command]
           required:
             - container
+            - build_tool
 required:
   - criterion
   - repos
