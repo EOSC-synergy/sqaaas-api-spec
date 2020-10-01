@@ -1,0 +1,8 @@
+type: object
+properties:
+  commands:
+    type: array
+    items:
+      type: string
+    default: []
+    example: ['make clean', 'make html']
