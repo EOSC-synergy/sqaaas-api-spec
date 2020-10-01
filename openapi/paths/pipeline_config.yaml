@@ -1,0 +1,14 @@
+get:
+  operationId: get_pipeline_config
+  summary: Gets pipeline's main configuration.
+  description: >
+    Returns the content of JePL's config.yml file.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/JePL_config.yaml'
