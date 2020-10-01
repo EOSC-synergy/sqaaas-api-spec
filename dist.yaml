@@ -76,6 +76,34 @@ components:
           format: uri
         branch:
           type: string
+    Commands:
+      type: object
+      properties:
+        commands:
+          type: array
+          items:
+            type: string
+          default: []
+          example:
+            - make clean
+            - make html
+    Tox:
+      type: object
+      properties:
+        tox:
+          type: object
+          properties:
+            testenv:
+              type: array
+              items:
+                type: string
+              example: cover
+            tox_file:
+              type: string
+              default: tox.ini
+              example: tox.ini
+          required:
+            - testenv
     CriterionWithRepo:
       type: object
       properties:
@@ -97,12 +125,12 @@ components:
                   container:
                     type: string
                   build_tool:
-                    type: string
-                    enum:
-                      - Tox
-                      - Command
+                    anyOf:
+                      - $ref: '#/components/schemas/Commands'
+                      - $ref: '#/components/schemas/Tox'
                 required:
                   - container
+                  - build_tool
       required:
         - criterion
         - repos
