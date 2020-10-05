@@ -13,11 +13,13 @@ properties:
           container:
             type: string
           build_tool:
-            type: string
-            enum: [Tox, Command]
+            anyOf:
+              - $ref: './Commands.yaml'
+              - $ref: './Tox.yaml'
         required:
           - repo_id
           - container
+          - build_tool
 required:
   - criterion
   - repos
