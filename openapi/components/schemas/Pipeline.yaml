@@ -3,4 +3,4 @@ properties:
   sqa_criteria:
     type: array
     items:
-      $ref: './CriterionWithRepo.yaml'
+      $ref: './CriterionBuild.yaml'
