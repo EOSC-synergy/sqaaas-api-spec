@@ -16,3 +16,5 @@ paths:
     $ref: paths/pipeline.yaml
   /pipeline/{pipeline_id}:
     $ref: paths/pipeline_by_id.yaml
+  /pipeline/{pipeline_id}/config:
+    $ref: paths/pipeline_config.yaml

@@ -1,6 +1,8 @@
 type: object
 properties:
-  repo:
+  repo_id:
+    type: string
+  repo_url:
     type: string
     format: uri
   branch:

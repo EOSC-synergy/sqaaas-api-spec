@@ -1,6 +1,10 @@
 type: object
 properties:
+  project_repos:
+    type: array
+    items:
+      $ref: './Repository.yaml'
   sqa_criteria:
     type: array
     items:
-      $ref: './CriterionWithRepo.yaml'
+      $ref: './CriterionBuild.yaml'

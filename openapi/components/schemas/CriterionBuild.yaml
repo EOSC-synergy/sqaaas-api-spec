@@ -1,0 +1,23 @@
+type: object
+properties:
+  criterion:
+    type: string
+    enum: [qc_style, qc_unit, qc_functional, qc_security, qc_doc]
+  repos:
+    type: array
+    items:
+      type: object
+        properties:
+          repo_id:
+            type: string
+          container:
+            type: string
+          build_tool:
+            type: string
+            enum: [Tox, Command]
+        required:
+          - repo_id
+          - container
+required:
+  - criterion
+  - repos
