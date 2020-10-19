@@ -1,8 +1,9 @@
 type: object
 properties:
-  image:
+  service_id:
     type: string
-  container_name:
+    example: 'checkstyle'
+  image:
     type: string
   hostname:
     type: string
