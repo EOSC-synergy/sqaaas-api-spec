@@ -10,8 +10,10 @@ properties:
       properties:
         repo_id:
           type: string
+          example: 'simple-java-maven-app'
         container:
           type: string
+          example: 'checkstyle'
         build_tool:
           anyOf:
             - $ref: './Commands.yaml'

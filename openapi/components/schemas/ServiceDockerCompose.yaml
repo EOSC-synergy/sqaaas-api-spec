@@ -5,8 +5,10 @@ properties:
     example: 'checkstyle'
   image:
     type: string
+    example: 'checkstyle/maven-builder-image'
   hostname:
     type: string
+    example: 'checkstyle-host'
   volumes:
     type: array
     items:
@@ -17,7 +19,10 @@ properties:
           enum: [bind]
         volume_source:
           type: string
+          example: './'
         volume_target:
           type: string
+          example: './simple-java-app'
   command:
     type: string
+    example: 'sleep 600000'

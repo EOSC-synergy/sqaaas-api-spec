@@ -5,4 +5,4 @@ properties:
     items:
       type: string
     default: []
-    example: ['make clean', 'make html']
+    example: ['mvn checkstyle:check']

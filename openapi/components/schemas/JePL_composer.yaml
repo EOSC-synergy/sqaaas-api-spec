@@ -2,6 +2,7 @@ type: object
 properties:
   version:
     type: string
+    example: '3.7'
   services:
     type: array
     items:
