@@ -7,19 +7,19 @@ properties:
     type: array
     items:
       type: object
-        properties:
-          repo_id:
-            type: string
-          container:
-            type: string
-          build_tool:
-            anyOf:
-              - $ref: './Commands.yaml'
-              - $ref: './Tox.yaml'
-        required:
-          - repo_id
-          - container
-          - build_tool
+      properties:
+        repo_id:
+          type: string
+        container:
+          type: string
+        build_tool:
+          anyOf:
+            - $ref: './Commands.yaml'
+            - $ref: './Tox.yaml'
+      required:
+        - repo_id
+        - container
+        - build_tool
 required:
   - criterion
   - repos

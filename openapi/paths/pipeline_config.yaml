@@ -1,6 +1,13 @@
 get:
   operationId: get_pipeline_config
   summary: Gets pipeline's main configuration.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: integer
   description: >
     Returns the content of JePL's config.yml file.
   responses:
