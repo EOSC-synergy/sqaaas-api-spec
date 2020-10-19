@@ -95,11 +95,14 @@ components:
       properties:
         repo_id:
           type: string
+          example: simple-java-maven-app
         repo_url:
           type: string
           format: uri
+          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
         branch:
           type: string
+          example: master
     Commands:
       type: object
       properties:
@@ -109,8 +112,7 @@ components:
             type: string
           default: []
           example:
-            - make clean
-            - make html
+            - 'mvn checkstyle:check'
     Tox:
       type: object
       properties:
@@ -146,8 +148,10 @@ components:
             properties:
               repo_id:
                 type: string
+                example: simple-java-maven-app
               container:
                 type: string
+                example: checkstyle
               build_tool:
                 anyOf:
                   - $ref: '#/components/schemas/Commands'
@@ -173,12 +177,15 @@ components:
     ServiceDockerCompose:
       type: object
       properties:
+        service_id:
+          type: string
+          example: checkstyle
         image:
           type: string
-        container_name:
-          type: string
+          example: checkstyle/maven-builder-image
         hostname:
           type: string
+          example: checkstyle-host
         volumes:
           type: array
           items:
@@ -190,15 +197,19 @@ components:
                   - bind
               volume_source:
                 type: string
+                example: ./
               volume_target:
                 type: string
+                example: ./simple-java-app
         command:
           type: string
+          example: sleep 600000
     JePL_composer:
       type: object
       properties:
         version:
           type: string
+          example: '3.7'
         services:
           type: array
           items:
@@ -218,19 +229,25 @@ components:
                     type: array
                     items:
                       type: string
+                      example: master
               pipeline_config:
                 type: object
                 properties:
                   config_file:
                     type: string
+                    example: ./.sqa/config.yml
                   base_repository:
                     type: string
+                    example: master
                   base_branch:
                     type: string
+                    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
                   credentials_id:
                     type: string
+                    example: userpass_dockerhub
                   jepl_validator_docker_image:
                     type: string
+                    example: 'eoscsynergy/jpl-validator:1.1.0'
     Pipeline:
       type: object
       properties:
