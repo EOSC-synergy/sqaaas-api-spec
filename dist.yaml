@@ -66,12 +66,36 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/config':
+    get:
+      operationId: get_pipeline_config
+      summary: Gets pipeline's main configuration.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: integer
+      description: |
+        Returns the content of JePL's config.yml file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JePL_config'
 components:
   schemas:
     Repository:
       type: object
       properties:
-        repo:
+        repo_id:
+          type: string
+        repo_url:
           type: string
           format: uri
         branch:
@@ -104,7 +128,7 @@ components:
               example: tox.ini
           required:
             - testenv
-    CriterionWithRepo:
+    CriterionBuild:
       type: object
       properties:
         criterion:
@@ -118,26 +142,46 @@ components:
         repos:
           type: array
           items:
-            allOf:
-              - $ref: '#/components/schemas/Repository'
-              - type: object
-                properties:
-                  container:
-                    type: string
-                  build_tool:
-                    anyOf:
-                      - $ref: '#/components/schemas/Commands'
-                      - $ref: '#/components/schemas/Tox'
-                required:
-                  - container
-                  - build_tool
+            type: object
+            properties:
+              repo_id:
+                type: string
+              container:
+                type: string
+              build_tool:
+                anyOf:
+                  - $ref: '#/components/schemas/Commands'
+                  - $ref: '#/components/schemas/Tox'
+            required:
+              - repo_id
+              - container
+              - build_tool
       required:
         - criterion
         - repos
-    Pipeline:
+    JePL_config:
       type: object
       properties:
+        project_repos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Repository'
         sqa_criteria:
           type: array
           items:
-            $ref: '#/components/schemas/CriterionWithRepo'
+            $ref: '#/components/schemas/CriterionBuild'
+    JePL_composer:
+      type: object
+    JePL_jenkinsfile:
+      type: object
+    Pipeline:
+      type: object
+      properties:
+        config_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JePL_config'
+        composer_data:
+          $ref: '#/components/schemas/JePL_composer'
+        jenkinsfile_data:
+          $ref: '#/components/schemas/JePL_jenkinsfile'
