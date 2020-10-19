@@ -170,8 +170,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CriterionBuild'
+    ServiceDockerCompose:
+      type: object
+      properties:
+        image:
+          type: string
+        container_name:
+          type: string
+        hostname:
+          type: string
+        volumes:
+          type: array
+          items:
+            type: object
+            properties:
+              volume_type:
+                type: string
+                enum:
+                  - bind
+              volume_source:
+                type: string
+              volume_target:
+                type: string
+        command:
+          type: string
     JePL_composer:
       type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceDockerCompose'
     JePL_jenkinsfile:
       type: object
     Pipeline:
