@@ -1,5 +1,7 @@
 type: object
 properties:
+  version:
+    type: string
   services:
     type: array
     items:
