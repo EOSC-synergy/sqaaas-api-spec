@@ -197,12 +197,40 @@ components:
     JePL_composer:
       type: object
       properties:
+        version:
+          type: string
         services:
           type: array
           items:
             $ref: '#/components/schemas/ServiceDockerCompose'
     JePL_jenkinsfile:
       type: object
+      properties:
+        stages:
+          type: array
+          items:
+            type: object
+            properties:
+              when:
+                type: object
+                properties:
+                  branches:
+                    type: array
+                    items:
+                      type: string
+              pipeline_config:
+                type: object
+                properties:
+                  config_file:
+                    type: string
+                  base_repository:
+                    type: string
+                  base_branch:
+                    type: string
+                  credentials_id:
+                    type: string
+                  jepl_validator_docker_image:
+                    type: string
     Pipeline:
       type: object
       properties:
