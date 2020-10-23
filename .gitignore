@@ -1,9 +1,8 @@
 # Dir for bundles
 dist
 node_modules
-build
-dist.yaml
-index.html
+build/*
+!build/dist.yaml
 
 # VIM
 # Swap

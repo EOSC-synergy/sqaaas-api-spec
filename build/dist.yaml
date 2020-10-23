@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: SQAaaS API
+  description: >-
+    API for the Software and Service Quality Assurance as a Service (SQAaaS)
+    component.
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 0.1.0
+servers:
+  - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
+    description: 'Optional server description, e.g. Main (production) server'
+  - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
+    description: 'Optional server description, e.g. Internal staging server for testing'
+paths:
+  /pipeline:
+    post:
+      operationId: add_pipeline
+      summary: Creates a pipeline.
+      description: >
+        Provides a ready-to-use Jenkins pipeline based on the v2 series of
+        jenkins-pipeline-library.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pipeline'
+      responses:
+        '201':
+          description: Created
+    get:
+      operationId: get_pipelines
+      summary: Gets pipeline IDs.
+      description: |
+        Returns the list of IDs for the defined pipelines.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pipeline'
+  '/pipeline/{pipeline_id}':
+    get:
+      operationId: get_pipeline_by_id
+      summary: Find pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pipeline not found
+  '/pipeline/{pipeline_id}/config':
+    get:
+      operationId: get_pipeline_config
+      summary: Gets pipeline's main configuration.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: integer
+      description: |
+        Returns the content of JePL's config.yml file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JePL_config'
+components:
+  schemas:
+    Repository:
+      type: object
+      properties:
+        repo_id:
+          type: string
+          example: simple-java-maven-app
+        repo_url:
+          type: string
+          format: uri
+          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+        branch:
+          type: string
+          example: master
+    Commands:
+      type: object
+      properties:
+        commands:
+          type: array
+          items:
+            type: string
+          default: []
+          example:
+            - 'mvn checkstyle:check'
+    Tox:
+      type: object
+      properties:
+        tox:
+          type: object
+          properties:
+            testenv:
+              type: array
+              items:
+                type: string
+              example: cover
+            tox_file:
+              type: string
+              default: tox.ini
+              example: tox.ini
+          required:
+            - testenv
+    CriterionBuild:
+      type: object
+      properties:
+        criterion:
+          type: string
+          enum:
+            - qc_style
+            - qc_unit
+            - qc_functional
+            - qc_security
+            - qc_doc
+        repos:
+          type: array
+          items:
+            type: object
+            properties:
+              repo_id:
+                type: string
+                example: simple-java-maven-app
+              container:
+                type: string
+                example: checkstyle
+              build_tool:
+                anyOf:
+                  - $ref: '#/components/schemas/Commands'
+                  - $ref: '#/components/schemas/Tox'
+            required:
+              - repo_id
+              - container
+              - build_tool
+      required:
+        - criterion
+        - repos
+    JePL_config:
+      type: object
+      properties:
+        project_repos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Repository'
+        sqa_criteria:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriterionBuild'
+    ServiceDockerCompose:
+      type: object
+      properties:
+        service_id:
+          type: string
+          example: checkstyle
+        image:
+          type: string
+          example: checkstyle/maven-builder-image
+        hostname:
+          type: string
+          example: checkstyle-host
+        volumes:
+          type: array
+          items:
+            type: object
+            properties:
+              volume_type:
+                type: string
+                enum:
+                  - bind
+              volume_source:
+                type: string
+                example: ./
+              volume_target:
+                type: string
+                example: ./simple-java-app
+        command:
+          type: string
+          example: sleep 600000
+    JePL_composer:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '3.7'
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceDockerCompose'
+    JePL_jenkinsfile:
+      type: object
+      properties:
+        stages:
+          type: array
+          items:
+            type: object
+            properties:
+              when:
+                type: object
+                properties:
+                  branches:
+                    type: array
+                    items:
+                      type: string
+                      example: master
+              pipeline_config:
+                type: object
+                properties:
+                  config_file:
+                    type: string
+                    example: ./.sqa/config.yml
+                  base_repository:
+                    type: string
+                    example: master
+                  base_branch:
+                    type: string
+                    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+                  credentials_id:
+                    type: string
+                    example: userpass_dockerhub
+                  jepl_validator_docker_image:
+                    type: string
+                    example: 'eoscsynergy/jpl-validator:1.1.0'
+    Pipeline:
+      type: object
+      properties:
+        config_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JePL_config'
+        composer_data:
+          $ref: '#/components/schemas/JePL_composer'
+        jenkinsfile_data:
+          $ref: '#/components/schemas/JePL_jenkinsfile'
