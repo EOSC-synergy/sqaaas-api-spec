@@ -19,6 +19,8 @@ sqa_criteria:
         commands:
           - npm --prefix /sqaaas-api-spec install
           - npm --prefix /sqaaas-api-spec run build
+          - git -C /sqaaas-api-spec config user.email "orviz@ifca.unican.es"
+          - git -C /sqaaas-api-spec config user.name "Pablo Orviz"
           - git -C /sqaaas-api-spec add build/dist.yaml
           - git -C /sqaaas-api-spec commit build/dist.yaml
             --author="Pablo Orviz <orviz@ifca.unican.es>"
