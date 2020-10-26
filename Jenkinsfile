@@ -6,6 +6,25 @@ pipeline {
     agent any
 
     stages {
+        stage('OpenAPI linter') {
+            steps {
+                script {
+                    projectConfig = pipelineConfig(
+                        './.sqa/config_style.yml',
+                        null,
+                        null,
+                        null,
+                        'eoscsynergy/jpl-validator:jib-with-jpl'
+                    )
+                    buildStages(projectConfig)
+                }
+            }
+            post {
+                cleanup {
+                    cleanWs()
+                }
+            }
+        }
         stage('SQA baseline dynamic stages') {
             when {
                 anyOf {
