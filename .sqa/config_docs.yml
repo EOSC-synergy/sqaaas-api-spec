@@ -5,19 +5,12 @@ config:
         password_var: GIT_PASSWORD
 
 sqa_criteria:
-  qc_style:
-    repos:
-      sqaaas-api-spec:
-        container: node
-        commands:
-          - npm --prefix /sqaaas-api-spec install
-          - npm --prefix /sqaaas-api-spec test
   qc_doc:
     repos:
       sqaaas-api-spec:
         container: node
         commands:
-          - npm --prefix /sqaaas-api-spec run build
+          - npm --prefix /sqaaas-api-spec install
           - git -C /sqaaas-api-spec config user.email "orviz@ifca.unican.es"
           - git -C /sqaaas-api-spec config user.name "Pablo Orviz"
           - git -C /sqaaas-api-spec status

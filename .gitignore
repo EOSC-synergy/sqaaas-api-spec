@@ -13,6 +13,8 @@ build/*
 [._]ss[a-gi-z]
 [._]sw[a-p]
 
+!*.sqa
+
 # Session
 Session.vim
 Sessionx.vim
