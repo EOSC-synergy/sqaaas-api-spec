@@ -18,3 +18,7 @@ paths:
     $ref: paths/pipeline_by_id.yaml
   /pipeline/{pipeline_id}/config:
     $ref: paths/pipeline_config.yaml
+  /pipeline/{pipeline_id}/composer:
+    $ref: paths/pipeline_composer.yaml
+  /pipeline/{pipeline_id}/jenkinsfile:
+    $ref: paths/pipeline_jenkinsfile.yaml
