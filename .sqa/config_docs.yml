@@ -1,8 +1,4 @@
 config:
-  project_repos:
-    sqaaas-api-spec:
-      repo: https://github.com/eosc-synergy/sqaaas-api-spec
-      branch: prototype/1.0
   credentials:
       - id: orviz-github-basic
         username_var: GIT_USER
