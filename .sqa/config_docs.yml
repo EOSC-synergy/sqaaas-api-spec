@@ -1,4 +1,8 @@
 config:
+  project_repos:
+    sqaaas-api-spec:
+      repo: https://github.com/eosc-synergy/sqaaas-api-spec
+      branch: prototype/1.0
   credentials:
       - id: orviz-github-basic
         username_var: GIT_USER
@@ -11,6 +15,7 @@ sqa_criteria:
         container: node
         commands:
           - npm --prefix /sqaaas-api-spec install
+          - npm --prefix /sqaaas-api-spec run build
           - git -C /sqaaas-api-spec config user.email "orviz@ifca.unican.es"
           - git -C /sqaaas-api-spec config user.name "Pablo Orviz"
           - git -C /sqaaas-api-spec status
