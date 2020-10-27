@@ -1,0 +1,21 @@
+get:
+  operationId: get_pipeline_composer
+  summary: Gets composer configuration used by the pipeline.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: integer
+  description: >
+    Returns the content of JePL's docker-compose.yml file.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/JePL_composer.yaml'
