@@ -28,7 +28,7 @@ pipeline {
         stage('SQA baseline dynamic stages') {
             when {
                 anyOf {
-                    branch 'master'
+                    // branch 'master'
                     branch 'prototype/1.0'
                 }
             }
