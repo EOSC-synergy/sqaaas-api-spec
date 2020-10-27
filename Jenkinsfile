@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     projectConfig = pipelineConfig(
-                        './.sqa/config.yml',
+                        './.sqa/config_docs.yml',
                         null,
                         null,
                         null,
