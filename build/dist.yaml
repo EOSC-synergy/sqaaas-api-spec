@@ -251,6 +251,9 @@ components:
     Pipeline:
       type: object
       properties:
+        id:
+          type: integer
+          format: uuid
         config_data:
           type: array
           items:
