@@ -24,3 +24,5 @@ paths:
     $ref: paths/pipeline_jenkinsfile.yaml
   /pipeline/{pipeline_id}/run:
     $ref: paths/pipeline_run.yaml
+  /pipeline/{pipeline_id}/status:
+    $ref: paths/pipeline_status.yaml

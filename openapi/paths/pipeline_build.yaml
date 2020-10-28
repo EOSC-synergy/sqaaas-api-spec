@@ -1,0 +1,25 @@
+get:
+  operationId: get_pipeline_status
+  summary: Get pipeline status.
+  description: >
+    Obtains the build URL in Jenkins for the given pipeline.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              build_url:
+                type: string
+                format: uri
+    '403':
+      description: Unsuccessful operation
