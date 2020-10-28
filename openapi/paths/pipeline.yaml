@@ -13,6 +13,15 @@ post:
   responses:
     '201':
       description: Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+          example:
+            id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
 get:
   operationId: get_pipelines
   summary: Gets pipeline IDs.
