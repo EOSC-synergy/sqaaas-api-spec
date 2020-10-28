@@ -1,0 +1,25 @@
+post:
+  operationId: run_pipeline
+  summary: Runs pipeline.
+  description: >
+    Executes the given pipeline by means of the Jenkins API.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              build_url:
+                type: string
+                format: uri
+    '403':
+      description: Unsuccessful operation

@@ -22,3 +22,5 @@ paths:
     $ref: paths/pipeline_composer.yaml
   /pipeline/{pipeline_id}/jenkinsfile:
     $ref: paths/pipeline_jenkinsfile.yaml
+  /pipeline/{pipeline_id}/run:
+    $ref: paths/pipeline_run.yaml
