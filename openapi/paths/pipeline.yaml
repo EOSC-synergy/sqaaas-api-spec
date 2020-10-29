@@ -20,8 +20,17 @@ post:
             properties:
               id:
                 type: string
+                description: UUID identifying the pipeline
           example:
             id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+      links:
+        get_pipeline_by_pipeline_id:
+          operationId: get_pipeline_by_id
+          parameters:
+            pipeline_id: '$response.body#/id'
+          description: >
+            The `id` value returned in the response can be used as
+            the `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
 get:
   operationId: get_pipelines
   summary: Gets pipeline IDs.
