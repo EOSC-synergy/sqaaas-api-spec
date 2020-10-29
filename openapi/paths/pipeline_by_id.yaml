@@ -7,7 +7,7 @@ get:
       description: ID of the pipeline to get
       required: true
       schema:
-        type: integer
+        type: string
   responses:
     200:
       description: Successful operation

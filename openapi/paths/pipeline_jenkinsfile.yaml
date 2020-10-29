@@ -7,7 +7,7 @@ get:
       description: ID of the pipeline to get
       required: true
       schema:
-        type: integer
+        type: string
   description: >
     Returns the content of JePL's Jenkinsfile file.
   responses:
