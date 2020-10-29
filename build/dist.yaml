@@ -37,8 +37,17 @@ paths:
                 properties:
                   id:
                     type: string
+                    description: UUID identifying the pipeline
               example:
                 id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+          links:
+            get_pipeline_by_pipeline_id:
+              operationId: get_pipeline_by_id
+              parameters:
+                pipeline_id: $response.body#/id
+              description: >
+                The `id` value returned in the response can be used as the
+                `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
     get:
       operationId: get_pipelines
       summary: Gets pipeline IDs.
@@ -63,7 +72,7 @@ paths:
           description: ID of the pipeline to get
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Successful operation
@@ -85,7 +94,7 @@ paths:
           description: ID of the pipeline to get
           required: true
           schema:
-            type: integer
+            type: string
       description: |
         Returns the content of JePL's config.yml file.
       responses:
@@ -107,7 +116,7 @@ paths:
           description: ID of the pipeline to get
           required: true
           schema:
-            type: integer
+            type: string
       description: |
         Returns the content of JePL's docker-compose.yml file.
       responses:
@@ -129,7 +138,7 @@ paths:
           description: ID of the pipeline to get
           required: true
           schema:
-            type: integer
+            type: string
       description: |
         Returns the content of JePL's Jenkinsfile file.
       responses:
@@ -364,6 +373,7 @@ components:
       properties:
         id:
           type: string
+          readOnly: true
           example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
         config_data:
           type: array
