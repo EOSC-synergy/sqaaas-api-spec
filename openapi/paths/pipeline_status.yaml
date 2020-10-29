@@ -21,5 +21,7 @@ get:
               build_url:
                 type: string
                 format: uri
+            example:
+              build_url: https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
     '403':
       description: Unsuccessful operation
