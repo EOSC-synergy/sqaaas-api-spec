@@ -223,6 +223,26 @@ components:
         branch:
           type: string
           example: master
+    Creds_user_pass:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - username_password
+        username_var:
+          type: string
+          example: GIT_USER
+        password_var:
+          type: string
+          example: GIT_PASS
+      required:
+        - id
+        - username_var
+        - password_var
     Creds_string:
       type: object
       properties:
@@ -274,26 +294,6 @@ components:
       required:
         - id
         - keystore_var
-    Creds_user_pass:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - username_password
-        username_var:
-          type: string
-          example: USERNAME
-        password_var:
-          type: string
-          example: PASSWORD
-      required:
-        - id
-        - username_var
-        - password_var
     Creds_ssh_user_private_key:
       type: object
       properties:
@@ -317,15 +317,14 @@ components:
         - id
         - keyfile_var
     Credential:
-      type: object
-      properties:
-        cred_type:
-          oneOf:
-            - $ref: '#/components/schemas/Creds_string'
-            - $ref: '#/components/schemas/Creds_file'
-            - $ref: '#/components/schemas/Creds_cert'
-            - $ref: '#/components/schemas/Creds_user_pass'
-            - $ref: '#/components/schemas/Creds_ssh_user_private_key'
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/Creds_user_pass'
+          - $ref: '#/components/schemas/Creds_string'
+          - $ref: '#/components/schemas/Creds_file'
+          - $ref: '#/components/schemas/Creds_cert'
+          - $ref: '#/components/schemas/Creds_ssh_user_private_key'
     Commands:
       type: object
       properties:
@@ -390,6 +389,8 @@ components:
       type: object
       additionalProperties:
         type: string
+      example:
+        JPL_IGNOREFAILURES: 'yes'
     JePL_config:
       type: object
       properties:
