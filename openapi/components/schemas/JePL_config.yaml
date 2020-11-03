@@ -4,7 +4,15 @@ properties:
     type: array
     items:
       $ref: './Repository.yaml'
+  credentials:
+    type: array
+    items:
+      $ref: './Credential.yaml'
   sqa_criteria:
     type: array
     items:
       $ref: './CriterionBuild.yaml'
+  environment:
+    type: array
+    items:
+      $ref: './Environment.yaml'
