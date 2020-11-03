@@ -223,6 +223,109 @@ components:
         branch:
           type: string
           example: master
+    Creds_string:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        variable:
+          type: string
+          example: MY_TOKEN
+      required:
+        - id
+    Creds_file:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - file
+            - zip
+        variable:
+          type: string
+          example: MY_TOKEN
+      required:
+        - id
+        - type
+    Creds_cert:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - file
+            - zip
+        keystore_var:
+          type: string
+          example: KEYSTORE_TMP_PATH
+        alias_var:
+          type: string
+          example: KEYSTORE_ALIAS_NAME
+        password_var:
+          type: string
+          example: KEYSTORE_PASSWORD
+      required:
+        - id
+        - keystore_var
+    Creds_user_pass:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - username_password
+        username_var:
+          type: string
+          example: USERNAME
+        password_var:
+          type: string
+          example: PASSWORD
+      required:
+        - id
+        - username_var
+        - password_var
+    Creds_ssh_user_private_key:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - ssh_user_private_key
+        keyfile_var:
+          type: string
+          example: KEYFILE_TMP_PATH
+        passphrase_var:
+          type: string
+          example: KEYFILE_PASSPHRASE
+        username_var:
+          type: string
+          example: KEYFILE_USERNAME
+      required:
+        - id
+        - keyfile_var
+    Credential:
+      type: object
+      properties:
+        cred_type:
+          oneOf:
+            - $ref: '#/components/schemas/Creds_string'
+            - $ref: '#/components/schemas/Creds_file'
+            - $ref: '#/components/schemas/Creds_cert'
+            - $ref: '#/components/schemas/Creds_user_pass'
+            - $ref: '#/components/schemas/Creds_ssh_user_private_key'
     Commands:
       type: object
       properties:
@@ -283,6 +386,10 @@ components:
       required:
         - criterion
         - repos
+    Environment:
+      type: object
+      additionalProperties:
+        type: string
     JePL_config:
       type: object
       properties:
@@ -290,10 +397,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Repository'
+        credentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Credential'
         sqa_criteria:
           type: array
           items:
             $ref: '#/components/schemas/CriterionBuild'
+        environment:
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
     ServiceDockerCompose:
       type: object
       properties:
