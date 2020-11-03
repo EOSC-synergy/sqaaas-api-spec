@@ -12,3 +12,7 @@ properties:
     type: array
     items:
       $ref: './CriterionBuild.yaml'
+  environment:
+    type: array
+    items:
+      $ref: './Environment.yaml'
