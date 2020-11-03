@@ -1,0 +1,14 @@
+type: object
+properties:
+  id:
+    type: string
+    example: 'my-dockerhub-token'
+  type:
+    type: string
+    enum: [file, zip]
+  variable:
+    type: string
+    example: 'MY_TOKEN'
+required:
+  - id
+  - type
