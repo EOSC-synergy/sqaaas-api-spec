@@ -8,10 +8,10 @@ properties:
     enum: [username_password]
   username_var:
     type: string
-    example: 'USERNAME'
+    example: 'GIT_USER'
   password_var:
     type: string
-    example: 'PASSWORD'
+    example: 'GIT_PASS'
 required:
   - id
   - username_var
