@@ -410,34 +410,37 @@ components:
           $ref: '#/components/schemas/Environment'
     ServiceDockerCompose:
       type: object
-      properties:
-        service_id:
-          type: string
-          example: checkstyle
-        image:
-          type: string
-          example: checkstyle/maven-builder-image
-        hostname:
-          type: string
-          example: checkstyle-host
-        volumes:
-          type: array
-          items:
-            type: object
-            properties:
-              volume_type:
-                type: string
-                enum:
-                  - bind
-              volume_source:
-                type: string
-                example: ./
-              volume_target:
-                type: string
-                example: ./simple-java-app
-        command:
-          type: string
-          example: sleep 600000
+      additionalProperties:
+        type: object
+        properties:
+          image:
+            type: string
+          hostname:
+            type: string
+          volumes:
+            type: array
+            items:
+              type: object
+              properties:
+                volume_type:
+                  type: string
+                  enum:
+                    - bind
+                volume_source:
+                  type: string
+                volume_target:
+                  type: string
+          command:
+            type: string
+      example:
+        checkstyle:
+          image: checkstyle/maven-builder-image
+          hostname: checkstyle-host
+          volumes:
+            - volume_source: ./
+              volume_target: ./simple-java-app
+              volume_type: bind
+          command: sleep 600000
     JePL_composer:
       type: object
       properties:
