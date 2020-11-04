@@ -316,15 +316,6 @@ components:
       required:
         - id
         - keyfile_var
-    Credential:
-      type: array
-      items:
-        oneOf:
-          - $ref: '#/components/schemas/Creds_user_pass'
-          - $ref: '#/components/schemas/Creds_string'
-          - $ref: '#/components/schemas/Creds_file'
-          - $ref: '#/components/schemas/Creds_cert'
-          - $ref: '#/components/schemas/Creds_ssh_user_private_key'
     Commands:
       type: object
       properties:
@@ -401,7 +392,12 @@ components:
         credentials:
           type: array
           items:
-            $ref: '#/components/schemas/Credential'
+            oneOf:
+              - $ref: '#/components/schemas/Creds_user_pass'
+              - $ref: '#/components/schemas/Creds_string'
+              - $ref: '#/components/schemas/Creds_file'
+              - $ref: '#/components/schemas/Creds_cert'
+              - $ref: '#/components/schemas/Creds_ssh_user_private_key'
         sqa_criteria:
           type: array
           items:
