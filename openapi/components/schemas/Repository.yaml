@@ -1,12 +1,15 @@
 type: object
-properties:
-  repo_id:
-    type: string
-    example: 'simple-java-maven-app'
-  repo_url:
-    type: string
-    format: uri
-    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
-  branch:
-    type: string
-    example: 'master'
+additionalProperties:
+  type: object
+  properties:
+    repo_url:
+      type: string
+      format: uri
+      example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+    branch:
+      type: string
+      example: 'master'
+example:
+  simple-java-maven-app:
+    repo_url: https://github.com/jenkins-docs/simple-java-maven-app
+    branch: master
