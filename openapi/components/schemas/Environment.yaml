@@ -2,4 +2,5 @@ type: object
 additionalProperties:
   type: string
 example:
-  "JPL_IGNOREFAILURES": "yes"
+  JPL_IGNOREFAILURES: 'defined'
+  JPL_DOCKERPUSH: 'docs service1 service4'

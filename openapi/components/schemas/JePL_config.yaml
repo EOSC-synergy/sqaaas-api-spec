@@ -18,6 +18,4 @@ properties:
     items:
       $ref: './CriterionBuild.yaml'
   environment:
-    type: array
-    items:
-      $ref: './Environment.yaml'
+    $ref: './Environment.yaml'
