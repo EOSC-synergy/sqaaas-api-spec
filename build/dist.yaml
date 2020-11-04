@@ -381,7 +381,8 @@ components:
       additionalProperties:
         type: string
       example:
-        JPL_IGNOREFAILURES: 'yes'
+        JPL_IGNOREFAILURES: defined
+        JPL_DOCKERPUSH: docs service1 service4
     JePL_config:
       type: object
       properties:
@@ -403,9 +404,7 @@ components:
           items:
             $ref: '#/components/schemas/CriterionBuild'
         environment:
-          type: array
-          items:
-            $ref: '#/components/schemas/Environment'
+          $ref: '#/components/schemas/Environment'
     ServiceDockerCompose:
       type: object
       properties:
