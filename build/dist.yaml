@@ -215,7 +215,7 @@ components:
       additionalProperties:
         type: object
         properties:
-          repo_url:
+          repo:
             type: string
             format: uri
             example: 'https://github.com/jenkins-docs/simple-java-maven-app'
@@ -224,7 +224,7 @@ components:
             example: master
       example:
         simple-java-maven-app:
-          repo_url: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
           branch: master
     Creds_user_pass:
       type: object
@@ -441,9 +441,8 @@ components:
           type: string
           example: '3.7'
         services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceDockerCompose'
+          type: object
+          $ref: '#/components/schemas/ServiceDockerCompose'
     JePL_jenkinsfile:
       type: object
       properties:
