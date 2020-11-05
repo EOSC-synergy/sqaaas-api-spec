@@ -1,27 +1,24 @@
 type: object
-properties:
-  criterion:
-    type: string
-    enum: [qc_style, qc_unit, qc_functional, qc_security, qc_doc]
-  repos:
-    type: array
-    items:
-      type: object
-      properties:
-        repo_id:
-          type: string
-          example: 'simple-java-maven-app'
-        container:
-          type: string
-          example: 'checkstyle'
-        build_tool:
-          anyOf:
-            - $ref: './Commands.yaml'
-            - $ref: './Tox.yaml'
-      required:
-        - repo_id
-        - container
-        - build_tool
-required:
-  - criterion
-  - repos
+additionalProperties:
+  type: object
+  additionalProperties:
+    type: object
+    properties:
+      repos:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            container:
+              type: string
+          additionalProperties:
+            anyOf:
+              - $ref: './Commands.yaml'
+              - $ref: './Tox.yaml'
+example:
+  qc_style:
+    repos:
+      simple-java-maven-app:
+        container: checkstyle
+        commands:
+        - mvn checkstyle:check

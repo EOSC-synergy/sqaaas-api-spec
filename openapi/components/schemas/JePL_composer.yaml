@@ -4,6 +4,5 @@ properties:
     type: string
     example: '3.7'
   services:
-    type: array
-    items:
-      $ref: './ServiceDockerCompose.yaml'
+    type: object
+    $ref: './ServiceDockerCompose.yaml'
