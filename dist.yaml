@@ -386,19 +386,22 @@ components:
     JePL_config:
       type: object
       properties:
-        project_repos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Repository'
-        credentials:
-          type: array
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/Creds_user_pass'
-              - $ref: '#/components/schemas/Creds_string'
-              - $ref: '#/components/schemas/Creds_file'
-              - $ref: '#/components/schemas/Creds_cert'
-              - $ref: '#/components/schemas/Creds_ssh_user_private_key'
+        config:
+          type: object
+          properties:
+            project_repos:
+              type: array
+              items:
+                $ref: '#/components/schemas/Repository'
+            credentials:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/Creds_user_pass'
+                  - $ref: '#/components/schemas/Creds_string'
+                  - $ref: '#/components/schemas/Creds_file'
+                  - $ref: '#/components/schemas/Creds_cert'
+                  - $ref: '#/components/schemas/Creds_ssh_user_private_key'
         sqa_criteria:
           type: array
           items:
