@@ -384,9 +384,8 @@ components:
           type: object
           properties:
             project_repos:
-              type: array
-              items:
-                $ref: '#/components/schemas/Repository'
+              type: object
+              $ref: '#/components/schemas/Repository'
             credentials:
               type: array
               items:
