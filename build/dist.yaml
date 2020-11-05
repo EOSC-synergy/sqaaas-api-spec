@@ -396,9 +396,8 @@ components:
                   - $ref: '#/components/schemas/Creds_cert'
                   - $ref: '#/components/schemas/Creds_ssh_user_private_key'
         sqa_criteria:
-          type: array
-          items:
-            $ref: '#/components/schemas/CriterionBuild'
+          type: object
+          $ref: '#/components/schemas/CriterionBuild'
         environment:
           $ref: '#/components/schemas/Environment'
     ServiceDockerCompose:
