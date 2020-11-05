@@ -212,17 +212,20 @@ components:
   schemas:
     Repository:
       type: object
-      properties:
-        repo_id:
-          type: string
-          example: simple-java-maven-app
-        repo_url:
-          type: string
-          format: uri
-          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
-        branch:
-          type: string
-          example: master
+      additionalProperties:
+        type: object
+        properties:
+          repo:
+            type: string
+            format: uri
+            example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          branch:
+            type: string
+            example: master
+      example:
+        simple-java-maven-app:
+          repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          branch: master
     Creds_user_pass:
       type: object
       properties:
@@ -345,37 +348,29 @@ components:
             - testenv
     CriterionBuild:
       type: object
-      properties:
-        criterion:
-          type: string
-          enum:
-            - qc_style
-            - qc_unit
-            - qc_functional
-            - qc_security
-            - qc_doc
-        repos:
-          type: array
-          items:
-            type: object
-            properties:
-              repo_id:
-                type: string
-                example: simple-java-maven-app
-              container:
-                type: string
-                example: checkstyle
-              build_tool:
-                anyOf:
-                  - $ref: '#/components/schemas/Commands'
-                  - $ref: '#/components/schemas/Tox'
-            required:
-              - repo_id
-              - container
-              - build_tool
-      required:
-        - criterion
-        - repos
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            repos:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  container:
+                    type: string
+                additionalProperties:
+                  anyOf:
+                    - $ref: '#/components/schemas/Commands'
+                    - $ref: '#/components/schemas/Tox'
+      example:
+        qc_style:
+          repos:
+            simple-java-maven-app:
+              container: checkstyle
+              commands:
+                - 'mvn checkstyle:check'
     Environment:
       type: object
       additionalProperties:
@@ -390,9 +385,8 @@ components:
           type: object
           properties:
             project_repos:
-              type: array
-              items:
-                $ref: '#/components/schemas/Repository'
+              type: object
+              $ref: '#/components/schemas/Repository'
             credentials:
               type: array
               items:
@@ -403,41 +397,43 @@ components:
                   - $ref: '#/components/schemas/Creds_cert'
                   - $ref: '#/components/schemas/Creds_ssh_user_private_key'
         sqa_criteria:
-          type: array
-          items:
-            $ref: '#/components/schemas/CriterionBuild'
+          type: object
+          $ref: '#/components/schemas/CriterionBuild'
         environment:
           $ref: '#/components/schemas/Environment'
     ServiceDockerCompose:
       type: object
-      properties:
-        service_id:
-          type: string
-          example: checkstyle
-        image:
-          type: string
-          example: checkstyle/maven-builder-image
-        hostname:
-          type: string
-          example: checkstyle-host
-        volumes:
-          type: array
-          items:
-            type: object
-            properties:
-              volume_type:
-                type: string
-                enum:
-                  - bind
-              volume_source:
-                type: string
-                example: ./
-              volume_target:
-                type: string
-                example: ./simple-java-app
-        command:
-          type: string
-          example: sleep 600000
+      additionalProperties:
+        type: object
+        properties:
+          image:
+            type: string
+          hostname:
+            type: string
+          volumes:
+            type: array
+            items:
+              type: object
+              properties:
+                volume_type:
+                  type: string
+                  enum:
+                    - bind
+                volume_source:
+                  type: string
+                volume_target:
+                  type: string
+          command:
+            type: string
+      example:
+        checkstyle:
+          image: checkstyle/maven-builder-image
+          hostname: checkstyle-host
+          volumes:
+            - volume_source: ./
+              volume_target: ./simple-java-app
+              volume_type: bind
+          command: sleep 600000
     JePL_composer:
       type: object
       properties:
@@ -445,9 +441,8 @@ components:
           type: string
           example: '3.7'
         services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceDockerCompose'
+          type: object
+          $ref: '#/components/schemas/ServiceDockerCompose'
     JePL_jenkinsfile:
       type: object
       properties:
