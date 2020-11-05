@@ -351,25 +351,26 @@ components:
       additionalProperties:
         type: object
         additionalProperties:
-          type: array
-          items:
-            type: object
-            additionalProperties:
+          type: object
+          properties:
+            repos:
               type: object
-              properties:
-                container:
-                  type: string
               additionalProperties:
-                anyOf:
-                  - $ref: '#/components/schemas/Commands'
-                  - $ref: '#/components/schemas/Tox'
+                type: object
+                properties:
+                  container:
+                    type: string
+                additionalProperties:
+                  anyOf:
+                    - $ref: '#/components/schemas/Commands'
+                    - $ref: '#/components/schemas/Tox'
       example:
         qc_style:
           repos:
-            - simple-java-maven-app:
-                container: checkstyle
-                commands:
-                  - 'mvn checkstyle:check'
+            simple-java-maven-app:
+              container: checkstyle
+              commands:
+                - 'mvn checkstyle:check'
     Environment:
       type: object
       additionalProperties:
