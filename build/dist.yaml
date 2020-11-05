@@ -415,13 +415,13 @@ components:
             items:
               type: object
               properties:
-                volume_type:
+                type:
                   type: string
                   enum:
                     - bind
-                volume_source:
+                source:
                   type: string
-                volume_target:
+                target:
                   type: string
           command:
             type: string
@@ -430,9 +430,9 @@ components:
           image: checkstyle/maven-builder-image
           hostname: checkstyle-host
           volumes:
-            - volume_source: ./
-              volume_target: ./simple-java-app
-              volume_type: bind
+            - source: ./
+              target: ./simple-java-app
+              type: bind
           command: sleep 600000
     JePL_composer:
       type: object
