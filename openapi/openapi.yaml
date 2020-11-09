@@ -26,7 +26,7 @@ paths:
     $ref: paths/pipeline_run.yaml
   /pipeline/{pipeline_id}/status:
     $ref: paths/pipeline_status.yaml
-  /pipeline/{pipeline_id}/pull_requesat:
+  /pipeline/{pipeline_id}/pull_request:
     $ref: paths/pipeline_pull_request.yaml
   /pipeline/{pipeline_id}/compressed_files:
     $ref: paths/pipeline_compressed_files.yaml
