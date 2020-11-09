@@ -200,12 +200,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  build_url:
+                  build_status:
                     type: string
-                    format: uri
-                example:
-                  build_url: >-
-                    https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
+                    enum:
+                      - success
+                      - failure
+                      - aborted
+                      - not_built
+                      - unstable
         '403':
           description: Unsuccessful operation
 components:
@@ -484,6 +486,9 @@ components:
           type: string
           readOnly: true
           example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+        name:
+          type: string
+          example: sqaaas-api-spec
         config_data:
           type: array
           items:
