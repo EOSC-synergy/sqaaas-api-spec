@@ -31,5 +31,7 @@ spec:
       - name: sqaaas-api-dev
         image: danielgtaylor/apisprout
         args: ["https://raw.githubusercontent.com/EOSC-synergy/sqaaas-api-spec/prototype/1.0/build/dist.yaml"]
+      - name: sqaaas-api-stage
+        image: eoscsynergy/sqaaas-api-stage
       - name: sqaaas-api-proxy
         image: eoscsynergy/sqaaas-api-nginx
