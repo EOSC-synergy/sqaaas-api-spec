@@ -26,3 +26,5 @@ paths:
     $ref: paths/pipeline_run.yaml
   /pipeline/{pipeline_id}/status:
     $ref: paths/pipeline_status.yaml
+  /pipeline/{pipeline_id}/pull_requesat:
+    $ref: paths/pipeline_pull_request.yaml
