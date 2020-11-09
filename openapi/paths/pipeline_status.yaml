@@ -18,10 +18,8 @@ get:
           schema:
             type: object
             properties:
-              build_url:
+              build_status:
                 type: string
-                format: uri
-            example:
-              build_url: https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
+                enum: [success, failure, aborted, not_built, unstable]
     '403':
       description: Unsuccessful operation
