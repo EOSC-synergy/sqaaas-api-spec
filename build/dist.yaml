@@ -84,6 +84,23 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Pipeline not found
+    delete:
+      operationId: delete_pipeline_by_id
+      summary: Delete pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Pipeline successfully deleted
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/config':
     get:
       operationId: get_pipeline_config
@@ -223,6 +240,17 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                repo:
+                  type: string
+                  format: uri
+                  description: URL of the upstream repo
       responses:
         '200':
           description: Successful operation
