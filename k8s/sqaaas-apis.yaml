@@ -33,5 +33,12 @@ spec:
         args: ["https://raw.githubusercontent.com/EOSC-synergy/sqaaas-api-spec/prototype/1.0/build/dist.yaml"]
       - name: sqaaas-api-stage
         image: eoscsynergy/sqaaas-api-stage
+        volumeMounts:
+        - name: sqaaas-persistent-storage
+          mountPath: /sqaaas
       - name: sqaaas-api-proxy
         image: eoscsynergy/sqaaas-api-nginx
+      volumes:
+      - name: sqaaas-persistent-storage
+        persistentVolumeClaim:
+          claimName: sqaaas-pv-claim
