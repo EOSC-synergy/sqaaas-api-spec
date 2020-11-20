@@ -13,7 +13,11 @@ build/*
 [._]ss[a-gi-z]
 [._]sw[a-p]
 
+# JePL
 !*.sqa
+
+# k8s
+k8s/.*_token
 
 # Session
 Session.vim
