@@ -18,8 +18,11 @@ get:
           schema:
             type: object
             properties:
+              build_url:
+                type: string
+                format: uri
               build_status:
                 type: string
-                enum: [success, failure, aborted, not_built, unstable]
+                enum: [success, failure, aborted, not_built, unstable, waiting_scan_org]
     '403':
       description: Unsuccessful operation
