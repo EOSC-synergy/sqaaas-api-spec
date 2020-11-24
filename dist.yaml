@@ -217,6 +217,9 @@ paths:
               schema:
                 type: object
                 properties:
+                  build_url:
+                    type: string
+                    format: uri
                   build_status:
                     type: string
                     enum:
@@ -225,6 +228,7 @@ paths:
                       - aborted
                       - not_built
                       - unstable
+                      - waiting_scan_org
         '403':
           description: Unsuccessful operation
   '/pipeline/{pipeline_id}/pull_request':
