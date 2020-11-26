@@ -23,7 +23,5 @@ post:
                 format: uri
           example:
             build_url: https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
-    '403':
-      description: Unsuccessful operation
     '502':
       $ref: '../components/responses/BadGateway.yaml'

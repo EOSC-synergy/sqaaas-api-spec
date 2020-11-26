@@ -24,7 +24,5 @@ get:
               build_status:
                 type: string
                 enum: [success, failure, aborted, not_built, unstable, waiting_scan_org]
-    '403':
-      description: Unsuccessful operation
     '502':
       $ref: '../components/responses/BadGateway.yaml'

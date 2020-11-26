@@ -18,5 +18,3 @@ get:
           schema:
             type: string
             format: binary
-    '403':
-      description: Unsuccessful operation
