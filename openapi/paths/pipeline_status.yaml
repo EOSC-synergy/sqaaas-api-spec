@@ -25,8 +25,8 @@ get:
                 type: string
                 enum: [success, failure, aborted, not_built, unstable, waiting_scan_org]
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found
     '502':
       $ref: '../components/responses/BadGateway.yaml'

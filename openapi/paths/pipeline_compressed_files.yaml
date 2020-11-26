@@ -19,6 +19,6 @@ get:
             type: string
             format: binary
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found

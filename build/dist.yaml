@@ -2,17 +2,19 @@ openapi: 3.0.0
 info:
   title: SQAaaS API
   description: >-
-    API for the Software and Service Quality Assurance as a Service (SQAaaS)
-    component.
+    OpenAPI specification for the Software and Service Quality Assurance as a
+    Service (SQAaaS) component.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 0.1.0
+  version: 1.0.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
-    description: 'Optional server description, e.g. Main (production) server'
-  - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
-    description: 'Optional server description, e.g. Internal staging server for testing'
+    description: Main (production) API server
+  - url: 'https://api-staging.sqaaas.eosc-synergy.eu'
+    description: Staging API server for testing
+  - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
+    description: Development API server (mock server)
 paths:
   /pipeline:
     post:
@@ -81,7 +83,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pipeline'
         '400':
-          description: Invalid ID supplied
+          description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
     delete:
@@ -98,9 +100,11 @@ paths:
         '204':
           description: Pipeline successfully deleted
         '400':
-          description: Invalid ID supplied
+          description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/config':
     get:
       operationId: get_pipeline_config
@@ -123,6 +127,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JePL_config'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/composer':
     get:
       operationId: get_pipeline_composer
@@ -145,6 +153,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JePL_composer'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/jenkinsfile':
     get:
       operationId: get_pipeline_jenkinsfile
@@ -167,6 +179,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JePL_jenkinsfile'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/run':
     post:
       operationId: run_pipeline
@@ -194,8 +210,12 @@ paths:
               example:
                 build_url: >-
                   https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
-        '403':
-          description: Unsuccessful operation
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/status':
     get:
       operationId: get_pipeline_status
@@ -229,8 +249,12 @@ paths:
                       - not_built
                       - unstable
                       - waiting_scan_org
-        '403':
-          description: Unsuccessful operation
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/pull_request':
     post:
       operationId: create_pull_request
@@ -268,8 +292,12 @@ paths:
                     format: uri
               example:
                 pull_request_url: 'https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23'
-        '403':
-          description: Unsuccessful operation
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/compressed_files':
     get:
       operationId: get_compressed_files
@@ -291,8 +319,10 @@ paths:
               schema:
                 type: string
                 format: binary
-        '403':
-          description: Unsuccessful operation
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
 components:
   schemas:
     Repository:
@@ -580,3 +610,23 @@ components:
           $ref: '#/components/schemas/JePL_composer'
         jenkinsfile_data:
           $ref: '#/components/schemas/JePL_jenkinsfile'
+    UpstreamError:
+      type: object
+      properties:
+        upstream_status:
+          type: integer
+        upstream_reason:
+          type: string
+      required:
+        - upstream_status
+        - upstream_reason
+  responses:
+    BadGateway:
+      description: |
+        The server while acting as a gateway or a proxy, received
+        an invalid response from the upstream server it accessed
+        in attempting to fulfill the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpstreamError'

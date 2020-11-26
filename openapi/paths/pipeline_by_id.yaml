@@ -16,9 +16,9 @@ get:
           schema:
             $ref: '../components/schemas/Pipeline.yaml'
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found
 delete:
   operationId: delete_pipeline_by_id
   summary: Delete pipeline by ID
@@ -33,8 +33,8 @@ delete:
     '204':
       description: Pipeline successfully deleted
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found
     '502':
       $ref: '../components/responses/BadGateway.yaml'

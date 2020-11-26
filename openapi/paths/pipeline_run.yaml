@@ -24,8 +24,8 @@ post:
           example:
             build_url: https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found
     '502':
       $ref: '../components/responses/BadGateway.yaml'

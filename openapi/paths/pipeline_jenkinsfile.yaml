@@ -20,6 +20,6 @@ get:
             items:
               $ref: '../components/schemas/JePL_jenkinsfile.yaml'
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found

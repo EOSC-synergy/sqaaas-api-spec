@@ -35,8 +35,8 @@ post:
           example:
             pull_request_url: https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23
     '400':
-      $ref: '../components/responses/BadRequest.yaml'
+      description: Invalid pipeline ID supplied
     '404':
-      $ref: '../components/responses/NotFound.yaml'
+      description: Pipeline not found
     '502':
       $ref: '../components/responses/BadGateway.yaml'
