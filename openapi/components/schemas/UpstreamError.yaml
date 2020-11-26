@@ -1,0 +1,9 @@
+type: object
+properties:
+  upstream_status:
+    type: integer
+  upstream_reason:
+    type: string
+required:
+  - upstream_status
+  - upstream_reason
