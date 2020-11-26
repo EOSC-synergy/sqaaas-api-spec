@@ -83,9 +83,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pipeline'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
     delete:
       operationId: delete_pipeline_by_id
       summary: Delete pipeline by ID
@@ -100,9 +100,9 @@ paths:
         '204':
           description: Pipeline successfully deleted
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
         '502':
           $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/config':
@@ -128,9 +128,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/JePL_config'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/composer':
     get:
       operationId: get_pipeline_composer
@@ -154,9 +154,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/JePL_composer'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/jenkinsfile':
     get:
       operationId: get_pipeline_jenkinsfile
@@ -180,9 +180,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/JePL_jenkinsfile'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/run':
     post:
       operationId: run_pipeline
@@ -211,9 +211,9 @@ paths:
                 build_url: >-
                   https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
         '502':
           $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/status':
@@ -250,9 +250,9 @@ paths:
                       - unstable
                       - waiting_scan_org
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
         '502':
           $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/pull_request':
@@ -293,9 +293,9 @@ paths:
               example:
                 pull_request_url: 'https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
         '502':
           $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/compressed_files':
@@ -320,9 +320,9 @@ paths:
                 type: string
                 format: binary
         '400':
-          $ref: '#/components/responses/BadRequest'
+          description: Invalid pipeline ID supplied
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Pipeline not found
 components:
   schemas:
     Repository:
@@ -610,16 +610,6 @@ components:
           $ref: '#/components/schemas/JePL_composer'
         jenkinsfile_data:
           $ref: '#/components/schemas/JePL_jenkinsfile'
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        reason:
-          type: string
-      required:
-        - status
-        - reason
     UpstreamError:
       type: object
       properties:
@@ -631,18 +621,6 @@ components:
         - upstream_status
         - upstream_reason
   responses:
-    BadRequest:
-      description: Invalid ID supplied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Pipeline not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadGateway:
       description: |
         The server while acting as a gateway or a proxy, received
