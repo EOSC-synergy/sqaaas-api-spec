@@ -1,5 +1,0 @@
-description: Invalid ID supplied
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/Error.yaml'
