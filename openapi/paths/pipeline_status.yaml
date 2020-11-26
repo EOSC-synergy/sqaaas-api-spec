@@ -24,5 +24,9 @@ get:
               build_status:
                 type: string
                 enum: [success, failure, aborted, not_built, unstable, waiting_scan_org]
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
     '502':
       $ref: '../components/responses/BadGateway.yaml'

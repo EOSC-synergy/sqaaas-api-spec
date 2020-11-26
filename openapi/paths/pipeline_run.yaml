@@ -23,5 +23,9 @@ post:
                 format: uri
           example:
             build_url: https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
     '502':
       $ref: '../components/responses/BadGateway.yaml'

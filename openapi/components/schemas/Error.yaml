@@ -1,0 +1,9 @@
+type: object
+properties:
+  status:
+    type: integer
+  reason:
+    type: string
+required:
+  - status
+  - reason
