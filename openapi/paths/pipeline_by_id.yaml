@@ -36,3 +36,5 @@ delete:
       description: Invalid ID supplied
     '404':
       description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'

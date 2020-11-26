@@ -36,3 +36,5 @@ post:
             pull_request_url: https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23
     '403':
       description: Unsuccessful operation
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'
