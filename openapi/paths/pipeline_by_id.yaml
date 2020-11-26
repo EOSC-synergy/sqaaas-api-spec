@@ -9,15 +9,15 @@ get:
       schema:
         type: string
   responses:
-    200:
+    '200':
       description: Successful operation
       content:
         application/json:
           schema:
             $ref: '../components/schemas/Pipeline.yaml'
-    400:
+    '400':
       description: Invalid ID supplied
-    404:
+    '404':
       description: Pipeline not found
 delete:
   operationId: delete_pipeline_by_id
@@ -30,9 +30,9 @@ delete:
       schema:
         type: string
   responses:
-    204:
+    '204':
       description: Pipeline successfully deleted
-    400:
+    '400':
       description: Invalid ID supplied
-    404:
+    '404':
       description: Pipeline not found
