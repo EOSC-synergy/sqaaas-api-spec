@@ -1,0 +1,24 @@
+get:
+  operationId: get_compressed_files
+  summary: Get JePL files in compressed format.
+  description: >
+    Obtains the generated JePL files in compressed format.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: ZIP fle with JePL files
+      content:
+        application/zip:
+          schema:
+            type: string
+            format: binary
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found

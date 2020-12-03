@@ -1,0 +1,32 @@
+get:
+  operationId: get_pipeline_status
+  summary: Get pipeline status.
+  description: >
+    Obtains the build URL in Jenkins for the given pipeline.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              build_url:
+                type: string
+                format: uri
+              build_status:
+                type: string
+                enum: [success, failure, aborted, not_built, unstable, waiting_scan_org]
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'

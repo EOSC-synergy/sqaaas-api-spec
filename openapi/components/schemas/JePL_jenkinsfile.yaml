@@ -1,0 +1,33 @@
+type: object
+properties:
+  stages:
+    type: array
+    items:
+      type: object
+      properties:
+        when:
+          type: object
+          properties:
+            branches:
+              type: array
+              items:
+                type: string
+                example: 'master'
+        pipeline_config:
+          type: object
+          properties:
+            config_file:
+              type: string
+              example: './.sqa/config.yml'
+            base_repository:
+              type: string
+              example: 'master'
+            base_branch:
+              type: string
+              example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+            credentials_id:
+              type: string
+              example: 'userpass_dockerhub'
+            jepl_validator_docker_image:
+              type: string
+              example: 'eoscsynergy/jpl-validator:1.1.0'

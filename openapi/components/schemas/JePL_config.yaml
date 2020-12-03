@@ -1,0 +1,22 @@
+type: object
+properties:
+  config:
+    type: object
+    properties:
+      project_repos:
+        type: object
+        $ref: './Repository.yaml'
+      credentials:
+        type: array
+        items:
+          oneOf:
+            - $ref: './Creds_user_pass.yaml'
+            - $ref: './Creds_string.yaml'
+            - $ref: './Creds_file.yaml'
+            - $ref: './Creds_cert.yaml'
+            - $ref: './Creds_ssh_user_private_key.yaml'
+  sqa_criteria:
+    type: object
+    $ref: './CriterionBuild.yaml'
+  environment:
+    $ref: './Environment.yaml'

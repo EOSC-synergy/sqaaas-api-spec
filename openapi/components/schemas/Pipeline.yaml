@@ -1,7 +1,17 @@
 type: object
 properties:
-  sqa_criteria:
+  id:
+    type: string
+    readOnly: true
+    example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+  name:
+    type: string
+    example: sqaaas-api-spec
+  config_data:
     type: array
     items:
-      type: string
-      enum: [qc_style, qc_unit, qc_functional, qc_security, qc_doc]
+      $ref: './JePL_config.yaml'
+  composer_data:
+    $ref: './JePL_composer.yaml'
+  jenkinsfile_data:
+    $ref: './JePL_jenkinsfile.yaml'

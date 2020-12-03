@@ -1,0 +1,8 @@
+description: |
+  The server while acting as a gateway or a proxy, received
+  an invalid response from the upstream server it accessed
+  in attempting to fulfill the request.
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/UpstreamError.yaml'

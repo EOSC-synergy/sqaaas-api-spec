@@ -1,18 +1,34 @@
 openapi: 3.0.0
 info:
   title: SQAaaS API
-  description: API for the Software and Service Quality Assurance as a Service (SQAaaS) component.
+  description: OpenAPI specification for the Software and Service Quality Assurance as a Service (SQAaaS) component.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 0.1.0
+  version: 1.0.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
-    description: 'Optional server description, e.g. Main (production) server'
-  - url: 'http://staging-api.sqaaas.eosc-synergy.eu'
-    description: 'Optional server description, e.g. Internal staging server for testing'
+    description: 'Main (production) API server'
+  - url: 'https://api-staging.sqaaas.eosc-synergy.eu'
+    description: 'Staging API server for testing'
+  - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
+    description: 'Development API server (mock server)'
 paths:
   /pipeline:
     $ref: paths/pipeline.yaml
   /pipeline/{pipeline_id}:
     $ref: paths/pipeline_by_id.yaml
+  /pipeline/{pipeline_id}/config:
+    $ref: paths/pipeline_config.yaml
+  /pipeline/{pipeline_id}/composer:
+    $ref: paths/pipeline_composer.yaml
+  /pipeline/{pipeline_id}/jenkinsfile:
+    $ref: paths/pipeline_jenkinsfile.yaml
+  /pipeline/{pipeline_id}/run:
+    $ref: paths/pipeline_run.yaml
+  /pipeline/{pipeline_id}/status:
+    $ref: paths/pipeline_status.yaml
+  /pipeline/{pipeline_id}/pull_request:
+    $ref: paths/pipeline_pull_request.yaml
+  /pipeline/{pipeline_id}/compressed_files:
+    $ref: paths/pipeline_compressed_files.yaml

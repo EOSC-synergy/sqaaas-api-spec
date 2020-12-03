@@ -1,0 +1,42 @@
+post:
+  operationId: create_pull_request
+  summary: Creates pull request with JePL files.
+  description: >
+    Create a pull request with the generated JePL files.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            repo:
+              type: string
+              format: uri
+              description: URL of the upstream repo
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pull_request_url:
+                type: string
+                format: uri
+          example:
+            pull_request_url: https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'

@@ -7,15 +7,34 @@ get:
       description: ID of the pipeline to get
       required: true
       schema:
-        type: integer
+        type: string
   responses:
-    200:
+    '200':
       description: Successful operation
       content:
         application/json:
           schema:
             $ref: '../components/schemas/Pipeline.yaml'
-    400:
-      description: Invalid ID supplied
-    404:
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
       description: Pipeline not found
+delete:
+  operationId: delete_pipeline_by_id
+  summary: Delete pipeline by ID
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '204':
+      description: Pipeline successfully deleted
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'

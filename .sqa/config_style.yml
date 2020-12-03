@@ -1,0 +1,10 @@
+config:
+  node_agent: docker_compose
+sqa_criteria:
+  qc_style:
+    repos:
+      sqaaas-api-spec:
+        container: node
+        commands:
+          - npm --prefix /sqaaas-api-spec install
+          - npm --prefix /sqaaas-api-spec test

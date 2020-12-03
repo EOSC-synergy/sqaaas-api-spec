@@ -1,0 +1,20 @@
+type: object
+properties:
+  id:
+    type: string
+    example: 'my-dockerhub-token'
+  type:
+    type: string
+    enum: [file, zip]
+  keystore_var:
+    type: string
+    example: 'KEYSTORE_TMP_PATH'
+  alias_var:
+    type: string
+    example: 'KEYSTORE_ALIAS_NAME'
+  password_var:
+    type: string
+    example: 'KEYSTORE_PASSWORD'
+required:
+  - id
+  - keystore_var

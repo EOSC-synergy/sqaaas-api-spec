@@ -1,0 +1,18 @@
+type: object
+properties:
+  id:
+    type: string
+    example: 'my-dockerhub-token'
+  type:
+    type: string
+    enum: [username_password]
+  username_var:
+    type: string
+    example: 'GIT_USER'
+  password_var:
+    type: string
+    example: 'GIT_PASS'
+required:
+  - id
+  - username_var
+  - password_var

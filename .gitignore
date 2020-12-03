@@ -1,9 +1,8 @@
 # Dir for bundles
 dist
 node_modules
-build
-dist.yaml
-index.html
+build/*
+!build/dist.yaml
 
 # VIM
 # Swap
@@ -13,6 +12,12 @@ index.html
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
 [._]sw[a-p]
+
+# JePL
+!*.sqa
+
+# k8s
+k8s/.*_token
 
 # Session
 Session.vim

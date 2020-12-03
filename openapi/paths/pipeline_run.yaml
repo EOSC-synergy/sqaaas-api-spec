@@ -1,0 +1,31 @@
+post:
+  operationId: run_pipeline
+  summary: Runs pipeline.
+  description: >
+    Executes the given pipeline by means of the Jenkins API.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              build_url:
+                type: string
+                format: uri
+          example:
+            build_url: https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'

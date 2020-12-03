@@ -1,0 +1,24 @@
+type: object
+additionalProperties:
+  type: object
+  additionalProperties:
+    type: object
+    properties:
+      repos:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            container:
+              type: string
+          additionalProperties:
+            anyOf:
+              - $ref: './Commands.yaml'
+              - $ref: './Tox.yaml'
+example:
+  qc_style:
+    repos:
+      simple-java-maven-app:
+        container: checkstyle
+        commands:
+        - mvn checkstyle:check

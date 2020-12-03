@@ -1,0 +1,632 @@
+openapi: 3.0.0
+info:
+  title: SQAaaS API
+  description: >-
+    OpenAPI specification for the Software and Service Quality Assurance as a
+    Service (SQAaaS) component.
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+servers:
+  - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
+    description: Main (production) API server
+  - url: 'https://api-staging.sqaaas.eosc-synergy.eu'
+    description: Staging API server for testing
+  - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
+    description: Development API server (mock server)
+paths:
+  /pipeline:
+    post:
+      operationId: add_pipeline
+      summary: Creates a pipeline.
+      description: >
+        Provides a ready-to-use Jenkins pipeline based on the v2 series of
+        jenkins-pipeline-library.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pipeline'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: UUID identifying the pipeline
+              example:
+                id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+          links:
+            get_pipeline_by_pipeline_id:
+              operationId: get_pipeline_by_id
+              parameters:
+                pipeline_id: $response.body#/id
+              description: >
+                The `id` value returned in the response can be used as the
+                `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+    get:
+      operationId: get_pipelines
+      summary: Gets pipeline IDs.
+      description: |
+        Returns the list of IDs for the defined pipelines.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pipeline'
+  '/pipeline/{pipeline_id}':
+    get:
+      operationId: get_pipeline_by_id
+      summary: Find pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+    delete:
+      operationId: delete_pipeline_by_id
+      summary: Delete pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Pipeline successfully deleted
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
+  '/pipeline/{pipeline_id}/config':
+    get:
+      operationId: get_pipeline_config
+      summary: Gets pipeline's main configuration.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's config.yml file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JePL_config'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+  '/pipeline/{pipeline_id}/composer':
+    get:
+      operationId: get_pipeline_composer
+      summary: Gets composer configuration used by the pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's docker-compose.yml file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JePL_composer'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+  '/pipeline/{pipeline_id}/jenkinsfile':
+    get:
+      operationId: get_pipeline_jenkinsfile
+      summary: Gets Jenkins pipeline definition used by the pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's Jenkinsfile file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JePL_jenkinsfile'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+  '/pipeline/{pipeline_id}/run':
+    post:
+      operationId: run_pipeline
+      summary: Runs pipeline.
+      description: |
+        Executes the given pipeline by means of the Jenkins API.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  build_url:
+                    type: string
+                    format: uri
+              example:
+                build_url: >-
+                  https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
+  '/pipeline/{pipeline_id}/status':
+    get:
+      operationId: get_pipeline_status
+      summary: Get pipeline status.
+      description: |
+        Obtains the build URL in Jenkins for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  build_url:
+                    type: string
+                    format: uri
+                  build_status:
+                    type: string
+                    enum:
+                      - success
+                      - failure
+                      - aborted
+                      - not_built
+                      - unstable
+                      - waiting_scan_org
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
+  '/pipeline/{pipeline_id}/pull_request':
+    post:
+      operationId: create_pull_request
+      summary: Creates pull request with JePL files.
+      description: |
+        Create a pull request with the generated JePL files.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                repo:
+                  type: string
+                  format: uri
+                  description: URL of the upstream repo
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pull_request_url:
+                    type: string
+                    format: uri
+              example:
+                pull_request_url: 'https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
+  '/pipeline/{pipeline_id}/compressed_files':
+    get:
+      operationId: get_compressed_files
+      summary: Get JePL files in compressed format.
+      description: |
+        Obtains the generated JePL files in compressed format.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ZIP fle with JePL files
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+components:
+  schemas:
+    Repository:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          repo:
+            type: string
+            format: uri
+            example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          branch:
+            type: string
+            example: master
+      example:
+        simple-java-maven-app:
+          repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          branch: master
+    Creds_user_pass:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - username_password
+        username_var:
+          type: string
+          example: GIT_USER
+        password_var:
+          type: string
+          example: GIT_PASS
+      required:
+        - id
+        - username_var
+        - password_var
+    Creds_string:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        variable:
+          type: string
+          example: MY_TOKEN
+      required:
+        - id
+    Creds_file:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - file
+            - zip
+        variable:
+          type: string
+          example: MY_TOKEN
+      required:
+        - id
+        - type
+    Creds_cert:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - file
+            - zip
+        keystore_var:
+          type: string
+          example: KEYSTORE_TMP_PATH
+        alias_var:
+          type: string
+          example: KEYSTORE_ALIAS_NAME
+        password_var:
+          type: string
+          example: KEYSTORE_PASSWORD
+      required:
+        - id
+        - keystore_var
+    Creds_ssh_user_private_key:
+      type: object
+      properties:
+        id:
+          type: string
+          example: my-dockerhub-token
+        type:
+          type: string
+          enum:
+            - ssh_user_private_key
+        keyfile_var:
+          type: string
+          example: KEYFILE_TMP_PATH
+        passphrase_var:
+          type: string
+          example: KEYFILE_PASSPHRASE
+        username_var:
+          type: string
+          example: KEYFILE_USERNAME
+      required:
+        - id
+        - keyfile_var
+    Commands:
+      type: object
+      properties:
+        commands:
+          type: array
+          items:
+            type: string
+          default: []
+          example:
+            - 'mvn checkstyle:check'
+    Tox:
+      type: object
+      properties:
+        tox:
+          type: object
+          properties:
+            testenv:
+              type: array
+              items:
+                type: string
+              example: cover
+            tox_file:
+              type: string
+              default: tox.ini
+              example: tox.ini
+          required:
+            - testenv
+    CriterionBuild:
+      type: object
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            repos:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  container:
+                    type: string
+                additionalProperties:
+                  anyOf:
+                    - $ref: '#/components/schemas/Commands'
+                    - $ref: '#/components/schemas/Tox'
+      example:
+        qc_style:
+          repos:
+            simple-java-maven-app:
+              container: checkstyle
+              commands:
+                - 'mvn checkstyle:check'
+    Environment:
+      type: object
+      additionalProperties:
+        type: string
+      example:
+        JPL_IGNOREFAILURES: defined
+        JPL_DOCKERPUSH: docs service1 service4
+    JePL_config:
+      type: object
+      properties:
+        config:
+          type: object
+          properties:
+            project_repos:
+              type: object
+              $ref: '#/components/schemas/Repository'
+            credentials:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/Creds_user_pass'
+                  - $ref: '#/components/schemas/Creds_string'
+                  - $ref: '#/components/schemas/Creds_file'
+                  - $ref: '#/components/schemas/Creds_cert'
+                  - $ref: '#/components/schemas/Creds_ssh_user_private_key'
+        sqa_criteria:
+          type: object
+          $ref: '#/components/schemas/CriterionBuild'
+        environment:
+          $ref: '#/components/schemas/Environment'
+    ServiceDockerCompose:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          image:
+            type: string
+          hostname:
+            type: string
+          volumes:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - bind
+                source:
+                  type: string
+                target:
+                  type: string
+          command:
+            type: string
+      example:
+        checkstyle:
+          image: checkstyle/maven-builder-image
+          hostname: checkstyle-host
+          volumes:
+            - source: ./
+              target: ./simple-java-app
+              type: bind
+          command: sleep 600000
+    JePL_composer:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '3.7'
+        services:
+          type: object
+          $ref: '#/components/schemas/ServiceDockerCompose'
+    JePL_jenkinsfile:
+      type: object
+      properties:
+        stages:
+          type: array
+          items:
+            type: object
+            properties:
+              when:
+                type: object
+                properties:
+                  branches:
+                    type: array
+                    items:
+                      type: string
+                      example: master
+              pipeline_config:
+                type: object
+                properties:
+                  config_file:
+                    type: string
+                    example: ./.sqa/config.yml
+                  base_repository:
+                    type: string
+                    example: master
+                  base_branch:
+                    type: string
+                    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+                  credentials_id:
+                    type: string
+                    example: userpass_dockerhub
+                  jepl_validator_docker_image:
+                    type: string
+                    example: 'eoscsynergy/jpl-validator:1.1.0'
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+        name:
+          type: string
+          example: sqaaas-api-spec
+        config_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JePL_config'
+        composer_data:
+          $ref: '#/components/schemas/JePL_composer'
+        jenkinsfile_data:
+          $ref: '#/components/schemas/JePL_jenkinsfile'
+    UpstreamError:
+      type: object
+      properties:
+        upstream_status:
+          type: integer
+        upstream_reason:
+          type: string
+      required:
+        - upstream_status
+        - upstream_reason
+  responses:
+    BadGateway:
+      description: |
+        The server while acting as a gateway or a proxy, received
+        an invalid response from the upstream server it accessed
+        in attempting to fulfill the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpstreamError'
