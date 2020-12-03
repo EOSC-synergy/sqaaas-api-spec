@@ -14,7 +14,7 @@ pipeline {
                         null,
                         null,
                         null,
-                        'eoscsynergy/jpl-validator:jib-with-jpl',
+                        'eoscsynergy/jpl-validator:1.1.0',
                         [ localBranch: true ]
                     )
                     buildStages(projectConfig)
