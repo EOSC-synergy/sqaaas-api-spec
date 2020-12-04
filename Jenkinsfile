@@ -11,7 +11,7 @@ pipeline {
                 script {
                     projectConfig = pipelineConfig(
                         configFile: './.sqa/config_style.yml',
-                        [ localBranch: true ]
+                        scmConfigs: [ localBranch: true ]
                     )
                     buildStages(projectConfig)
                 }
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     projectConfig = pipelineConfig(
                         configFile: './.sqa/config_docs.yml',
-                        [ localBranch: true ]
+                        scmConfigs: [ localBranch: true ]
                     )
                     buildStages(projectConfig)
                 }
