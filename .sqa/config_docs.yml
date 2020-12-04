@@ -25,4 +25,4 @@ sqa_criteria:
             npm --prefix /sqaaas-api-spec run deploy --
             --user="Pablo Orviz <orviz@ifca.unican.es>"
             --repo=https://${GIT_USER}@github.com/eosc-synergy/sqaaas-api-spec
-          - curl 194.210.120.249:20495/dev/__reload
+          - curl https://api-dev.sqaaas.eosc-synergy.eu/__reload
