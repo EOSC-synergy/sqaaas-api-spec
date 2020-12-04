@@ -10,11 +10,7 @@ pipeline {
             steps {
                 script {
                     projectConfig = pipelineConfig(
-                        './.sqa/config_style.yml',
-                        null,
-                        null,
-                        null,
-                        'eoscsynergy/jpl-validator:1.1.0',
+                        configFile: './.sqa/config_style.yml',
                         [ localBranch: true ]
                     )
                     buildStages(projectConfig)
@@ -36,11 +32,7 @@ pipeline {
             steps {
                 script {
                     projectConfig = pipelineConfig(
-                        './.sqa/config_docs.yml',
-                        null,
-                        null,
-                        null,
-                        'eoscsynergy/jpl-validator:1.1.0',
+                        configFile: './.sqa/config_docs.yml',
                         [ localBranch: true ]
                     )
                     buildStages(projectConfig)
