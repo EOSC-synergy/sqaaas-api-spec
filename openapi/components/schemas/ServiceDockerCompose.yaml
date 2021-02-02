@@ -3,7 +3,12 @@ additionalProperties:
   type: object
   properties:
     image:
-      type: string
+      type: object
+      properties:
+        name:
+          type: string
+        push:
+          type: boolean
     hostname:
       type: string
     volumes:
@@ -22,7 +27,9 @@ additionalProperties:
       type: string
 example:
   checkstyle:
-    image: checkstyle/maven-builder-image
+    image:
+      name: checkstyle/maven-builder-image
+      push: true
     hostname: checkstyle-host
     volumes:
     - source: ./
