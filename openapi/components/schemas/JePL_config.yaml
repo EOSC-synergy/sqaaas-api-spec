@@ -20,3 +20,5 @@ properties:
     $ref: './CriterionBuild.yaml'
   environment:
     $ref: './Environment.yaml'
+  timeout:
+    type: integer
