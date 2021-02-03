@@ -3,7 +3,20 @@ additionalProperties:
   type: object
   properties:
     image:
-      type: string
+      type: object
+      properties:
+        name:
+          type: string
+        registry:
+          type: object
+          properties:
+            push:
+              type: boolean
+            url:
+              type: string
+              format: uri
+            credential_id:
+              type: string
     hostname:
       type: string
     volumes:
@@ -22,7 +35,12 @@ additionalProperties:
       type: string
 example:
   checkstyle:
-    image: checkstyle/maven-builder-image
+    image:
+      name: checkstyle/maven-builder-image
+      registry:
+        push: true
+        url: https://hub.docker.com/
+        credential_id: my-dockerhub-cred
     hostname: checkstyle-host
     volumes:
     - source: ./
