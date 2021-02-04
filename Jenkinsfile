@@ -11,6 +11,7 @@ pipeline {
                 script {
                     projectConfig = pipelineConfig(
                         configFile: './.sqa/config_style.yml',
+                        validatorDockerImage: 'eoscsynergy/jpl-validator:new-criteria-codes',
                         scmConfigs: [ localBranch: true ]
                     )
                     buildStages(projectConfig)
@@ -33,6 +34,7 @@ pipeline {
                 script {
                     projectConfig = pipelineConfig(
                         configFile: './.sqa/config_docs.yml',
+                        validatorDockerImage: 'eoscsynergy/jpl-validator:new-criteria-codes',
                         scmConfigs: [ localBranch: true ]
                     )
                     buildStages(projectConfig)

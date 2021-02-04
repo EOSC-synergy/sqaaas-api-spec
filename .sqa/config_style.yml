@@ -1,7 +1,7 @@
 config:
   node_agent: docker_compose
 sqa_criteria:
-  qc_style:
+  QC.Sty:
     repos:
       sqaaas-api-spec:
         container: node
