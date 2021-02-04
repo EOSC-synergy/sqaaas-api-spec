@@ -33,6 +33,8 @@ additionalProperties:
             type: string
     command:
       type: string
+    environment:
+      $ref: './Environment.yaml'
 example:
   checkstyle:
     image:
