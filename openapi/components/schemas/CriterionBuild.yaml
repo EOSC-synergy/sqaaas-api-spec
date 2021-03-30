@@ -6,13 +6,14 @@ additionalProperties:
       type: object
       additionalProperties:
         type: object
-        additionalProperties:
-          type: object
-          properties:
-            container:
-              type: string
-          additionalProperties:
-            $ref: './Commands.yaml'
+        properties:
+          container:
+            type: string
+          commands:
+            $ref: './Commands_simplified.yaml'
+          tox:
+            $ref: './Tox_simplified.yaml'
+        additionalProperties: false
 example:
   qc_style:
     repos:
