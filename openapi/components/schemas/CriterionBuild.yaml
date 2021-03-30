@@ -1,20 +1,18 @@
 type: object
 additionalProperties:
   type: object
-  additionalProperties:
-    type: object
-    properties:
-      repos:
+  properties:
+    repos:
+      type: object
+      additionalProperties:
         type: object
+        properties:
+          container:
+            type: string
         additionalProperties:
-          type: object
-          properties:
-            container:
-              type: string
-          additionalProperties:
-            anyOf:
-              - $ref: './Commands.yaml'
-              - $ref: './Tox.yaml'
+          anyOf:
+            - $ref: './Commands.yaml'
+            - $ref: './Tox.yaml'
 example:
   qc_style:
     repos:
