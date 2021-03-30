@@ -341,7 +341,7 @@ components:
         simple-java-maven-app:
           repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
           branch: master
-    Creds_user_pass:
+    Creds_simplified:
       type: object
       properties:
         id:
@@ -350,43 +350,72 @@ components:
         type:
           type: string
           enum:
+            - file
+            - zip
             - username_password
-        username_var:
+            - ssh_user_private_key
+        keystore_var:
           type: string
-          example: GIT_USER
+          example: KEYSTORE_TMP_PATH
+        alias_var:
+          type: string
+          example: KEYSTORE_ALIAS_NAME
         password_var:
           type: string
-          example: GIT_PASS
+          example: KEYSTORE_PASSWORD
+        variable:
+          type: string
+          example: MY_TOKEN
+        keyfile_var:
+          type: string
+          example: KEYFILE_TMP_PATH
+        passphrase_var:
+          type: string
+          example: KEYFILE_PASSPHRASE
+        username_var:
+          type: string
+          example: KEYFILE_USERNAME
       required:
         - id
-        - username_var
-        - password_var
-    Commands:
+      additionalProperties: false
+    Commands_simplified:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - 'mvn checkstyle:check'
+    Tox_simplified:
       type: object
       properties:
-        commands:
+        testenv:
           type: array
           items:
             type: string
-          default: []
-          example:
-            - 'mvn checkstyle:check'
+          example: cover
+        tox_file:
+          type: string
+          default: tox.ini
+          example: tox.ini
+      required:
+        - testenv
     CriterionBuild:
       type: object
       additionalProperties:
         type: object
-        additionalProperties:
-          type: object
-          properties:
-            repos:
+        properties:
+          repos:
+            type: object
+            additionalProperties:
               type: object
-              additionalProperties:
-                type: object
-                properties:
-                  container:
-                    type: string
-                additionalProperties:
-                  $ref: '#/components/schemas/Commands'
+              properties:
+                container:
+                  type: string
+                commands:
+                  $ref: '#/components/schemas/Commands_simplified'
+                tox:
+                  $ref: '#/components/schemas/Tox_simplified'
+              additionalProperties: false
       example:
         qc_style:
           repos:
@@ -413,7 +442,7 @@ components:
             credentials:
               type: array
               items:
-                $ref: '#/components/schemas/Creds_user_pass'
+                $ref: '#/components/schemas/Creds_simplified'
         sqa_criteria:
           type: object
           $ref: '#/components/schemas/CriterionBuild'
