@@ -9,12 +9,7 @@ properties:
       credentials:
         type: array
         items:
-          oneOf:
-            - $ref: './Creds_user_pass.yaml'
-            - $ref: './Creds_string.yaml'
-            - $ref: './Creds_file.yaml'
-            - $ref: './Creds_cert.yaml'
-            - $ref: './Creds_ssh_user_private_key.yaml'
+          $ref: './Creds_user_pass.yaml'
   sqa_criteria:
     type: object
     $ref: './CriterionBuild.yaml'

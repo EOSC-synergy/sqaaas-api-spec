@@ -12,9 +12,7 @@ additionalProperties:
             container:
               type: string
           additionalProperties:
-            anyOf:
-              - $ref: './Commands.yaml'
-              - $ref: './Tox.yaml'
+            $ref: './Commands.yaml'
 example:
   qc_style:
     repos:

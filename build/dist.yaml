@@ -361,79 +361,6 @@ components:
         - id
         - username_var
         - password_var
-    Creds_string:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        variable:
-          type: string
-          example: MY_TOKEN
-      required:
-        - id
-    Creds_file:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - file
-            - zip
-        variable:
-          type: string
-          example: MY_TOKEN
-      required:
-        - id
-        - type
-    Creds_cert:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - file
-            - zip
-        keystore_var:
-          type: string
-          example: KEYSTORE_TMP_PATH
-        alias_var:
-          type: string
-          example: KEYSTORE_ALIAS_NAME
-        password_var:
-          type: string
-          example: KEYSTORE_PASSWORD
-      required:
-        - id
-        - keystore_var
-    Creds_ssh_user_private_key:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - ssh_user_private_key
-        keyfile_var:
-          type: string
-          example: KEYFILE_TMP_PATH
-        passphrase_var:
-          type: string
-          example: KEYFILE_PASSPHRASE
-        username_var:
-          type: string
-          example: KEYFILE_USERNAME
-      required:
-        - id
-        - keyfile_var
     Commands:
       type: object
       properties:
@@ -444,23 +371,6 @@ components:
           default: []
           example:
             - 'mvn checkstyle:check'
-    Tox:
-      type: object
-      properties:
-        tox:
-          type: object
-          properties:
-            testenv:
-              type: array
-              items:
-                type: string
-              example: cover
-            tox_file:
-              type: string
-              default: tox.ini
-              example: tox.ini
-          required:
-            - testenv
     CriterionBuild:
       type: object
       additionalProperties:
@@ -476,9 +386,7 @@ components:
                   container:
                     type: string
                 additionalProperties:
-                  anyOf:
-                    - $ref: '#/components/schemas/Commands'
-                    - $ref: '#/components/schemas/Tox'
+                  $ref: '#/components/schemas/Commands'
       example:
         qc_style:
           repos:
@@ -505,12 +413,7 @@ components:
             credentials:
               type: array
               items:
-                oneOf:
-                  - $ref: '#/components/schemas/Creds_user_pass'
-                  - $ref: '#/components/schemas/Creds_string'
-                  - $ref: '#/components/schemas/Creds_file'
-                  - $ref: '#/components/schemas/Creds_cert'
-                  - $ref: '#/components/schemas/Creds_ssh_user_private_key'
+                $ref: '#/components/schemas/Creds_user_pass'
         sqa_criteria:
           type: object
           $ref: '#/components/schemas/CriterionBuild'
