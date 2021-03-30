@@ -465,20 +465,18 @@ components:
       type: object
       additionalProperties:
         type: object
-        additionalProperties:
-          type: object
-          properties:
-            repos:
+        properties:
+          repos:
+            type: object
+            additionalProperties:
               type: object
+              properties:
+                container:
+                  type: string
               additionalProperties:
-                type: object
-                properties:
-                  container:
-                    type: string
-                additionalProperties:
-                  anyOf:
-                    - $ref: '#/components/schemas/Commands'
-                    - $ref: '#/components/schemas/Tox'
+                anyOf:
+                  - $ref: '#/components/schemas/Commands'
+                  - $ref: '#/components/schemas/Tox'
       example:
         qc_style:
           repos:
