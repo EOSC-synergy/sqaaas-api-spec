@@ -14,6 +14,13 @@ additionalProperties:
           tox:
             $ref: './Tox_simplified.yaml'
         additionalProperties: false
+    when:
+      properties:
+        branch:
+          $ref: './When_branch.yaml'
+        building_tag:
+          $ref: './When_building_tag.yaml'
+      additionalProperties: false
 example:
   qc_style:
     repos:
