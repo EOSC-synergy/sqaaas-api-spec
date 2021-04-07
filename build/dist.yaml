@@ -503,6 +503,32 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/badge':
+    post:
+      operationId: issue_badge
+      summary: Issues a quality badge.
+      description: |
+        Uses Badgr API to issue a badge after successful pipeline execution.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Badge'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
 components:
   schemas:
     Repository:
@@ -804,6 +830,58 @@ components:
       required:
         - upstream_status
         - upstream_reason
+    Badge:
+      type: object
+      properties:
+        openBadgeID:
+          type: string
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        badgeClass:
+          type: string
+        issuer:
+          type: string
+        image:
+          type: string
+          format: uri
+        recipient:
+          type: object
+          properties:
+            identity:
+              type: string
+            hashed:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - email
+                - openBadgeId
+                - telephone
+                - url
+            plaintextIdentity:
+              type: string
+        issuedOn:
+          type: string
+          format: date-time
+      example:
+        openBadgeId: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw'
+        createdAt: 2021-04-07T10:34:02.960Z
+        createdBy: e3h49VVbQRKQphuAAmxpgQ
+        badgeclass: sBS3EsJQRAC0ENTmvETtQw
+        issuer: aS1lWKgIR4u8bGjPZUzAyg
+        image: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image'
+        recipient:
+          identity: >-
+            sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
+          hashed: true
+          type: url
+          plaintextIdentity: >-
+            https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
+        issuedOn: 2021-04-07T10:07:00.000Z
   responses:
     BadGateway:
       description: |

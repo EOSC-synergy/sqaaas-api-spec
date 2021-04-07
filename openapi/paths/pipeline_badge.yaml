@@ -1,0 +1,25 @@
+post:
+  operationId: issue_badge
+  summary: Issues a quality badge.
+  description: >
+    Uses Badgr API to issue a badge after successful pipeline execution.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Badge.yaml'
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'
