@@ -424,6 +424,25 @@ components:
           example: tox.ini
       required:
         - testenv
+    When_branch:
+      type: object
+      properties:
+        pattern:
+          type: string
+        comparator:
+          type: string
+          enum:
+            - EQUALS
+            - GLOB
+            - REGEXP
+          default: GLOB
+      required:
+        - pattern
+      example:
+        branch:
+          pattern: release-\\d+
+    When_building_tag:
+      type: boolean
     CriterionBuild:
       type: object
       additionalProperties:
@@ -441,6 +460,13 @@ components:
                 tox:
                   $ref: '#/components/schemas/Tox_simplified'
               additionalProperties: false
+          when:
+            properties:
+              branch:
+                $ref: '#/components/schemas/When_branch'
+              building_tag:
+                $ref: '#/components/schemas/When_building_tag'
+            additionalProperties: false
       example:
         qc_style:
           repos:

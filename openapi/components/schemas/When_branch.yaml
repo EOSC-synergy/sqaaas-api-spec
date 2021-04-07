@@ -1,0 +1,13 @@
+type: object
+properties:
+  pattern:
+    type: string
+  comparator:
+    type: string
+    enum: [EQUALS, GLOB, REGEXP]
+    default: GLOB
+required:
+  - pattern
+example:
+  branch:
+    pattern: 'release-\\d+'
