@@ -48,6 +48,11 @@ additionalProperties:
       $ref: './Environment.yaml'
 example:
   checkstyle:
+    build:
+      context: ./dir
+      dockerfile: Dockerfile-alternate
+      args:
+        buildno: 1
     image:
       name: checkstyle/maven-builder-image
       registry:
