@@ -86,6 +86,31 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+    put:
+      operationId: update_pipeline_by_id
+      summary: Update pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pipeline'
+      responses:
+        '204':
+          description: Pipeline successfully updated
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
     delete:
       operationId: delete_pipeline_by_id
       summary: Delete pipeline by ID
@@ -341,7 +366,7 @@ components:
         simple-java-maven-app:
           repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
           branch: master
-    Creds_user_pass:
+    Creds_simplified:
       type: object
       properties:
         id:
@@ -350,56 +375,10 @@ components:
         type:
           type: string
           enum:
+            - file
+            - zip
             - username_password
-        username_var:
-          type: string
-          example: GIT_USER
-        password_var:
-          type: string
-          example: GIT_PASS
-      required:
-        - id
-        - username_var
-        - password_var
-    Creds_string:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        variable:
-          type: string
-          example: MY_TOKEN
-      required:
-        - id
-    Creds_file:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - file
-            - zip
-        variable:
-          type: string
-          example: MY_TOKEN
-      required:
-        - id
-        - type
-    Creds_cert:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - file
-            - zip
+            - ssh_user_private_key
         keystore_var:
           type: string
           example: KEYSTORE_TMP_PATH
@@ -409,19 +388,9 @@ components:
         password_var:
           type: string
           example: KEYSTORE_PASSWORD
-      required:
-        - id
-        - keystore_var
-    Creds_ssh_user_private_key:
-      type: object
-      properties:
-        id:
+        variable:
           type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - ssh_user_private_key
+          example: MY_TOKEN
         keyfile_var:
           type: string
           example: KEYFILE_TMP_PATH
@@ -433,34 +402,47 @@ components:
           example: KEYFILE_USERNAME
       required:
         - id
-        - keyfile_var
-    Commands:
+      additionalProperties: false
+    Commands_simplified:
+      type: array
+      items:
+        type: string
+      default: []
+      example:
+        - 'mvn checkstyle:check'
+    Tox_simplified:
       type: object
       properties:
-        commands:
+        testenv:
           type: array
           items:
             type: string
-          default: []
-          example:
-            - 'mvn checkstyle:check'
-    Tox:
+          example: cover
+        tox_file:
+          type: string
+          default: tox.ini
+          example: tox.ini
+      required:
+        - testenv
+    When_branch:
       type: object
       properties:
-        tox:
-          type: object
-          properties:
-            testenv:
-              type: array
-              items:
-                type: string
-              example: cover
-            tox_file:
-              type: string
-              default: tox.ini
-              example: tox.ini
-          required:
-            - testenv
+        pattern:
+          type: string
+        comparator:
+          type: string
+          enum:
+            - EQUALS
+            - GLOB
+            - REGEXP
+          default: GLOB
+      required:
+        - pattern
+      example:
+        branch:
+          pattern: release-\\d+
+    When_building_tag:
+      type: boolean
     CriterionBuild:
       type: object
       additionalProperties:
@@ -473,10 +455,18 @@ components:
               properties:
                 container:
                   type: string
-              additionalProperties:
-                anyOf:
-                  - $ref: '#/components/schemas/Commands'
-                  - $ref: '#/components/schemas/Tox'
+                commands:
+                  $ref: '#/components/schemas/Commands_simplified'
+                tox:
+                  $ref: '#/components/schemas/Tox_simplified'
+              additionalProperties: false
+          when:
+            properties:
+              branch:
+                $ref: '#/components/schemas/When_branch'
+              building_tag:
+                $ref: '#/components/schemas/When_building_tag'
+            additionalProperties: false
       example:
         qc_style:
           repos:
@@ -503,12 +493,7 @@ components:
             credentials:
               type: array
               items:
-                oneOf:
-                  - $ref: '#/components/schemas/Creds_user_pass'
-                  - $ref: '#/components/schemas/Creds_string'
-                  - $ref: '#/components/schemas/Creds_file'
-                  - $ref: '#/components/schemas/Creds_cert'
-                  - $ref: '#/components/schemas/Creds_ssh_user_private_key'
+                $ref: '#/components/schemas/Creds_simplified'
         sqa_criteria:
           type: object
           $ref: '#/components/schemas/CriterionBuild'
@@ -521,6 +506,17 @@ components:
       additionalProperties:
         type: object
         properties:
+          build:
+            type: object
+            properties:
+              context:
+                type: string
+              dockerfile:
+                type: string
+              args:
+                type: object
+                additionalProperties:
+                  type: string
           image:
             type: object
             properties:
@@ -557,6 +553,11 @@ components:
             $ref: '#/components/schemas/Environment'
       example:
         checkstyle:
+          build:
+            context: ./dir
+            dockerfile: Dockerfile-alternate
+            args:
+              buildno: 1
           image:
             name: checkstyle/maven-builder-image
             registry:
