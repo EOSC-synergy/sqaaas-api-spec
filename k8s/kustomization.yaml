@@ -1,9 +1,0 @@
-resources:
-  - sqaaas-api-deployment.yaml
-secretGenerator:
-- name: github-token
-  files:
-  - .gh_token
-- name: jenkins-token
-  files:
-  - .jk_token
