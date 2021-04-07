@@ -480,6 +480,17 @@ components:
       additionalProperties:
         type: object
         properties:
+          build:
+            type: object
+            properties:
+              context:
+                type: string
+              dockerfile:
+                type: string
+              args:
+                type: object
+                additionalProperties:
+                  type: string
           image:
             type: object
             properties:
