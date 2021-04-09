@@ -438,9 +438,6 @@ components:
           default: GLOB
       required:
         - pattern
-      example:
-        branch:
-          pattern: release-\\d+
     When_building_tag:
       type: boolean
     CriterionBuild:
@@ -474,6 +471,8 @@ components:
               container: checkstyle
               commands:
                 - 'mvn checkstyle:check'
+          branch:
+            pattern: release-\\d+
     Environment:
       type: object
       additionalProperties:

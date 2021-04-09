@@ -8,6 +8,3 @@ properties:
     default: GLOB
 required:
   - pattern
-example:
-  branch:
-    pattern: 'release-\\d+'

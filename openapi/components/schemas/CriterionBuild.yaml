@@ -28,3 +28,5 @@ example:
         container: checkstyle
         commands:
         - mvn checkstyle:check
+    branch:
+      pattern: 'release-\\d+'
