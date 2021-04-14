@@ -14,9 +14,17 @@ get:
     '200':
       description: Successful operation
       content:
-        text/plain:
+        application/json:
           schema:
-            type: string
+            type: object
+            properties:
+              file_name:
+                type: string
+                example:
+                  file_name: docker-compose.yml
+              content:
+                type: object
+                $ref: '../components/schemas/JePL_composer.yaml'
     '400':
       description: Invalid pipeline ID supplied
     '404':
