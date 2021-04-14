@@ -156,6 +156,40 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/config/jepl':
+    get:
+      operationId: get_pipeline_config_jepl
+      summary: Gets JePL config configuration for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's config file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    file_name:
+                      type: string
+                      example:
+                        file_name: config.yml
+                    content:
+                      type: object
+                      $ref: '#/components/schemas/CriterionBuild'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/composer':
     get:
       operationId: get_pipeline_composer
@@ -182,6 +216,38 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/composer/jepl':
+    get:
+      operationId: get_pipeline_composer_jepl
+      summary: Gets JePL composer configuration for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's composer file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  file_name:
+                    type: string
+                    example:
+                      file_name: docker-compose.yml
+                  content:
+                    type: object
+                    $ref: '#/components/schemas/JePL_composer'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/jenkinsfile':
     get:
       operationId: get_pipeline_jenkinsfile
@@ -204,6 +270,91 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JePL_jenkinsfile'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+  '/pipeline/{pipeline_id}/jenkinsfile/jepl':
+    get:
+      operationId: get_pipeline_jenkinsfile_jepl
+      summary: Gets Jenkins configuration for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of Jenkinsfile file for the given pipeline.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  file_name:
+                    type: string
+                    example:
+                      file_name: Jenkinsfile
+                  content:
+                    type: string
+                example:
+                  file_name: Jenkinsfile
+                  content: >-
+                    @Library(['github.com/indigo-dc/jenkins-pipeline-library@release/2.1.0'])
+                    _
+
+
+                    def projectConfig
+
+
+                    pipeline {
+                        agent any
+
+                        stages {
+                            stage('SQA baseline criterion: qc_style') {
+                                when {
+                                    branch pattern: 'sqaaas', comparator: ''
+                                }
+                                steps {
+                                    script {
+                                        projectConfig = pipelineConfig(
+                                            configFile: '.sqa/config.yml',
+                                            scmConfigs: [ localBranch: true ]
+                                        )
+                                        buildStages(projectConfig)
+                                    }
+                                }
+                                post {
+                                    cleanup {
+                                        cleanWs()
+                                    }
+                                }
+                            }
+                            stage('SQA baseline criterion: qc_doc') {
+                                when {
+                                    branch pattern: 'build', comparator: ''
+                                }
+                                steps {
+                                    script {
+                                        projectConfig = pipelineConfig(
+                                            configFile: '.sqa/config.snappy-peach-chicken.yml',
+                                            scmConfigs: [ localBranch: true ]
+                                        )
+                                        buildStages(projectConfig)
+                                    }
+                                }
+                                post {
+                                    cleanup {
+                                        cleanWs()
+                                    }
+                                }
+                            }
+                        }
+                    }
         '400':
           description: Invalid pipeline ID supplied
         '404':
