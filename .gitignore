@@ -3,6 +3,7 @@ dist
 node_modules
 build/*
 !build/dist.yaml
+!*.redocly.yaml
 
 # VIM
 # Swap

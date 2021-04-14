@@ -20,10 +20,16 @@ paths:
     $ref: paths/pipeline_by_id.yaml
   /pipeline/{pipeline_id}/config:
     $ref: paths/pipeline_config.yaml
+  /pipeline/{pipeline_id}/config/jepl:
+    $ref: paths/pipeline_config_jepl.yaml
   /pipeline/{pipeline_id}/composer:
     $ref: paths/pipeline_composer.yaml
+  /pipeline/{pipeline_id}/composer/jepl:
+    $ref: paths/pipeline_composer_jepl.yaml
   /pipeline/{pipeline_id}/jenkinsfile:
     $ref: paths/pipeline_jenkinsfile.yaml
+  /pipeline/{pipeline_id}/jenkinsfile/jepl:
+    $ref: paths/pipeline_jenkinsfile_jepl.yaml
   /pipeline/{pipeline_id}/run:
     $ref: paths/pipeline_run.yaml
   /pipeline/{pipeline_id}/status:
