@@ -1,0 +1,23 @@
+get:
+  operationId: get_pipeline_composer_jepl
+  summary: Gets JePL composer configuration for the given pipeline.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  description: >
+    Returns the content of JePL's composer file.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        text/plain:
+          schema:
+            type: string
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
