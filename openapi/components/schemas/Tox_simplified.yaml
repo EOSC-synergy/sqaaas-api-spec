@@ -4,7 +4,9 @@ properties:
     type: array
     items:
       type: string
-    example: 'cover'
+      minLength: 1
+    minItems: 1
+    example: ['cover']
   tox_file:
     type: string
     default: 'tox.ini'
