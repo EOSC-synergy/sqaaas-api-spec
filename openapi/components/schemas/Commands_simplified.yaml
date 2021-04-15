@@ -1,5 +1,6 @@
 type: array
 items:
   type: string
-default: []
+  minLength: 1
+minItems: 1
 example: ['mvn checkstyle:check']
