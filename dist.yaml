@@ -560,7 +560,8 @@ components:
       type: array
       items:
         type: string
-      default: []
+        minLength: 1
+      minItems: 1
       example:
         - 'mvn checkstyle:check'
     Tox_simplified:
@@ -570,7 +571,10 @@ components:
           type: array
           items:
             type: string
-          example: cover
+            minLength: 1
+          minItems: 1
+          example:
+            - cover
         tox_file:
           type: string
           default: tox.ini
@@ -582,6 +586,7 @@ components:
       properties:
         pattern:
           type: string
+          minLength: 1
         comparator:
           type: string
           enum:
@@ -597,6 +602,7 @@ components:
       type: object
       additionalProperties:
         type: object
+        minProperties: 1
         properties:
           repos:
             type: object
@@ -653,6 +659,7 @@ components:
           $ref: '#/components/schemas/Environment'
         timeout:
           type: integer
+          minimum: 1
     ServiceDockerCompose:
       type: object
       additionalProperties:
