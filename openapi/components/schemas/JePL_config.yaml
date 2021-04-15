@@ -17,3 +17,4 @@ properties:
     $ref: './Environment.yaml'
   timeout:
     type: integer
+    minimum: 1
