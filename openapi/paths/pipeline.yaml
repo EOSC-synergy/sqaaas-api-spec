@@ -31,6 +31,8 @@ post:
           description: >
             The `id` value returned in the response can be used as
             the `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+    '400':
+      description: Request failed validation
 get:
   operationId: get_pipelines
   summary: Gets pipeline IDs.

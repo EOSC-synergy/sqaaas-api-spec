@@ -58,7 +58,7 @@ delete:
     '204':
       description: Pipeline successfully deleted
     '400':
-      description: Invalid pipeline ID supplied
+      description: Request failed validation
     '404':
       description: Pipeline not found
     '502':
