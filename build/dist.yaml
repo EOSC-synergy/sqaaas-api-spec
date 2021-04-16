@@ -50,6 +50,8 @@ paths:
               description: >
                 The `id` value returned in the response can be used as the
                 `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+        '400':
+          description: Request failed validation
     get:
       operationId: get_pipelines
       summary: Gets pipeline IDs.
@@ -125,7 +127,7 @@ paths:
         '204':
           description: Pipeline successfully deleted
         '400':
-          description: Invalid pipeline ID supplied
+          description: Request failed validation
         '404':
           description: Pipeline not found
         '502':
