@@ -607,10 +607,12 @@ components:
         minProperties: 1
         properties:
           repos:
-            type: object
-            additionalProperties:
+            type: array
+            items:
               type: object
               properties:
+                repo_name:
+                  type: string
                 container:
                   type: string
                 commands:
