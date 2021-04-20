@@ -38,3 +38,5 @@ paths:
     $ref: paths/pipeline_pull_request.yaml
   /pipeline/{pipeline_id}/compressed_files:
     $ref: paths/pipeline_compressed_files.yaml
+  /pipeline/{pipeline_id}/badge:
+    $ref: paths/pipeline_badge.yaml
