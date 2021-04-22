@@ -527,6 +527,8 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+        '422':
+          description: Pipeline has not been successfully executed
         '502':
           $ref: '#/components/responses/BadGateway'
 components:
