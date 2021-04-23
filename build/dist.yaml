@@ -544,6 +544,40 @@ paths:
           description: Pipeline has not been successfully executed
         '502':
           $ref: '#/components/responses/BadGateway'
+    get:
+      operationId: get_badge
+      summary: Gets badge data associated with the given pipeline
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: last
+          description: Obtain the last badge being issued
+          required: false
+          schema:
+            type: boolean
+          allowEmptyValue: true
+      description: |
+        Returns an array of badge data associated with the pipeline.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Badge'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '422':
+          description: Badge not issued
 components:
   schemas:
     Repository:
