@@ -35,6 +35,13 @@ get:
       required: true
       schema:
         type: string
+    - in: query
+      name: embed_badge
+      description: Returns the HTML code to be embedded in a website
+      required: false
+      schema:
+        type: boolean
+      allowEmptyValue: true
   description: >
     Returns the badge data associated with the pipeline.
   responses:
