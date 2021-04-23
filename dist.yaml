@@ -529,6 +529,13 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: embed_badge
+          description: Returns the HTML code to be embedded in a website
+          required: false
+          schema:
+            type: boolean
+          allowEmptyValue: true
       responses:
         '200':
           description: Successful operation
@@ -554,21 +561,8 @@ paths:
           required: true
           schema:
             type: string
-        - in: query
-          name: last
-          description: Obtain the last badge being issued
-          required: false
-          schema:
-            type: boolean
-          allowEmptyValue: true
-        - in: query
-          name: commit_sha
-          description: Obtain the badge associated with the commit SHA
-          required: false
-          schema:
-            type: string
       description: |
-        Returns an array of badge data associated with the pipeline.
+        Returns the badge data associated with the pipeline.
       responses:
         '200':
           description: Successful operation
