@@ -42,6 +42,12 @@ get:
       schema:
         type: boolean
       allowEmptyValue: true
+    - in: query
+      name: commit_sha
+      description: Obtain the badge associated with the commit SHA
+      required: false
+      schema:
+        type: string
   description: >
     Returns an array of badge data associated with the pipeline.
   responses:
