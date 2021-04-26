@@ -36,12 +36,12 @@ get:
       schema:
         type: string
     - in: query
-      name: embed_badge
-      description: Returns the HTML code to be embedded in a website
+      name: format 
+      description: Returns the badge in the specific format
       required: false
       schema:
-        type: boolean
-      allowEmptyValue: true
+        type: string
+        enum: [html]
   description: >
     Returns the badge data associated with the pipeline.
   responses:
