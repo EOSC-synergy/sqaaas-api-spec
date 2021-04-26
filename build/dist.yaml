@@ -555,8 +555,8 @@ paths:
           schema:
             type: string
         - in: query
-          name: format
-          description: Returns the badge in the specific format
+          name: share
+          description: Returns the shared version of the badge in a specific format
           required: false
           schema:
             type: string
