@@ -597,7 +597,7 @@ components:
         simple-java-maven-app:
           repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
           branch: master
-    Creds_simplified:
+    Creds_user_pass:
       type: object
       properties:
         id:
@@ -606,34 +606,17 @@ components:
         type:
           type: string
           enum:
-            - file
-            - zip
             - username_password
-            - ssh_user_private_key
-        keystore_var:
-          type: string
-          example: KEYSTORE_TMP_PATH
-        alias_var:
-          type: string
-          example: KEYSTORE_ALIAS_NAME
-        password_var:
-          type: string
-          example: KEYSTORE_PASSWORD
-        variable:
-          type: string
-          example: MY_TOKEN
-        keyfile_var:
-          type: string
-          example: KEYFILE_TMP_PATH
-        passphrase_var:
-          type: string
-          example: KEYFILE_PASSPHRASE
         username_var:
           type: string
-          example: KEYFILE_USERNAME
+          example: GIT_USER
+        password_var:
+          type: string
+          example: GIT_PASS
       required:
         - id
-      additionalProperties: false
+        - username_var
+        - password_var
     Commands_simplified:
       type: array
       items:
@@ -731,7 +714,7 @@ components:
             credentials:
               type: array
               items:
-                $ref: '#/components/schemas/Creds_simplified'
+                $ref: '#/components/schemas/Creds_user_pass'
         sqa_criteria:
           type: object
           $ref: '#/components/schemas/CriterionBuild'
