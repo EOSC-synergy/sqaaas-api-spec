@@ -583,19 +583,16 @@ components:
   schemas:
     Repository:
       type: object
-      additionalProperties:
-        type: object
-        properties:
-          repo:
-            type: string
-            format: uri
-            example: 'https://github.com/jenkins-docs/simple-java-maven-app'
-          branch:
-            type: string
-            example: master
+      properties:
+        repo:
+          type: string
+          format: uri
+          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+        branch:
+          type: string
+          example: master
       example:
-        simple-java-maven-app:
-          repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
+        - repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
           branch: master
     Creds_simplified:
       type: object
@@ -727,8 +724,9 @@ components:
           type: object
           properties:
             project_repos:
-              type: object
-              $ref: '#/components/schemas/Repository'
+              type: array
+              items:
+                $ref: '#/components/schemas/Repository'
             credentials:
               type: array
               items:
