@@ -4,8 +4,9 @@ properties:
     type: object
     properties:
       project_repos:
-        type: object
-        $ref: './Repository.yaml'
+        type: array
+        items:
+          $ref: './Repository.yaml'
       credentials:
         type: array
         items:
