@@ -9,7 +9,7 @@ properties:
       credentials:
         type: array
         items:
-          $ref: './Creds_simplified.yaml'
+          $ref: './Creds_user_pass.yaml'
   sqa_criteria:
     type: object
     $ref: './CriterionBuild.yaml'
