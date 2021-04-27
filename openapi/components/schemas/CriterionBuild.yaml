@@ -8,8 +8,9 @@ additionalProperties:
       items:
         type: object
         properties:
-          repo_name:
-            type: string 
+          repo_url:
+            type: string
+            format: uri
           container:
             type: string
           commands:

@@ -687,8 +687,9 @@ components:
             items:
               type: object
               properties:
-                repo_name:
+                repo_url:
                   type: string
+                  format: uri
                 container:
                   type: string
                 commands:
