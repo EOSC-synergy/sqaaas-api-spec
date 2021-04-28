@@ -25,6 +25,8 @@ additionalProperties:
         building_tag:
           $ref: './When_building_tag.yaml'
       additionalProperties: false
+  required:
+    - repos
 example:
   qc_style:
     repos:

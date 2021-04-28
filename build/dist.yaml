@@ -684,6 +684,8 @@ components:
               building_tag:
                 $ref: '#/components/schemas/When_building_tag'
             additionalProperties: false
+        required:
+          - repos
       example:
         qc_style:
           repos:
