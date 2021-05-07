@@ -449,6 +449,9 @@ paths:
                       - not_built
                       - unstable
                       - waiting_scan_org
+                  openbadge_id:
+                    type: string
+                    format: uri
         '400':
           description: Invalid pipeline ID supplied
         '404':
