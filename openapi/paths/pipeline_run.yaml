@@ -11,6 +11,13 @@ post:
       schema:
         type: string
     - in: query
+      name: issue_badge
+      description: Flag to indicate whether a badge shall be issued if the pipeline succeds
+      required: false
+      schema:
+        type: boolean
+        default: false
+    - in: query
       name: repo_url
       description: URL of the upstream repository to fetch the code from
       required: false
