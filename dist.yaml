@@ -50,6 +50,8 @@ paths:
               description: >
                 The `id` value returned in the response can be used as the
                 `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+        '400':
+          description: Request failed validation
     get:
       operationId: get_pipelines
       summary: Gets pipeline IDs.
@@ -86,6 +88,31 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+    put:
+      operationId: update_pipeline_by_id
+      summary: Update pipeline by ID
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pipeline'
+      responses:
+        '204':
+          description: Pipeline successfully updated
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '502':
+          $ref: '#/components/responses/BadGateway'
     delete:
       operationId: delete_pipeline_by_id
       summary: Delete pipeline by ID
@@ -100,7 +127,7 @@ paths:
         '204':
           description: Pipeline successfully deleted
         '400':
-          description: Invalid pipeline ID supplied
+          description: Request failed validation
         '404':
           description: Pipeline not found
         '502':
@@ -131,6 +158,40 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/config/jepl':
+    get:
+      operationId: get_pipeline_config_jepl
+      summary: Gets JePL config configuration for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's config file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    file_name:
+                      type: string
+                      example:
+                        file_name: config.yml
+                    content:
+                      type: object
+                      $ref: '#/components/schemas/CriterionBuild'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/composer':
     get:
       operationId: get_pipeline_composer
@@ -153,6 +214,38 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JePL_composer'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+  '/pipeline/{pipeline_id}/composer/jepl':
+    get:
+      operationId: get_pipeline_composer_jepl
+      summary: Gets JePL composer configuration for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of JePL's composer file.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  file_name:
+                    type: string
+                    example:
+                      file_name: docker-compose.yml
+                  content:
+                    type: object
+                    $ref: '#/components/schemas/JePL_composer'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -183,6 +276,91 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/jenkinsfile/jepl':
+    get:
+      operationId: get_pipeline_jenkinsfile_jepl
+      summary: Gets Jenkins configuration for the given pipeline.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the content of Jenkinsfile file for the given pipeline.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  file_name:
+                    type: string
+                    example:
+                      file_name: Jenkinsfile
+                  content:
+                    type: string
+                example:
+                  file_name: Jenkinsfile
+                  content: >-
+                    @Library(['github.com/indigo-dc/jenkins-pipeline-library@release/2.1.0'])
+                    _
+
+
+                    def projectConfig
+
+
+                    pipeline {
+                        agent any
+
+                        stages {
+                            stage('SQA baseline criterion: qc_style') {
+                                when {
+                                    branch pattern: 'sqaaas', comparator: ''
+                                }
+                                steps {
+                                    script {
+                                        projectConfig = pipelineConfig(
+                                            configFile: '.sqa/config.yml',
+                                            scmConfigs: [ localBranch: true ]
+                                        )
+                                        buildStages(projectConfig)
+                                    }
+                                }
+                                post {
+                                    cleanup {
+                                        cleanWs()
+                                    }
+                                }
+                            }
+                            stage('SQA baseline criterion: qc_doc') {
+                                when {
+                                    branch pattern: 'build', comparator: ''
+                                }
+                                steps {
+                                    script {
+                                        projectConfig = pipelineConfig(
+                                            configFile: '.sqa/config.snappy-peach-chicken.yml',
+                                            scmConfigs: [ localBranch: true ]
+                                        )
+                                        buildStages(projectConfig)
+                                    }
+                                }
+                                post {
+                                    cleanup {
+                                        cleanWs()
+                                    }
+                                }
+                            }
+                        }
+                    }
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
   '/pipeline/{pipeline_id}/run':
     post:
       operationId: run_pipeline
@@ -194,6 +372,28 @@ paths:
           name: pipeline_id
           description: ID of the pipeline to get
           required: true
+          schema:
+            type: string
+        - in: query
+          name: issue_badge
+          description: >-
+            Flag to indicate whether a badge shall be issued if the pipeline
+            succeds
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: repo_url
+          description: URL of the upstream repository to fetch the code from
+          required: false
+          schema:
+            type: string
+            format: uri
+        - in: query
+          name: repo_branch
+          description: Branch name of the upstream repository to fetch the code from
+          required: false
           schema:
             type: string
       responses:
@@ -249,10 +449,15 @@ paths:
                       - not_built
                       - unstable
                       - waiting_scan_org
+                  openbadge_id:
+                    type: string
+                    format: uri
         '400':
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+        '422':
+          description: Pipeline has not been executed
         '502':
           $ref: '#/components/responses/BadGateway'
   '/pipeline/{pipeline_id}/pull_request':
@@ -323,23 +528,83 @@ paths:
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
+  '/pipeline/{pipeline_id}/badge':
+    post:
+      operationId: issue_badge
+      summary: Issues a quality badge.
+      description: |
+        Uses Badgr API to issue a badge after successful pipeline execution.
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Badge'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '422':
+          description: Pipeline has not been successfully executed
+        '502':
+          $ref: '#/components/responses/BadGateway'
+    get:
+      operationId: get_badge
+      summary: Gets badge data associated with the given pipeline
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: share
+          description: Returns the shared version of the badge in a specific format
+          required: false
+          schema:
+            type: string
+            enum:
+              - html
+      description: |
+        Returns the badge data associated with the pipeline.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Badge'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '422':
+          description: Badge not issued
 components:
   schemas:
     Repository:
       type: object
-      additionalProperties:
-        type: object
-        properties:
-          repo:
-            type: string
-            format: uri
-            example: 'https://github.com/jenkins-docs/simple-java-maven-app'
-          branch:
-            type: string
-            example: master
+      properties:
+        repo:
+          type: string
+          format: uri
+          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+        branch:
+          type: string
+          example: master
       example:
-        simple-java-maven-app:
-          repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
+        - repo: 'https://github.com/jenkins-docs/simple-java-maven-app'
           branch: master
     Creds_user_pass:
       type: object
@@ -361,122 +626,78 @@ components:
         - id
         - username_var
         - password_var
-    Creds_string:
+    Commands_simplified:
+      type: array
+      items:
+        type: string
+        minLength: 1
+      minItems: 1
+      example:
+        - 'mvn checkstyle:check'
+    Tox_simplified:
       type: object
       properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        variable:
-          type: string
-          example: MY_TOKEN
-      required:
-        - id
-    Creds_file:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - file
-            - zip
-        variable:
-          type: string
-          example: MY_TOKEN
-      required:
-        - id
-        - type
-    Creds_cert:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - file
-            - zip
-        keystore_var:
-          type: string
-          example: KEYSTORE_TMP_PATH
-        alias_var:
-          type: string
-          example: KEYSTORE_ALIAS_NAME
-        password_var:
-          type: string
-          example: KEYSTORE_PASSWORD
-      required:
-        - id
-        - keystore_var
-    Creds_ssh_user_private_key:
-      type: object
-      properties:
-        id:
-          type: string
-          example: my-dockerhub-token
-        type:
-          type: string
-          enum:
-            - ssh_user_private_key
-        keyfile_var:
-          type: string
-          example: KEYFILE_TMP_PATH
-        passphrase_var:
-          type: string
-          example: KEYFILE_PASSPHRASE
-        username_var:
-          type: string
-          example: KEYFILE_USERNAME
-      required:
-        - id
-        - keyfile_var
-    Commands:
-      type: object
-      properties:
-        commands:
+        testenv:
           type: array
           items:
             type: string
-          default: []
+            minLength: 1
+          minItems: 1
           example:
-            - 'mvn checkstyle:check'
-    Tox:
+            - cover
+        tox_file:
+          type: string
+          default: tox.ini
+          example: tox.ini
+      required:
+        - testenv
+    When_branch:
       type: object
       properties:
-        tox:
-          type: object
-          properties:
-            testenv:
-              type: array
-              items:
-                type: string
-              example: cover
-            tox_file:
-              type: string
-              default: tox.ini
-              example: tox.ini
-          required:
-            - testenv
+        pattern:
+          type: string
+          minLength: 1
+        comparator:
+          type: string
+          enum:
+            - EQUALS
+            - GLOB
+            - REGEXP
+          default: GLOB
+      required:
+        - pattern
+    When_building_tag:
+      type: boolean
     CriterionBuild:
       type: object
       additionalProperties:
         type: object
+        minProperties: 1
         properties:
           repos:
-            type: object
-            additionalProperties:
+            type: array
+            items:
               type: object
               properties:
+                repo_url:
+                  type: string
+                  format: uri
                 container:
                   type: string
-              additionalProperties:
-                anyOf:
-                  - $ref: '#/components/schemas/Commands'
-                  - $ref: '#/components/schemas/Tox'
+                commands:
+                  $ref: '#/components/schemas/Commands_simplified'
+                tox:
+                  $ref: '#/components/schemas/Tox_simplified'
+              additionalProperties: false
+          when:
+            properties:
+              branch:
+                $ref: '#/components/schemas/When_branch'
+              building_tag:
+                $ref: '#/components/schemas/When_building_tag'
+            additionalProperties: false
+        required:
+          - repos
       example:
         qc_style:
           repos:
@@ -484,6 +705,8 @@ components:
               container: checkstyle
               commands:
                 - 'mvn checkstyle:check'
+          branch:
+            pattern: release-\\d+
     Environment:
       type: object
       additionalProperties:
@@ -498,17 +721,13 @@ components:
           type: object
           properties:
             project_repos:
-              type: object
-              $ref: '#/components/schemas/Repository'
+              type: array
+              items:
+                $ref: '#/components/schemas/Repository'
             credentials:
               type: array
               items:
-                oneOf:
-                  - $ref: '#/components/schemas/Creds_user_pass'
-                  - $ref: '#/components/schemas/Creds_string'
-                  - $ref: '#/components/schemas/Creds_file'
-                  - $ref: '#/components/schemas/Creds_cert'
-                  - $ref: '#/components/schemas/Creds_ssh_user_private_key'
+                $ref: '#/components/schemas/Creds_user_pass'
         sqa_criteria:
           type: object
           $ref: '#/components/schemas/CriterionBuild'
@@ -516,11 +735,23 @@ components:
           $ref: '#/components/schemas/Environment'
         timeout:
           type: integer
+          minimum: 1
     ServiceDockerCompose:
       type: object
       additionalProperties:
         type: object
         properties:
+          build:
+            type: object
+            properties:
+              context:
+                type: string
+              dockerfile:
+                type: string
+              args:
+                type: object
+                additionalProperties:
+                  type: string
           image:
             type: object
             properties:
@@ -557,6 +788,11 @@ components:
             $ref: '#/components/schemas/Environment'
       example:
         checkstyle:
+          build:
+            context: ./dir
+            dockerfile: Dockerfile-alternate
+            args:
+              buildno: 1
           image:
             name: checkstyle/maven-builder-image
             registry:
@@ -621,6 +857,7 @@ components:
           example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
         name:
           type: string
+          format: '[A-Za-z0-9_.-]'
           example: sqaaas-api-spec
         config_data:
           type: array
@@ -640,6 +877,58 @@ components:
       required:
         - upstream_status
         - upstream_reason
+    Badge:
+      type: object
+      properties:
+        openBadgeID:
+          type: string
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        badgeClass:
+          type: string
+        issuer:
+          type: string
+        image:
+          type: string
+          format: uri
+        recipient:
+          type: object
+          properties:
+            identity:
+              type: string
+            hashed:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - email
+                - openBadgeId
+                - telephone
+                - url
+            plaintextIdentity:
+              type: string
+        issuedOn:
+          type: string
+          format: date-time
+      example:
+        openBadgeId: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw'
+        createdAt: 2021-04-07T10:34:02.960Z
+        createdBy: e3h49VVbQRKQphuAAmxpgQ
+        badgeclass: sBS3EsJQRAC0ENTmvETtQw
+        issuer: aS1lWKgIR4u8bGjPZUzAyg
+        image: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image'
+        recipient:
+          identity: >-
+            sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
+          hashed: true
+          type: url
+          plaintextIdentity: >-
+            https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
+        issuedOn: 2021-04-07T10:07:00.000Z
   responses:
     BadGateway:
       description: |
