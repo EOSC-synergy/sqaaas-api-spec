@@ -317,7 +317,7 @@ paths:
                         agent any
 
                         stages {
-                            stage('SQA baseline criterion: qc_style') {
+                            stage('SQA baseline criterion: QC.Sty') {
                                 when {
                                     branch pattern: 'sqaaas', comparator: ''
                                 }
@@ -336,7 +336,7 @@ paths:
                                     }
                                 }
                             }
-                            stage('SQA baseline criterion: qc_doc') {
+                            stage('SQA baseline criterion: QC.Doc') {
                                 when {
                                     branch pattern: 'build', comparator: ''
                                 }
@@ -699,7 +699,7 @@ components:
         required:
           - repos
       example:
-        qc_style:
+        QC.Sty:
           repos:
             simple-java-maven-app:
               container: checkstyle
