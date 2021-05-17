@@ -28,7 +28,7 @@ additionalProperties:
   required:
     - repos
 example:
-  qc_style:
+  QC.Sty:
     repos:
       simple-java-maven-app:
         container: checkstyle
