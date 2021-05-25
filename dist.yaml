@@ -786,6 +786,9 @@ components:
             type: string
           environment:
             $ref: '#/components/schemas/Environment'
+          oneshot:
+            type: boolean
+            default: true
       example:
         checkstyle:
           build:
