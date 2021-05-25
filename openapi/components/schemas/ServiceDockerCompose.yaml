@@ -46,6 +46,9 @@ additionalProperties:
       type: string
     environment:
       $ref: './Environment.yaml'
+    oneshot:
+      type: boolean
+      default: true
 example:
   checkstyle:
     build:
