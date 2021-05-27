@@ -28,6 +28,8 @@ additionalProperties:
               format: uri
             credential_id:
               type: string
+      required:
+        - name
     hostname:
       type: string
     volumes:
