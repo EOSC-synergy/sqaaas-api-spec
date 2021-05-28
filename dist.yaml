@@ -484,6 +484,13 @@ paths:
                   type: string
                   format: uri
                   description: URL of the upstream repo
+                branch:
+                  type: string
+                  description: >-
+                    Brach from the upstream repo used as the base for the pull
+                    request
+              required:
+                - repo
       responses:
         '200':
           description: Successful operation
