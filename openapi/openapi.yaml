@@ -22,6 +22,8 @@ paths:
     $ref: paths/pipeline_config.yaml
   /pipeline/{pipeline_id}/config/jepl:
     $ref: paths/pipeline_config_jepl.yaml
+  /pipeline/{pipeline_id}/config/scripts:
+    $ref: paths/pipeline_commands_scripts.yaml
   /pipeline/{pipeline_id}/composer:
     $ref: paths/pipeline_composer.yaml
   /pipeline/{pipeline_id}/composer/jepl:
