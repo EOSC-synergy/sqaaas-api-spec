@@ -435,19 +435,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '204':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  build_url:
-                    type: string
-                    format: uri
-              example:
-                build_url: >-
-                  https://jenkins.eosc-synergy.eu/job/eosc-synergy-org/job/sqaaas-api-spec
         '400':
           description: Invalid pipeline ID supplied
         '404':
