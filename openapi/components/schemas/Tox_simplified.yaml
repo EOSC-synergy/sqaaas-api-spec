@@ -5,11 +5,9 @@ properties:
     items:
       type: string
       minLength: 1
-    minItems: 1
+    default: []
     example: ['cover']
   tox_file:
     type: string
     default: 'tox.ini'
     example: 'tox.ini'
-required:
-  - testenv
