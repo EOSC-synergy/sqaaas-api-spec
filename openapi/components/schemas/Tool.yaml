@@ -1,0 +1,15 @@
+type: object
+properties:
+  jepl_support:
+    type: boolean
+  docs:
+    type: string
+    format: uri
+  docker:
+    type: object
+    properties:
+      image:
+        type: string
+      reviewed:
+        type: string
+        format: date

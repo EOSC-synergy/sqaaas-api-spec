@@ -16,6 +16,30 @@ servers:
   - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
     description: Development API server (mock server)
 paths:
+  '/criteria/{criterion_id}':
+    get:
+      operationId: get_criteria_by_id
+      summary: 'Returns information about a specific criterion, including tool support.'
+      parameters:
+        - in: path
+          name: criterion_id
+          description: ID of the criterion
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Criterion'
+        '400':
+          description: Invalid criterion supplied
+        '404':
+          description: Criterion not found
   /pipeline:
     post:
       operationId: add_pipeline
@@ -627,6 +651,34 @@ paths:
           description: Badge not issued
 components:
   schemas:
+    Tool:
+      type: object
+      properties:
+        jepl_support:
+          type: boolean
+        docs:
+          type: string
+          format: uri
+        docker:
+          type: object
+          properties:
+            image:
+              type: string
+            reviewed:
+              type: string
+              format: date
+    Criterion:
+      type: object
+      properties:
+        id:
+          type: string
+          example: QC.Sty
+        tools:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tool'
     Repository:
       type: object
       properties:

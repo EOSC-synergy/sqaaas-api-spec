@@ -1,0 +1,23 @@
+get:
+  operationId: get_criteria_by_id
+  summary: Returns information about a specific criterion, including tool support.
+  parameters:
+    - in: path
+      name: criterion_id
+      description: ID of the criterion
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Criterion.yaml'
+    '400':
+      description: Invalid criterion supplied
+    '404':
+      description: Criterion not found

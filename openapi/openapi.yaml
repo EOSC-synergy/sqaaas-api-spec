@@ -14,6 +14,8 @@ servers:
   - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
     description: 'Development API server (mock server)'
 paths:
+  /criteria/{criterion_id}:
+    $ref: paths/criterion_by_id.yaml
   /pipeline:
     $ref: paths/pipeline.yaml
   /pipeline/{pipeline_id}:
