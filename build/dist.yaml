@@ -654,6 +654,8 @@ components:
     Tool:
       type: object
       properties:
+        lang:
+          type: string
         jepl_support:
           type: boolean
         docs:
@@ -667,6 +669,8 @@ components:
             reviewed:
               type: string
               format: date
+      required:
+        - lang
     Criterion:
       type: object
       properties:
