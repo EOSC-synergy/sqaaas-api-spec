@@ -16,15 +16,15 @@ servers:
   - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
     description: Development API server (mock server)
 paths:
-  '/criteria/{criterion_id}':
+  /criteria:
     get:
-      operationId: get_criteria_by_id
-      summary: 'Returns information about a specific criterion, including tool support.'
+      operationId: get_criteria
+      summary: Returns data about criteria
       parameters:
-        - in: path
+        - in: query
           name: criterion_id
-          description: ID of the criterion
-          required: true
+          description: Get data from a specific criterion
+          required: false
           schema:
             type: string
       responses:
