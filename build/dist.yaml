@@ -677,6 +677,16 @@ components:
         id:
           type: string
           example: QC.Sty
+        description:
+          type: object
+          properties:
+            msg:
+              type: string
+            improves:
+              type: string
+            docs:
+              type: string
+              format: uri
         tools:
           type: object
           additionalProperties:
