@@ -666,6 +666,8 @@ components:
           properties:
             image:
               type: string
+            dockerfile:
+              type: string
             reviewed:
               type: string
               format: date
