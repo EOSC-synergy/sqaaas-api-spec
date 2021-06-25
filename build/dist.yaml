@@ -787,6 +787,10 @@ components:
                   $ref: '#/components/schemas/Commands_simplified'
                 tox:
                   $ref: '#/components/schemas/Tox_simplified'
+                tools:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tool'
               additionalProperties: false
           when:
             properties:
