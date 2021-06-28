@@ -19,5 +19,9 @@ properties:
       reviewed:
         type: string
         format: date
+  args:
+    type: array
+    items:
+      $ref: './ToolArg.yaml'
 required:
   - lang
