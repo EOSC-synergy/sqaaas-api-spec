@@ -1,5 +1,7 @@
 type: object
 properties:
+  name:
+    type: string
   lang:
     type: string
   jepl_support:
