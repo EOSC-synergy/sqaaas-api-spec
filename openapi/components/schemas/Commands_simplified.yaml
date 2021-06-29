@@ -2,5 +2,4 @@ type: array
 items:
   type: string
   minLength: 1
-minItems: 1
 example: ['mvn checkstyle:check']

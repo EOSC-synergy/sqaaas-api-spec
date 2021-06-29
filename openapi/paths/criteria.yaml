@@ -1,0 +1,23 @@
+get:
+  operationId: get_criteria
+  summary: Returns data about criteria
+  parameters:
+    - in: query
+      name: criterion_id
+      description: Get data from a specific criterion
+      required: false
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Criterion.yaml'
+    '400':
+      description: Invalid criterion supplied
+    '404':
+      description: Criterion not found

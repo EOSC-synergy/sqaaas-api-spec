@@ -16,6 +16,30 @@ servers:
   - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
     description: Development API server (mock server)
 paths:
+  /criteria:
+    get:
+      operationId: get_criteria
+      summary: Returns data about criteria
+      parameters:
+        - in: query
+          name: criterion_id
+          description: Get data from a specific criterion
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Criterion'
+        '400':
+          description: Invalid criterion supplied
+        '404':
+          description: Criterion not found
   /pipeline:
     post:
       operationId: add_pipeline
@@ -627,6 +651,98 @@ paths:
           description: Badge not issued
 components:
   schemas:
+    ToolArg:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - subcommand
+            - positional
+            - optional
+          description: type of argument
+        description:
+          type: string
+        option:
+          type: string
+          description: 'Name of the option, in the event of optional arguments'
+        format:
+          type: string
+          enum:
+            - string
+            - array
+          description: The value format (to be rendered by web clients)
+        value:
+          type: string
+          description: Default value for the argument
+        selectable:
+          type: boolean
+          description: >-
+            Whether the argument can be selected by the user (to be rendered by
+            web clients)
+        args:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolArg'
+      example:
+        type: subcommand
+        description: Detect the license of the given project
+        value: detect
+        selectable: false
+        args:
+          description: Path to project's license
+          format: string
+          value: .
+    Tool:
+      type: object
+      properties:
+        name:
+          type: string
+        lang:
+          type: string
+        jepl_support:
+          type: boolean
+        docs:
+          type: string
+          format: uri
+        docker:
+          type: object
+          properties:
+            image:
+              type: string
+            dockerfile:
+              type: string
+            reviewed:
+              type: string
+              format: date
+        args:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolArg'
+      required:
+        - lang
+    Criterion:
+      type: object
+      properties:
+        id:
+          type: string
+          example: QC.Sty
+        description:
+          type: object
+          properties:
+            msg:
+              type: string
+            improves:
+              type: string
+            docs:
+              type: string
+              format: uri
+        tools:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tool'
     Repository:
       type: object
       properties:
@@ -721,6 +837,10 @@ components:
                   $ref: '#/components/schemas/Commands_simplified'
                 tox:
                   $ref: '#/components/schemas/Tox_simplified'
+                tools:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tool'
               additionalProperties: false
           when:
             properties:

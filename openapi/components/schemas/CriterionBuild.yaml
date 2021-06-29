@@ -17,6 +17,10 @@ additionalProperties:
             $ref: './Commands_simplified.yaml'
           tox:
             $ref: './Tox_simplified.yaml'
+          tools:
+            type: array
+            items:
+              $ref: './Tool.yaml' 
         additionalProperties: false
     when:
       properties:

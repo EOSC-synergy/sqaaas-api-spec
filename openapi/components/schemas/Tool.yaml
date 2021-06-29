@@ -1,0 +1,27 @@
+type: object
+properties:
+  name:
+    type: string
+  lang:
+    type: string
+  jepl_support:
+    type: boolean
+  docs:
+    type: string
+    format: uri
+  docker:
+    type: object
+    properties:
+      image:
+        type: string
+      dockerfile:
+        type: string
+      reviewed:
+        type: string
+        format: date
+  args:
+    type: array
+    items:
+      $ref: './ToolArg.yaml'
+required:
+  - lang
