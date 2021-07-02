@@ -14,11 +14,7 @@ properties:
     enum: [string, array]
     description: The value format (to be rendered by web clients)
   value:
-    type: string
-    description: Default value for the argument
-  selectable:
-    type: boolean
-    description: Whether the argument can be selected by the user (to be rendered by web clients)
+    description: Value for the argument (can be of any type)
   args:
     type: array
     items:
