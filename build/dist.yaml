@@ -663,32 +663,44 @@ components:
           description: type of argument
         description:
           type: string
+          description: hint about what the command does
+        value:
+          description: Value for the argument (can be of any type)
         option:
           type: string
           description: 'Name of the option, in the event of optional arguments'
+        summary:
+          type: string
+          description: very brief (2/3 words) description (to be rendered by web clients)
         format:
           type: string
           enum:
             - string
             - array
           description: The value format (to be rendered by web clients)
-        value:
-          type: string
-          description: Default value for the argument
         selectable:
           type: boolean
           description: >-
             Whether the argument can be selected by the user (to be rendered by
             web clients)
+          default: true
+        repeatable:
+          type: boolean
+          description: Whether the argument can be repeated (to be rendered by web clients)
+          default: false
         args:
           type: array
           items:
             $ref: '#/components/schemas/ToolArg'
+      required:
+        - type
+        - description
       example:
         type: subcommand
         description: Detect the license of the given project
         value: detect
         selectable: false
+        repeatable: false
         args:
           description: Path to project's license
           format: string
@@ -720,7 +732,10 @@ components:
           items:
             $ref: '#/components/schemas/ToolArg'
       required:
+        - name
         - lang
+        - docs
+        - docker
     Criterion:
       type: object
       properties:
@@ -781,7 +796,6 @@ components:
       items:
         type: string
         minLength: 1
-      minItems: 1
       example:
         - 'mvn checkstyle:check'
     Tox_simplified:
