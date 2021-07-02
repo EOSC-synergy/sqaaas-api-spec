@@ -6,6 +6,8 @@ properties:
     description: type of argument
   description:
     type: string
+  value:
+    description: Value for the argument (can be of any type)
   option:
     type: string
     description: Name of the option, in the event of optional arguments
@@ -13,15 +15,13 @@ properties:
     type: string
     enum: [string, array]
     description: The value format (to be rendered by web clients)
-  value:
-    description: Value for the argument (can be of any type)
+  selectable:
+    type: boolean
+    description: Whether the argument can be selected by the user (to be rendered by web clients)
   args:
     type: array
     items:
       $ref: './ToolArg.yaml'
-  selectable:
-    type: boolean
-    description: Whether the argument can be selected by the user (to be rendered by web clients)
 example:
   type: subcommand
   description: Detect the license of the given project
