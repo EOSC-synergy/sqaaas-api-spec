@@ -19,6 +19,13 @@ properties:
     type: array
     items:
       $ref: './ToolArg.yaml'
+  selectable:
+    type: boolean
+    description: Whether the argument can be selected by the user (to be rendered by web clients)
+  format:
+    type: string
+    enum: [string, array]
+    description: The value format (to be rendered by web clients)
 example:
   type: subcommand
   description: Detect the license of the given project
