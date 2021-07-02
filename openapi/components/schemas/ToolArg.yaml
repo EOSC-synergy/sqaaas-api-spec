@@ -34,6 +34,7 @@ example:
   description: Detect the license of the given project
   value: detect
   selectable: false
+  repeatable: false
   args:
     description: "Path to project's license"
     format: string
