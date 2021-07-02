@@ -22,13 +22,18 @@ properties:
   selectable:
     type: boolean
     description: Whether the argument can be selected by the user (to be rendered by web clients)
+    default: true
   repeatable:
     type: boolean
     description: Whether the argument can be repeated (to be rendered by web clients)
+    default: false
   args:
     type: array
     items:
       $ref: './ToolArg.yaml'
+required:
+  - type
+  - description
 example:
   type: subcommand
   description: Detect the license of the given project
