@@ -18,6 +18,9 @@ properties:
   selectable:
     type: boolean
     description: Whether the argument can be selected by the user (to be rendered by web clients)
+  repeatable:
+    type: boolean
+    description: Whether the argument can be repeated (to be rendered by web clients)
   args:
     type: array
     items:
