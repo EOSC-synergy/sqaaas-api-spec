@@ -727,6 +727,8 @@ components:
             reviewed:
               type: string
               format: date
+        executable:
+          type: string
         args:
           type: array
           items:
