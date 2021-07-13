@@ -24,10 +24,14 @@ additionalProperties:
         additionalProperties: false
     when:
       properties:
-        branch:
-          $ref: './When_branch.yaml'
-        building_tag:
-          $ref: './When_building_tag.yaml'
+        allOf:
+          type: array
+          items:
+            $ref: './When_objects.yaml'
+        anyOf:
+          type: array
+          items:
+            $ref: './When_objects.yaml'
       additionalProperties: false
   required:
     - repos
