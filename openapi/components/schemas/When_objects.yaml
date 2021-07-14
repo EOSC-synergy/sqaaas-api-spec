@@ -1,0 +1,9 @@
+type: object
+properties:
+  not_operator:
+    type: boolean
+    default: false
+  branch:
+    $ref: './When_branch.yaml'
+  building_tag:
+    $ref: './When_building_tag.yaml'
