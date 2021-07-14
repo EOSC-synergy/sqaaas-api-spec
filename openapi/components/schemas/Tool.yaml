@@ -19,6 +19,9 @@ properties:
       reviewed:
         type: string
         format: date
+      oneshot:
+        type: boolean
+        default: true
   executable:
     type: string
   args:
