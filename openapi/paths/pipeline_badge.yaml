@@ -36,7 +36,7 @@ get:
       schema:
         type: string
     - in: query
-      name: share 
+      name: share
       description: Returns the shared version of the badge in a specific format
       required: false
       schema:
@@ -52,7 +52,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/schemas/Badge.yaml'
+              $ref: '../components/schemas/CriterionOutput.yaml'
     '400':
       description: Invalid pipeline ID supplied
     '404':
