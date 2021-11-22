@@ -652,13 +652,39 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Badge'
+                  $ref: '#/components/schemas/CriterionOutput'
         '400':
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
         '422':
           description: Badge not issued
+  '/pipeline/{pipeline_id}/output':
+    get:
+      operationId: get_pipeline_output
+      summary: Get output from pipeline execution
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: |
+        Returns the console output from the pipeline execution.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CriterionOutput'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
 components:
   schemas:
     ToolArg:
@@ -1055,6 +1081,14 @@ components:
       required:
         - upstream_status
         - upstream_reason
+    CriterionOutput:
+      type: object
+      properties:
+        id:
+          type: string
+          example: QC.Sty
+        stdout:
+          type: string
     Badge:
       type: object
       properties:

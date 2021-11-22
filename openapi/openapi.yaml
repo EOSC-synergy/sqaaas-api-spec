@@ -44,3 +44,5 @@ paths:
     $ref: paths/pipeline_compressed_files.yaml
   /pipeline/{pipeline_id}/badge:
     $ref: paths/pipeline_badge.yaml
+  /pipeline/{pipeline_id}/output:
+    $ref: paths/pipeline_output.yaml
