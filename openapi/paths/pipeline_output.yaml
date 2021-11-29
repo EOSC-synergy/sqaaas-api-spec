@@ -8,6 +8,13 @@ get:
       required: true
       schema:
         type: string
+    - in: query
+      name: validate
+      description: Flag to indicate whether the returned output shall be validate using sqaaas-reporting tool
+      required: false
+      schema:
+        type: boolean
+        default: false
   description: >
     Returns the console output from the pipeline execution.
   responses:
