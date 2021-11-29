@@ -29,6 +29,14 @@ put:
       required: true
       schema:
         type: string
+    - in: query
+      name: report_to_stdout
+      description: Flag to indicate whether the pipeline shall print via
+        via stdout the reports produced by the tools (required by QAA module)
+      required: false
+      schema:
+        type: boolean
+        default: false
   requestBody:
     required: true
     content:
