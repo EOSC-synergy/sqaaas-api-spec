@@ -1,7 +1,18 @@
 type: object
-properties:
-  id:
-    type: string
-    example: QC.Sty
-  stdout:
-    type: string
+additionalProperties:
+  type: object
+  properties:
+    status:
+      type: string
+      enum: [SUCCESS, FAILED]
+    stdout_command:
+      type: string
+    stdout_text:
+      type: string
+    validation:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        data_unstructured:
+          type: object

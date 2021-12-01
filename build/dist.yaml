@@ -696,9 +696,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CriterionOutput'
+                type: object
+                $ref: '#/components/schemas/CriterionOutput'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -1103,12 +1102,25 @@ components:
         - upstream_reason
     CriterionOutput:
       type: object
-      properties:
-        id:
-          type: string
-          example: QC.Sty
-        stdout:
-          type: string
+      additionalProperties:
+        type: object
+        properties:
+          status:
+            type: string
+            enum:
+              - SUCCESS
+              - FAILED
+          stdout_command:
+            type: string
+          stdout_text:
+            type: string
+          validation:
+            type: object
+            properties:
+              valid:
+                type: boolean
+              data_unstructured:
+                type: object
     Badge:
       type: object
       properties:
