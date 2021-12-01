@@ -23,9 +23,8 @@ get:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '../components/schemas/CriterionOutput.yaml'
+            type: object
+            $ref: '../components/schemas/CriterionOutput.yaml'
     '400':
       description: Invalid pipeline ID supplied
     '404':
