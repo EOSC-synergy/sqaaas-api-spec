@@ -1,0 +1,34 @@
+post:
+  operationId: add_pipeline_for_assessment
+  summary: Creates a pipeline for assessment (QAA module).
+  description: >
+    Creates a pipeline for assessment (QAA module).
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Pipeline_assessment.yaml'
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: UUID identifying the pipeline
+          example:
+            id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+      links:
+        get_pipeline_by_pipeline_id:
+          operationId: get_pipeline_by_id
+          parameters:
+            pipeline_id: '$response.body#/id'
+          description: >
+            The `id` value returned in the response can be used as
+            the `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+    '400':
+      description: Request failed validation
