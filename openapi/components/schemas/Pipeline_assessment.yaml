@@ -8,3 +8,9 @@ properties:
     type: string
     format: uri
     example: https://github.com/eosc-synergy/sqaaas-api-spec
+  url_docs:
+    type: string
+    format: uri
+    example: https://github.com/eosc-synergy/sqaaas-api-spec
+required:
+  - url
