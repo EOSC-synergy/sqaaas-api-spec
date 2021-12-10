@@ -1114,16 +1114,12 @@ components:
           type: string
           format: '[A-Za-z0-9_.-]'
           example: sqaaas-api-spec
-        url:
-          type: string
-          format: uri
-          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
-        url_docs:
-          type: string
-          format: uri
-          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
+        repo_code:
+          $ref: '#/components/schemas/Repository'
+        repo_docs:
+          $ref: '#/components/schemas/Repository'
       required:
-        - url
+        - repo_code
     UpstreamError:
       type: object
       properties:
