@@ -1,9 +1,5 @@
 type: object
 properties:
-  name:
-    type: string
-    format: '[A-Za-z0-9_.-]'
-    example: sqaaas-api-spec
   repo_code:
     $ref: './Repository.yaml'
   repo_docs:

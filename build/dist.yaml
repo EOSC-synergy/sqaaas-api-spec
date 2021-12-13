@@ -1110,10 +1110,6 @@ components:
     Pipeline_assessment:
       type: object
       properties:
-        name:
-          type: string
-          format: '[A-Za-z0-9_.-]'
-          example: sqaaas-api-spec
         repo_code:
           $ref: '#/components/schemas/Repository'
         repo_docs:
