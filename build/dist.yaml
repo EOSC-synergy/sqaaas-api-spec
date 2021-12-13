@@ -822,6 +822,7 @@ components:
         pattern:
           type: string
           minLength: 1
+          example: release-\\d+
         comparator:
           type: string
           enum:
@@ -847,8 +848,10 @@ components:
                 repo_url:
                   type: string
                   format: uri
+                  example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
                 container:
                   type: string
+                  example: testing
                 commands:
                   $ref: '#/components/schemas/Commands_simplified'
                 tox:
@@ -867,15 +870,6 @@ components:
             additionalProperties: false
         required:
           - repos
-      example:
-        QC.Sty:
-          repos:
-            simple-java-maven-app:
-              container: checkstyle
-              commands:
-                - 'mvn checkstyle:check'
-          branch:
-            pattern: release-\\d+
     Environment:
       type: object
       additionalProperties:

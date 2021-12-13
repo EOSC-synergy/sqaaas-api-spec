@@ -3,6 +3,7 @@ properties:
   pattern:
     type: string
     minLength: 1
+    example: 'release-\\d+'
   comparator:
     type: string
     enum: [EQUALS, GLOB, REGEXP]

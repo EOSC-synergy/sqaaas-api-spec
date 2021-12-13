@@ -11,8 +11,10 @@ additionalProperties:
           repo_url:
             type: string
             format: uri
+            example: https://github.com/eosc-synergy/sqaaas-api-spec
           container:
             type: string
+            example: testing
           commands:
             $ref: './Commands_simplified.yaml'
           tox:
@@ -20,7 +22,7 @@ additionalProperties:
           tools:
             type: array
             items:
-              $ref: './Tool.yaml' 
+              $ref: './Tool.yaml'
         additionalProperties: false
     when:
       properties:
@@ -31,12 +33,3 @@ additionalProperties:
       additionalProperties: false
   required:
     - repos
-example:
-  QC.Sty:
-    repos:
-      simple-java-maven-app:
-        container: checkstyle
-        commands:
-        - mvn checkstyle:check
-    branch:
-      pattern: 'release-\\d+'
