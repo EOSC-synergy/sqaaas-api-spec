@@ -7,6 +7,3 @@ properties:
   branch:
     type: string
     example: 'master'
-example:
-  - repo: https://github.com/jenkins-docs/simple-java-maven-app
-    branch: master
