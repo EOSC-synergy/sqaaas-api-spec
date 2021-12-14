@@ -573,7 +573,7 @@ paths:
                     type: string
                     format: uri
               example:
-                pull_request_url: 'https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23'
+                pull_request_url: 'https://github.com/eosc-synergy/sqaaas-api-spec/pull/23'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -824,7 +824,7 @@ components:
         repo:
           type: string
           format: uri
-          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
         branch:
           type: string
           example: master
@@ -1064,7 +1064,7 @@ components:
                     example: master
                   base_branch:
                     type: string
-                    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+                    example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
                   credentials_id:
                     type: string
                     example: userpass_dockerhub

@@ -3,7 +3,7 @@ properties:
   repo:
     type: string
     format: uri
-    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+    example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
   branch:
     type: string
     example: 'master'
