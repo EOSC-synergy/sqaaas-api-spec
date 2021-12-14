@@ -719,8 +719,10 @@ components:
         description:
           type: string
           description: hint about what the command does
+          example: Detect the license of the given project
         value:
           description: Value for the argument (can be of any type)
+          example: detect
         option:
           type: string
           description: 'Name of the option, in the event of optional arguments'
@@ -750,16 +752,6 @@ components:
       required:
         - type
         - description
-      example:
-        type: subcommand
-        description: Detect the license of the given project
-        value: detect
-        selectable: false
-        repeatable: false
-        args:
-          description: Path to project's license
-          format: string
-          value: .
     Tool:
       type: object
       properties:
@@ -964,8 +956,10 @@ components:
             properties:
               context:
                 type: string
+                example: ./dir
               dockerfile:
                 type: string
+                example: Dockerfile-alternate
               args:
                 type: object
                 additionalProperties:
@@ -975,6 +969,7 @@ components:
             properties:
               name:
                 type: string
+                example: 'eoscsynergy/sqaaas-api-spec:1.0.0'
               registry:
                 type: object
                 properties:
@@ -983,12 +978,15 @@ components:
                   url:
                     type: string
                     format: uri
+                    example: 'https://hub.docker.com/'
                   credential_id:
                     type: string
+                    example: my-dockerhub-cred
             required:
               - name
           hostname:
             type: string
+            example: sqaaas-host
           volumes:
             type: array
             items:
@@ -1000,34 +998,18 @@ components:
                     - bind
                 source:
                   type: string
+                  example: ./
                 target:
                   type: string
+                  example: ./sqaaas-build
           command:
             type: string
+            example: sleep 600000
           environment:
             $ref: '#/components/schemas/Environment'
           oneshot:
             type: boolean
             default: true
-      example:
-        checkstyle:
-          build:
-            context: ./dir
-            dockerfile: Dockerfile-alternate
-            args:
-              buildno: 1
-          image:
-            name: checkstyle/maven-builder-image
-            registry:
-              push: true
-              url: 'https://hub.docker.com/'
-              credential_id: my-dockerhub-cred
-          hostname: checkstyle-host
-          volumes:
-            - source: ./
-              target: ./simple-java-app
-              type: bind
-          command: sleep 600000
     JePL_composer:
       type: object
       properties:
@@ -1127,23 +1109,32 @@ components:
         openBadgeID:
           type: string
           format: uri
+          example: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw'
         createdAt:
           type: string
           format: date-time
+          example: 2021-04-07T10:34:02.960Z
         createdBy:
           type: string
+          example: e3h49VVbQRKQphuAAmxpgQ
         badgeClass:
           type: string
+          example: sBS3EsJQRAC0ENTmvETtQw
         issuer:
           type: string
+          example: aS1lWKgIR4u8bGjPZUzAyg
         image:
           type: string
           format: uri
+          example: >-
+            https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image
         recipient:
           type: object
           properties:
             identity:
               type: string
+              example: >-
+                sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
             hashed:
               type: boolean
             type:
@@ -1155,24 +1146,12 @@ components:
                 - url
             plaintextIdentity:
               type: string
+              example: >-
+                https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
         issuedOn:
           type: string
           format: date-time
-      example:
-        openBadgeId: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw'
-        createdAt: 2021-04-07T10:34:02.960Z
-        createdBy: e3h49VVbQRKQphuAAmxpgQ
-        badgeclass: sBS3EsJQRAC0ENTmvETtQw
-        issuer: aS1lWKgIR4u8bGjPZUzAyg
-        image: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image'
-        recipient:
-          identity: >-
-            sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
-          hashed: true
-          type: url
-          plaintextIdentity: >-
-            https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
-        issuedOn: 2021-04-07T10:07:00.000Z
+          example: 2021-04-07T10:07:00.000Z
   responses:
     BadGateway:
       description: |

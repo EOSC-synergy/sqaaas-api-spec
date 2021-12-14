@@ -3,23 +3,30 @@ properties:
   openBadgeID:
     type: string
     format: uri
+    example: https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw
   createdAt:
     type: string
     format: date-time
+    example: 2021-04-07T10:34:02.960535Z
   createdBy:
     type: string
+    example: e3h49VVbQRKQphuAAmxpgQ
   badgeClass:
     type: string
+    example: sBS3EsJQRAC0ENTmvETtQw
   issuer:
     type: string
+    example: aS1lWKgIR4u8bGjPZUzAyg
   image:
     type: string
     format: uri
+    example: https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image
   recipient:
     type: object
     properties:
       identity:
         type: string
+        example: sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
       hashed:
         type: boolean
       type:
@@ -27,19 +34,8 @@ properties:
         enum: [email, openBadgeId, telephone, url]
       plaintextIdentity:
         type: string
+        example: https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
   issuedOn:
     type: string
     format: date-time
-example:
-  openBadgeId: https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw
-  createdAt: 2021-04-07T10:34:02.960535Z
-  createdBy: e3h49VVbQRKQphuAAmxpgQ
-  badgeclass: sBS3EsJQRAC0ENTmvETtQw
-  issuer: aS1lWKgIR4u8bGjPZUzAyg
-  image: https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image
-  recipient:
-    identity: sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
-    hashed: true
-    type: url
-    plaintextIdentity: https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
-  issuedOn: 2021-04-07T10:07:00Z
+    example: 2021-04-07T10:07:00Z

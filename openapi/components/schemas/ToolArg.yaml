@@ -7,8 +7,10 @@ properties:
   description:
     type: string
     description: hint about what the command does
+    example: Detect the license of the given project
   value:
     description: Value for the argument (can be of any type)
+    example: detect
   option:
     type: string
     description: Name of the option, in the event of optional arguments
@@ -34,13 +36,3 @@ properties:
 required:
   - type
   - description
-example:
-  type: subcommand
-  description: Detect the license of the given project
-  value: detect
-  selectable: false
-  repeatable: false
-  args:
-    description: "Path to project's license"
-    format: string
-    value: .
