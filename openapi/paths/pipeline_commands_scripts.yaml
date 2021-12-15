@@ -22,11 +22,10 @@ get:
               properties:
                 file_name:
                   type: string
-                  example:
-                    file_name: script.sh
+                  example: script.sh
                 content:
                   type: string
-                  example: "(\ncd workdir ; npm install\n)" 
+                  example: "(\ncd workdir ; npm install\n)"
     '400':
       description: Invalid pipeline ID supplied
     '404':

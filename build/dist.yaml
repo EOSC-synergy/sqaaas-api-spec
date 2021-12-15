@@ -296,8 +296,7 @@ paths:
                   properties:
                     file_name:
                       type: string
-                      example:
-                        file_name: script.sh
+                      example: script.sh
                     content:
                       type: string
                       example: |-
