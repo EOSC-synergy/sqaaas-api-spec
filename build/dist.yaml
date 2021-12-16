@@ -135,6 +135,34 @@ paths:
                 `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
         '400':
           description: Request failed validation
+  '/pipeline/assessment/{pipeline_id}/output':
+    get:
+      operationId: get_output_for_assessment
+      summary: Get the assessment output
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: >
+        Returns the reporting and badging data from the execution of the
+        assessment pipeline.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/AssessmentOutput'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '422':
+          description: Pipeline has not been executed
   '/pipeline/{pipeline_id}':
     get:
       operationId: get_pipeline_by_id
@@ -1115,6 +1143,25 @@ components:
           $ref: '#/components/schemas/Repository'
       required:
         - repo_code
+    AssessmentOutput:
+      type: object
+      properties:
+        report:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              valid:
+                type: boolean
+                default: false
+              data:
+                type: object
+        badge:
+          type: string
+          enum:
+            - BRONZE
+            - SILVER
+            - GOLD
     UpstreamError:
       type: object
       properties:

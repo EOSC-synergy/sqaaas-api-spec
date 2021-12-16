@@ -1,0 +1,15 @@
+type: object
+properties:
+  report:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          default: false
+        data:
+          type: object
+  badge:
+    type: string
+    enum: [BRONZE, SILVER, GOLD]
