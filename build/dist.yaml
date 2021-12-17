@@ -138,7 +138,7 @@ paths:
   '/pipeline/assessment/{pipeline_id}/output':
     get:
       operationId: get_output_for_assessment
-      summary: Get the assessment output
+      summary: Get the assessment output (QAA module)
       parameters:
         - in: path
           name: pipeline_id
@@ -1156,12 +1156,50 @@ components:
                 default: false
               data:
                 type: object
+                properties:
+                  REQUIRED:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  RECOMMENDED:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  OPTIONAL:
+                    type: object
+                    additionalProperties:
+                      type: string
         badge:
-          type: string
-          enum:
-            - BRONZE
-            - SILVER
-            - GOLD
+          type: object
+          properties:
+            software:
+              type: string
+              enum:
+                - BRONZE
+                - SILVER
+                - GOLD
+            services:
+              type: string
+              enum:
+                - BRONZE
+                - SILVER
+                - GOLD
+            fair:
+              type: string
+              enum:
+                - BRONZE
+                - SILVER
+                - GOLD
+      example:
+        report:
+          valid: true
+          data:
+            REQUIRED:
+              licensee: <stdout>
+        badge:
+          software: BRONZE
+          services: SILVER
+          fair: GOLD
     UpstreamError:
       type: object
       properties:

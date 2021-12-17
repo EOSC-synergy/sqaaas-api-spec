@@ -10,6 +10,38 @@ properties:
           default: false
         data:
           type: object
+          properties:
+            REQUIRED:
+              type: object
+              additionalProperties:
+                type: string
+            RECOMMENDED:
+              type: object
+              additionalProperties:
+                type: string
+            OPTIONAL:
+              type: object
+              additionalProperties:
+                type: string
   badge:
-    type: string
-    enum: [BRONZE, SILVER, GOLD]
+    type: object
+    properties:
+      software:
+        type: string
+        enum: [BRONZE, SILVER, GOLD]
+      services:
+        type: string
+        enum: [BRONZE, SILVER, GOLD]
+      fair:
+        type: string
+        enum: [BRONZE, SILVER, GOLD]
+example:
+  report:
+    valid: true
+    data:
+      REQUIRED:
+        licensee: "<stdout>"
+  badge:
+    software: "BRONZE"
+    services: "SILVER"
+    fair: "GOLD"
