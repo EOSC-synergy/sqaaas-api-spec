@@ -1150,25 +1150,27 @@ components:
           type: object
           additionalProperties:
             type: object
-            properties:
-              valid:
-                type: boolean
-                default: false
-              data:
-                type: object
-                properties:
-                  REQUIRED:
-                    type: object
-                    additionalProperties:
-                      type: string
-                  RECOMMENDED:
-                    type: object
-                    additionalProperties:
-                      type: string
-                  OPTIONAL:
-                    type: object
-                    additionalProperties:
-                      type: string
+            additionalProperties:
+              type: object
+              properties:
+                valid:
+                  type: boolean
+                  default: false
+                data:
+                  type: object
+                  properties:
+                    REQUIRED:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    RECOMMENDED:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    OPTIONAL:
+                      type: object
+                      additionalProperties:
+                        type: string
         badge:
           type: object
           properties:
@@ -1192,10 +1194,11 @@ components:
                 - GOLD
       example:
         report:
-          valid: true
-          data:
-            REQUIRED:
-              licensee: <stdout>
+          QC.Lic:
+            valid: true
+            data:
+              REQUIRED:
+                licensee: <stdout>
         badge:
           software: BRONZE
           services: SILVER
