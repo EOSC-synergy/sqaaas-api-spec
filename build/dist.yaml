@@ -112,6 +112,15 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Pipeline_assessment'
+      parameters:
+        - in: query
+          name: optional_tools
+          description: Optional tools that shall be accounted
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         '201':
           description: Created
