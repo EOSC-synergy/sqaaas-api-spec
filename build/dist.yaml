@@ -732,7 +732,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CriterionOutput'
+                  $ref: '#/components/schemas/Badge'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -1222,44 +1222,6 @@ components:
       required:
         - upstream_status
         - upstream_reason
-    CriterionOutput:
-      type: object
-      additionalProperties:
-        type: object
-        properties:
-          status:
-            type: string
-            enum:
-              - SUCCESS
-              - FAILED
-          stdout_command:
-            type: string
-          stdout_text:
-            type: string
-          tool:
-            type: string
-          validator:
-            type: string
-          validation:
-            type: object
-            properties:
-              valid:
-                type: boolean
-              data_unstructured:
-                type: object
-      example:
-        QC.Lic:
-          status: SUCCESS
-          stdout_command: >-
-            + docker-compose -f .sqa/docker-compose.yml --project-directory
-            /jenkins/workspace/ava-maven-app.assess.sqaaas_main/ exec -T
-            qc.lic_boozy-smalt-maltese /usr/bin/env sh
-            .sqa/script.paltry-taupe-reindeer.sh
-          tool: licensee
-          validator: licensee
-          validation:
-            valid: true
-            data_unstructured: {}
     Badge:
       type: object
       properties:
@@ -1309,6 +1271,44 @@ components:
           type: string
           format: date-time
           example: 2021-04-07T10:07:00.000Z
+    CriterionOutput:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          status:
+            type: string
+            enum:
+              - SUCCESS
+              - FAILED
+          stdout_command:
+            type: string
+          stdout_text:
+            type: string
+          tool:
+            type: string
+          validator:
+            type: string
+          validation:
+            type: object
+            properties:
+              valid:
+                type: boolean
+              data_unstructured:
+                type: object
+      example:
+        QC.Lic:
+          status: SUCCESS
+          stdout_command: >-
+            + docker-compose -f .sqa/docker-compose.yml --project-directory
+            /jenkins/workspace/ava-maven-app.assess.sqaaas_main/ exec -T
+            qc.lic_boozy-smalt-maltese /usr/bin/env sh
+            .sqa/script.paltry-taupe-reindeer.sh
+          tool: licensee
+          validator: licensee
+          validation:
+            valid: true
+            data_unstructured: {}
   responses:
     BadGateway:
       description: |
