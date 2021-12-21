@@ -9,6 +9,10 @@ additionalProperties:
       type: string
     stdout_text:
       type: string
+    tool:
+      type: string
+    validator:
+      type: string
     validation:
       type: object
       properties:
@@ -16,3 +20,12 @@ additionalProperties:
           type: boolean
         data_unstructured:
           type: object
+example:
+  QC.Lic:
+    status: SUCCESS
+    stdout_command: + docker-compose -f .sqa/docker-compose.yml --project-directory /jenkins/workspace/ava-maven-app.assess.sqaaas_main/ exec -T qc.lic_boozy-smalt-maltese /usr/bin/env sh .sqa/script.paltry-taupe-reindeer.sh
+    tool: licensee
+    validator: licensee
+    validation:
+      valid: true
+      data_unstructured: {}

@@ -20,6 +20,8 @@ paths:
     $ref: paths/pipeline.yaml
   /pipeline/assessment:
     $ref: paths/pipeline_assessment.yaml
+  /pipeline/assessment/{pipeline_id}/output:
+    $ref: paths/pipeline_assessment_output.yaml
   /pipeline/{pipeline_id}:
     $ref: paths/pipeline_by_id.yaml
   /pipeline/{pipeline_id}/config:
