@@ -14,17 +14,23 @@ properties:
             type: object
             properties:
               REQUIRED:
-                type: object
-                additionalProperties:
-                  type: string
+                type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
               RECOMMENDED:
-                type: object
-                additionalProperties:
-                  type: string
+                type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
               OPTIONAL:
-                type: object
-                additionalProperties:
-                  type: string
+                type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
   badge:
     type: object
     properties:
@@ -43,7 +49,7 @@ example:
       valid: true
       data:
         REQUIRED:
-          licensee: "<stdout>"
+          - licensee: "<stdout>"
   badge:
     software: "BRONZE"
     services: "SILVER"
