@@ -1140,17 +1140,23 @@ components:
                   type: object
                   properties:
                     REQUIRED:
-                      type: object
-                      additionalProperties:
-                        type: string
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
                     RECOMMENDED:
-                      type: object
-                      additionalProperties:
-                        type: string
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
                     OPTIONAL:
-                      type: object
-                      additionalProperties:
-                        type: string
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
         badge:
           type: object
           properties:
@@ -1178,7 +1184,7 @@ components:
             valid: true
             data:
               REQUIRED:
-                licensee: <stdout>
+                - licensee: <stdout>
         badge:
           software: BRONZE
           services: SILVER
@@ -1245,41 +1251,43 @@ components:
     CriterionOutput:
       type: object
       additionalProperties:
-        type: object
-        properties:
-          status:
-            type: string
-            enum:
-              - SUCCESS
-              - FAILED
-          stdout_command:
-            type: string
-          stdout_text:
-            type: string
-          tool:
-            type: string
-          validator:
-            type: string
-          validation:
-            type: object
-            properties:
-              valid:
-                type: boolean
-              data_unstructured:
-                type: object
+        type: array
+        items:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - SUCCESS
+                - FAILED
+            stdout_command:
+              type: string
+            stdout_text:
+              type: string
+            tool:
+              type: string
+            validator:
+              type: string
+            validation:
+              type: object
+              properties:
+                valid:
+                  type: boolean
+                data_unstructured:
+                  type: object
       example:
         QC.Lic:
-          status: SUCCESS
-          stdout_command: >-
-            + docker-compose -f .sqa/docker-compose.yml --project-directory
-            /jenkins/workspace/ava-maven-app.assess.sqaaas_main/ exec -T
-            qc.lic_boozy-smalt-maltese /usr/bin/env sh
-            .sqa/script.paltry-taupe-reindeer.sh
-          tool: licensee
-          validator: licensee
-          validation:
-            valid: true
-            data_unstructured: {}
+          - status: SUCCESS
+            stdout_command: >-
+              + docker-compose -f .sqa/docker-compose.yml --project-directory
+              /jenkins/workspace/ava-maven-app.assess.sqaaas_main/ exec -T
+              qc.lic_boozy-smalt-maltese /usr/bin/env sh
+              .sqa/script.paltry-taupe-reindeer.sh
+            tool: licensee
+            validator: licensee
+            validation:
+              valid: true
+              data_unstructured: {}
   responses:
     BadGateway:
       description: |
