@@ -3,6 +3,7 @@ properties:
   report:
     type: object
     additionalProperties:
+      example: QC.Lic
       type: object
       additionalProperties:
         type: object
@@ -16,6 +17,7 @@ properties:
               REQUIRED:
                 type: array
                 items:
+                  example: licensee
                   type: object
                   additionalProperties:
                     type: string
@@ -31,26 +33,18 @@ properties:
                   type: object
                   additionalProperties:
                     type: string
+    example:
+      QC.Lic:
+        valid: true
+        data:
+          REQUIRED:
+            - licensee: "<stdout>"
   badge:
     type: object
     properties:
       software:
-        type: string
-        enum: [BRONZE, SILVER, GOLD]
+        $ref: './Badge.yaml'
       services:
-        type: string
-        enum: [BRONZE, SILVER, GOLD]
+        $ref: './Badge.yaml'
       fair:
-        type: string
-        enum: [BRONZE, SILVER, GOLD]
-example:
-  report:
-    QC.Lic:
-      valid: true
-      data:
-        REQUIRED:
-          - licensee: "<stdout>"
-  badge:
-    software: "BRONZE"
-    services: "SILVER"
-    fair: "GOLD"
+        $ref: './Badge.yaml'

@@ -1123,82 +1123,6 @@ components:
           $ref: '#/components/schemas/Repository'
       required:
         - repo_code
-    AssessmentOutput:
-      type: object
-      properties:
-        report:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties:
-              type: object
-              properties:
-                valid:
-                  type: boolean
-                  default: false
-                data:
-                  type: object
-                  properties:
-                    REQUIRED:
-                      type: array
-                      items:
-                        type: object
-                        additionalProperties:
-                          type: string
-                    RECOMMENDED:
-                      type: array
-                      items:
-                        type: object
-                        additionalProperties:
-                          type: string
-                    OPTIONAL:
-                      type: array
-                      items:
-                        type: object
-                        additionalProperties:
-                          type: string
-        badge:
-          type: object
-          properties:
-            software:
-              type: string
-              enum:
-                - BRONZE
-                - SILVER
-                - GOLD
-            services:
-              type: string
-              enum:
-                - BRONZE
-                - SILVER
-                - GOLD
-            fair:
-              type: string
-              enum:
-                - BRONZE
-                - SILVER
-                - GOLD
-      example:
-        report:
-          QC.Lic:
-            valid: true
-            data:
-              REQUIRED:
-                - licensee: <stdout>
-        badge:
-          software: BRONZE
-          services: SILVER
-          fair: GOLD
-    UpstreamError:
-      type: object
-      properties:
-        upstream_status:
-          type: integer
-        upstream_reason:
-          type: string
-      required:
-        - upstream_status
-        - upstream_reason
     Badge:
       type: object
       properties:
@@ -1248,6 +1172,67 @@ components:
           type: string
           format: date-time
           example: 2021-04-07T10:07:00.000Z
+    AssessmentOutput:
+      type: object
+      properties:
+        report:
+          type: object
+          additionalProperties:
+            example: QC.Lic
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                valid:
+                  type: boolean
+                  default: false
+                data:
+                  type: object
+                  properties:
+                    REQUIRED:
+                      type: array
+                      items:
+                        example: licensee
+                        type: object
+                        additionalProperties:
+                          type: string
+                    RECOMMENDED:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+                    OPTIONAL:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+          example:
+            QC.Lic:
+              valid: true
+              data:
+                REQUIRED:
+                  - licensee: <stdout>
+        badge:
+          type: object
+          properties:
+            software:
+              $ref: '#/components/schemas/Badge'
+            services:
+              $ref: '#/components/schemas/Badge'
+            fair:
+              $ref: '#/components/schemas/Badge'
+    UpstreamError:
+      type: object
+      properties:
+        upstream_status:
+          type: integer
+        upstream_reason:
+          type: string
+      required:
+        - upstream_status
+        - upstream_reason
     CriterionOutput:
       type: object
       additionalProperties:
