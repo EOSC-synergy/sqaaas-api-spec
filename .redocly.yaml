@@ -12,3 +12,4 @@ referenceDocs:
     colors:
       primary:
         main: "#32329f"
+  showConsole: true # Enable the API Console (the Try it functionality).
