@@ -1220,11 +1220,23 @@ components:
           type: object
           properties:
             software:
-              $ref: '#/components/schemas/Badge'
+              properties:
+                data:
+                  $ref: '#/components/schemas/Badge'
+                share:
+                  type: string
             services:
-              $ref: '#/components/schemas/Badge'
+              properties:
+                data:
+                  $ref: '#/components/schemas/Badge'
+                share:
+                  type: string
             fair:
-              $ref: '#/components/schemas/Badge'
+              properties:
+                data:
+                  $ref: '#/components/schemas/Badge'
+                share:
+                  type: string
     UpstreamError:
       type: object
       properties:

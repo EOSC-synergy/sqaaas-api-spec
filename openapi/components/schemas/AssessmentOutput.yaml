@@ -45,8 +45,20 @@ properties:
     type: object
     properties:
       software:
-        $ref: './Badge.yaml'
+        properties:
+          data:
+            $ref: './Badge.yaml'
+          share:
+            type: string
       services:
-        $ref: './Badge.yaml'
+        properties:
+          data:
+            $ref: './Badge.yaml'
+          share:
+            type: string
       fair:
-        $ref: './Badge.yaml'
+        properties:
+          data:
+            $ref: './Badge.yaml'
+          share:
+            type: string
