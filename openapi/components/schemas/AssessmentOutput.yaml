@@ -3,7 +3,6 @@ properties:
   report:
     type: object
     additionalProperties:
-      example: QC.Lic
       type: object
       additionalProperties:
         type: object
@@ -17,28 +16,31 @@ properties:
               REQUIRED:
                 type: array
                 items:
-                  example: licensee
                   type: object
-                  additionalProperties:
-                    type: string
+                  properties:
+                    name:
+                      type: string
               RECOMMENDED:
                 type: array
                 items:
                   type: object
-                  additionalProperties:
-                    type: string
+                  properties:
+                    name:
+                      type: string
               OPTIONAL:
                 type: array
                 items:
                   type: object
-                  additionalProperties:
-                    type: string
+                  properties:
+                    name:
+                      type: string
     example:
       QC.Lic:
         valid: true
         data:
           REQUIRED:
-            - licensee: "<stdout>"
+            - name: licensee
+              data_unstructured: {}
   badge:
     type: object
     properties:
