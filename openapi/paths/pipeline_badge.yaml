@@ -8,13 +8,6 @@ get:
       required: true
       schema:
         type: string
-    - in: query
-      name: share
-      description: Returns the shared version of the badge in a specific format
-      required: false
-      schema:
-        type: string
-        enum: [html]
   description: >
     Returns the badge data associated with the pipeline.
   responses:
