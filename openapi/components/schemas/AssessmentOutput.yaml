@@ -31,18 +31,18 @@ properties:
       software:
         properties:
           data:
-            $ref: './Badge.yaml'
+            $ref: './BadgeAssertion.yaml'
           share:
             type: string
       services:
         properties:
           data:
-            $ref: './Badge.yaml'
+            $ref: './BadgeAssertion.yaml'
           share:
             type: string
       fair:
         properties:
           data:
-            $ref: './Badge.yaml'
+            $ref: './BadgeAssertion.yaml'
           share:
             type: string

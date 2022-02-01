@@ -25,7 +25,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/schemas/Badge.yaml'
+              $ref: '../components/schemas/BadgeAssertion.yaml'
     '400':
       description: Invalid pipeline ID supplied
     '404':
