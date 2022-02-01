@@ -687,14 +687,6 @@ paths:
           required: true
           schema:
             type: string
-        - in: query
-          name: share
-          description: Returns the shared version of the badge in a specific format
-          required: false
-          schema:
-            type: string
-            enum:
-              - html
       description: |
         Returns the badge data associated with the pipeline.
       responses:
@@ -703,9 +695,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Badge'
+                $ref: '#/components/schemas/Badge'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -1158,7 +1148,7 @@ components:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
         data_unstructured:
           type: object
-    Badge:
+    BadgeAssertion:
       type: object
       properties:
         openBadgeID:
@@ -1241,19 +1231,19 @@ components:
             software:
               properties:
                 data:
-                  $ref: '#/components/schemas/Badge'
+                  $ref: '#/components/schemas/BadgeAssertion'
                 share:
                   type: string
             services:
               properties:
                 data:
-                  $ref: '#/components/schemas/Badge'
+                  $ref: '#/components/schemas/BadgeAssertion'
                 share:
                   type: string
             fair:
               properties:
                 data:
-                  $ref: '#/components/schemas/Badge'
+                  $ref: '#/components/schemas/BadgeAssertion'
                 share:
                   type: string
     UpstreamError:
@@ -1266,6 +1256,40 @@ components:
       required:
         - upstream_status
         - upstream_reason
+    Badge:
+      type: object
+      properties:
+        software:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/BadgeAssertion'
+            share:
+              type: string
+              example: <html>..</html>
+            verification_url:
+              type: string
+              format: uri
+        services:
+          properties:
+            data:
+              $ref: '#/components/schemas/BadgeAssertion'
+            share:
+              type: string
+              example: <html>..</html>
+            verification_url:
+              type: string
+              format: uri
+        fair:
+          properties:
+            data:
+              $ref: '#/components/schemas/BadgeAssertion'
+            share:
+              type: string
+              example: <html>..</html>
+            verification_url:
+              type: string
+              format: uri
     CriterionOutput:
       type: object
       additionalProperties:
