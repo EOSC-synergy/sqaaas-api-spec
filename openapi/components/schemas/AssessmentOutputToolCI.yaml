@@ -9,6 +9,8 @@ properties:
     description: string-like exit status of the stage where the tool ran
   stdout_command:
     type: array
+    items:
+      type: string
     description: list of commands executed in the stage
   stdout_text:
     type: string
