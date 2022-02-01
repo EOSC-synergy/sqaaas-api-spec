@@ -1,0 +1,19 @@
+type: object
+properties:
+  name:
+    type: string
+    description: name of the stage the tool was executed
+  status:
+    type: string
+    enum: [SUCCESS, FAILURE]
+    description: string-like exit status of the stage where the tool ran
+  stdout_command:
+    type: array
+    description: list of commands executed in the stage
+  stdout_text:
+    type: string
+    description: string containing the output of the tool execution
+  url:
+    type: string
+    format: uri
+    description: URL of the stage

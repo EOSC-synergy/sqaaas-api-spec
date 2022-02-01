@@ -1,0 +1,10 @@
+type: object
+properties:
+  name:
+    type: string
+  validator:
+    type: string
+  ci:
+    $ref: './AssessmentOutputToolCI.yaml'
+  data_unstructured:
+    type: object

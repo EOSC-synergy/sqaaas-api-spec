@@ -16,31 +16,15 @@ properties:
               REQUIRED:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
+                  $ref: './AssessmentOutputTool.yaml'
               RECOMMENDED:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
+                  $ref: './AssessmentOutputTool.yaml'
               OPTIONAL:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-    example:
-      QC.Lic:
-        valid: true
-        data:
-          REQUIRED:
-            - name: licensee
-              data_unstructured: {}
+                  $ref: './AssessmentOutputTool.yaml'
   badge:
     type: object
     properties:
