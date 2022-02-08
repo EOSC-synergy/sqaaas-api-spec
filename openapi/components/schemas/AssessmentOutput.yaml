@@ -3,28 +3,27 @@ properties:
   report:
     type: object
     additionalProperties:
+      description: ID of the criterion
       type: object
-      additionalProperties:
-        type: object
-        properties:
-          valid:
-            type: boolean
-            default: false
-          data:
-            type: object
-            properties:
-              REQUIRED:
-                type: array
-                items:
-                  $ref: './AssessmentOutputTool.yaml'
-              RECOMMENDED:
-                type: array
-                items:
-                  $ref: './AssessmentOutputTool.yaml'
-              OPTIONAL:
-                type: array
-                items:
-                  $ref: './AssessmentOutputTool.yaml'
+      properties:
+        valid:
+          type: boolean
+          default: false
+        data:
+          type: object
+          properties:
+            REQUIRED:
+              type: array
+              items:
+                $ref: './AssessmentOutputTool.yaml'
+            RECOMMENDED:
+              type: array
+              items:
+                $ref: './AssessmentOutputTool.yaml'
+            OPTIONAL:
+              type: array
+              items:
+                $ref: './AssessmentOutputTool.yaml'
   badge:
     type: object
     properties:

@@ -1203,28 +1203,27 @@ components:
         report:
           type: object
           additionalProperties:
+            description: ID of the criterion
             type: object
-            additionalProperties:
-              type: object
-              properties:
-                valid:
-                  type: boolean
-                  default: false
-                data:
-                  type: object
-                  properties:
-                    REQUIRED:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/AssessmentOutputTool'
-                    RECOMMENDED:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/AssessmentOutputTool'
-                    OPTIONAL:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/AssessmentOutputTool'
+            properties:
+              valid:
+                type: boolean
+                default: false
+              data:
+                type: object
+                properties:
+                  REQUIRED:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AssessmentOutputTool'
+                  RECOMMENDED:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AssessmentOutputTool'
+                  OPTIONAL:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AssessmentOutputTool'
         badge:
           type: object
           properties:
