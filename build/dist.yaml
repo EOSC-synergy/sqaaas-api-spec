@@ -695,7 +695,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Badge'
+                $ref: '#/components/schemas/BadgeAssertion'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -1256,40 +1256,6 @@ components:
       required:
         - upstream_status
         - upstream_reason
-    Badge:
-      type: object
-      properties:
-        software:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/BadgeAssertion'
-            share:
-              type: string
-              example: <html>..</html>
-            verification_url:
-              type: string
-              format: uri
-        services:
-          properties:
-            data:
-              $ref: '#/components/schemas/BadgeAssertion'
-            share:
-              type: string
-              example: <html>..</html>
-            verification_url:
-              type: string
-              format: uri
-        fair:
-          properties:
-            data:
-              $ref: '#/components/schemas/BadgeAssertion'
-            share:
-              type: string
-              example: <html>..</html>
-            verification_url:
-              type: string
-              format: uri
     CriterionOutput:
       type: object
       additionalProperties:
