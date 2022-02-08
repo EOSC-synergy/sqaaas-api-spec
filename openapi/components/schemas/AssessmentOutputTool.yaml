@@ -3,7 +3,7 @@ properties:
   name:
     type: string
   validator:
-    type: string
+    $ref: './AssessmentOutputToolValidator.yaml'
   ci:
     $ref: './AssessmentOutputToolCI.yaml'
   data_unstructured:

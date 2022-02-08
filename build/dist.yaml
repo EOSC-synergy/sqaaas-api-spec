@@ -1113,6 +1113,16 @@ components:
           $ref: '#/components/schemas/Repository'
       required:
         - repo_code
+    AssessmentOutputToolValidator:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the validator plugin
+          example: licensee
+        valid:
+          type: boolean
+          description: <true> if validation is successful
     AssessmentOutputToolCI:
       type: object
       properties:
@@ -1143,7 +1153,7 @@ components:
         name:
           type: string
         validator:
-          type: string
+          $ref: '#/components/schemas/AssessmentOutputToolValidator'
         ci:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
         data_unstructured:

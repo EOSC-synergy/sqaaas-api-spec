@@ -1,0 +1,9 @@
+type: object
+properties:
+  name:
+    type: string
+    description: name of the validator plugin
+    example: licensee
+  valid:
+    type: boolean
+    description: <true> if validation is successful
