@@ -4,6 +4,10 @@ properties:
     type: string
   validator:
     type: string
+  subcriteria:
+    type: array
+    items:
+      $ref: './AssessmentOutputToolSubcriterion.yaml'
   ci:
     $ref: './AssessmentOutputToolCI.yaml'
   data_unstructured:

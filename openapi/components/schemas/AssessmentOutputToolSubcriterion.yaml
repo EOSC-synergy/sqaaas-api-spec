@@ -1,0 +1,25 @@
+type: object
+properties:
+  id:
+    type: string
+    example: QC.Doc06
+  evidence:
+    type: string
+    description: Claim about the result of checking the subcriterion
+    example: README file does not exist
+  valid:
+    type: boolean
+    description: <true> if the subcriterion is valid
+  standard:
+    type: object
+    properties:
+      title:
+        type: string
+        example: A set of Common Software Quality Assurance Baseline Criteria for Research Projects
+      version:
+        type: string
+        example: v4.0
+      url:
+        type: string
+        format: uri
+        example: https://indigo-dc.github.io/sqa-baseline/
