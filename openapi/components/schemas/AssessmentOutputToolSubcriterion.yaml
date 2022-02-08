@@ -3,6 +3,9 @@ properties:
   id:
     type: string
     example: QC.Doc06
+  description:
+    type: string
+    example: All code repositories MUST have a README file
   evidence:
     type: string
     description: Claim about the result of checking the subcriterion
@@ -10,6 +13,7 @@ properties:
   valid:
     type: boolean
     description: <true> if the subcriterion is valid
+    example: false
   standard:
     type: object
     properties:
