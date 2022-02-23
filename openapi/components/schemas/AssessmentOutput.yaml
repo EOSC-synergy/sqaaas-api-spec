@@ -9,21 +9,10 @@ properties:
         valid:
           type: boolean
           default: false
-        data:
-          type: object
-          properties:
-            REQUIRED:
-              type: array
-              items:
-                $ref: './AssessmentOutputTool.yaml'
-            RECOMMENDED:
-              type: array
-              items:
-                $ref: './AssessmentOutputTool.yaml'
-            OPTIONAL:
-              type: array
-              items:
-                $ref: './AssessmentOutputTool.yaml'
+        validator_data:
+          type: array
+          items:
+            $ref: './AssessmentOutputValidator.yaml'
   badge:
     type: object
     properties:

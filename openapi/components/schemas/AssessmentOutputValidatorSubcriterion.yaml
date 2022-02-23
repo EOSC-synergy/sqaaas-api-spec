@@ -14,16 +14,3 @@ properties:
     type: boolean
     description: <true> if the subcriterion is valid
     example: false
-  standard:
-    type: object
-    properties:
-      title:
-        type: string
-        example: A set of Common Software Quality Assurance Baseline Criteria for Research Projects
-      version:
-        type: string
-        example: v4.0
-      url:
-        type: string
-        format: uri
-        example: https://indigo-dc.github.io/sqa-baseline/

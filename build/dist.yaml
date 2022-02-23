@@ -1113,7 +1113,22 @@ components:
           $ref: '#/components/schemas/Repository'
       required:
         - repo_code
-    AssessmentOutputToolSubcriterion:
+    AssessmentOutputValidatorStandard:
+      type: object
+      properties:
+        title:
+          type: string
+          example: >-
+            A set of Common Software Quality Assurance Baseline Criteria for
+            Research Projects
+        version:
+          type: string
+          example: v4.0
+        url:
+          type: string
+          format: uri
+          example: 'https://indigo-dc.github.io/sqa-baseline/'
+    AssessmentOutputValidatorSubcriterion:
       type: object
       properties:
         id:
@@ -1130,21 +1145,6 @@ components:
           type: boolean
           description: <true> if the subcriterion is valid
           example: false
-        standard:
-          type: object
-          properties:
-            title:
-              type: string
-              example: >-
-                A set of Common Software Quality Assurance Baseline Criteria for
-                Research Projects
-            version:
-              type: string
-              example: v4.0
-            url:
-              type: string
-              format: uri
-              example: 'https://indigo-dc.github.io/sqa-baseline/'
     AssessmentOutputToolCI:
       type: object
       properties:
@@ -1169,17 +1169,24 @@ components:
           type: string
           format: uri
           description: URL of the stage
-    AssessmentOutputTool:
+    AssessmentOutputValidator:
       type: object
       properties:
         name:
           type: string
-        validator:
+          example: report2sqaaas-plugin-licensee
+        version:
           type: string
+          example: 1.0.0
+        tool:
+          type: string
+          example: licensee
+        standard:
+          $ref: '#/components/schemas/AssessmentOutputValidatorStandard'
         subcriteria:
           type: array
           items:
-            $ref: '#/components/schemas/AssessmentOutputToolSubcriterion'
+            $ref: '#/components/schemas/AssessmentOutputValidatorSubcriterion'
         ci:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
         data_unstructured:
@@ -1256,21 +1263,10 @@ components:
               valid:
                 type: boolean
                 default: false
-              data:
-                type: object
-                properties:
-                  REQUIRED:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/AssessmentOutputTool'
-                  RECOMMENDED:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/AssessmentOutputTool'
-                  OPTIONAL:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/AssessmentOutputTool'
+              validator_data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssessmentOutputValidator'
         badge:
           type: object
           properties:
