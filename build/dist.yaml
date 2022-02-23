@@ -695,7 +695,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadgeAssertion'
+                $ref: '#/components/schemas/Badge'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -1197,6 +1197,17 @@ components:
           type: string
           format: date-time
           example: 2021-04-07T10:07:00.000Z
+    Badge:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BadgeAssertion'
+        share:
+          type: string
+          example: <html>..</html>
+        verification_url:
+          type: string
+          format: uri
     AssessmentOutput:
       type: object
       properties:
@@ -1228,23 +1239,11 @@ components:
           type: object
           properties:
             software:
-              properties:
-                data:
-                  $ref: '#/components/schemas/BadgeAssertion'
-                share:
-                  type: string
+              $ref: '#/components/schemas/Badge'
             services:
-              properties:
-                data:
-                  $ref: '#/components/schemas/BadgeAssertion'
-                share:
-                  type: string
+              $ref: '#/components/schemas/Badge'
             fair:
-              properties:
-                data:
-                  $ref: '#/components/schemas/BadgeAssertion'
-                share:
-                  type: string
+              $ref: '#/components/schemas/Badge'
     UpstreamError:
       type: object
       properties:

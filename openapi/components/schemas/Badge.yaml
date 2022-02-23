@@ -1,0 +1,10 @@
+type: object
+properties:
+  data:
+    $ref: './BadgeAssertion.yaml'
+  share:
+    type: string
+    example: '<html>..</html>'
+  verification_url:
+    type: string
+    format: uri
