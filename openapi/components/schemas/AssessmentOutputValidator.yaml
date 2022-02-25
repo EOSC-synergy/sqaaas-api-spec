@@ -1,11 +1,14 @@
 type: object
 properties:
-  name:
-    type: string
-    example: report2sqaaas-plugin-licensee
-  version:
-    type: string
-    example: 1.0.0
+  plugin:
+    type: object
+    properties:
+      name:
+        type: string
+        example: report2sqaaas-plugin-licensee
+      version:
+        type: string
+        example: 1.0.0
   tool:
     type: string
     example: licensee
