@@ -10,15 +10,12 @@ properties:
         type: string
         example: 1.0.0
   tool:
-    type: string
-    example: licensee
+    $ref: './AssessmentOutputValidatorTool.yaml'
   standard:
     $ref: './AssessmentOutputValidatorStandard.yaml'
   subcriteria:
     type: array
     items:
       $ref: './AssessmentOutputValidatorSubcriterion.yaml'
-  ci:
-    $ref: './AssessmentOutputToolCI.yaml'
   data_unstructured:
     type: object

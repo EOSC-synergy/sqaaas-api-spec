@@ -1113,6 +1113,44 @@ components:
           $ref: '#/components/schemas/Repository'
       required:
         - repo_code
+    AssessmentOutputToolCI:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the stage the tool was executed
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+          description: string-like exit status of the stage where the tool ran
+        stdout_command:
+          type: array
+          items:
+            type: string
+          description: list of commands executed in the stage
+        stdout_text:
+          type: string
+          description: string containing the output of the tool execution
+        url:
+          type: string
+          format: uri
+          description: URL of the stage
+    AssessmentOutputValidatorTool:
+      type: object
+      properties:
+        name:
+          type: string
+          example: licensee
+        ci:
+          $ref: '#/components/schemas/AssessmentOutputToolCI'
+        level:
+          type: string
+          enum:
+            - REQUIRED
+            - RECOMMENDED
+            - OPTIONAL
     AssessmentOutputValidatorStandard:
       type: object
       properties:
@@ -1145,50 +1183,26 @@ components:
           type: boolean
           description: <true> if the subcriterion is valid
           example: false
-    AssessmentOutputToolCI:
-      type: object
-      properties:
-        name:
-          type: string
-          description: name of the stage the tool was executed
-        status:
-          type: string
-          enum:
-            - SUCCESS
-            - FAILURE
-          description: string-like exit status of the stage where the tool ran
-        stdout_command:
-          type: array
-          items:
-            type: string
-          description: list of commands executed in the stage
-        stdout_text:
-          type: string
-          description: string containing the output of the tool execution
-        url:
-          type: string
-          format: uri
-          description: URL of the stage
     AssessmentOutputValidator:
       type: object
       properties:
-        name:
-          type: string
-          example: report2sqaaas-plugin-licensee
-        version:
-          type: string
-          example: 1.0.0
+        plugin:
+          type: object
+          properties:
+            name:
+              type: string
+              example: report2sqaaas-plugin-licensee
+            version:
+              type: string
+              example: 1.0.0
         tool:
-          type: string
-          example: licensee
+          $ref: '#/components/schemas/AssessmentOutputValidatorTool'
         standard:
           $ref: '#/components/schemas/AssessmentOutputValidatorStandard'
         subcriteria:
           type: array
           items:
             $ref: '#/components/schemas/AssessmentOutputValidatorSubcriterion'
-        ci:
-          $ref: '#/components/schemas/AssessmentOutputToolCI'
         data_unstructured:
           type: object
     BadgeAssertion:
