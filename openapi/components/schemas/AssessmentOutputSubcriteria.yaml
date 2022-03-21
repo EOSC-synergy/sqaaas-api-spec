@@ -1,0 +1,12 @@
+type: object
+properties:
+  description:
+    type: string
+    example: All code repositories MUST have a README file
+  valid:
+    type: boolean
+    description: <true> if the subcriterion is valid
+  evidence:
+    type: array
+    items:
+      $ref: './AssessmentOutputValidator.yaml'

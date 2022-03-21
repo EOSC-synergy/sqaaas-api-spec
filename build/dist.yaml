@@ -1166,26 +1166,16 @@ components:
           type: string
           format: uri
           example: 'https://indigo-dc.github.io/sqa-baseline/'
-    AssessmentOutputValidatorSubcriterion:
-      type: object
-      properties:
-        id:
-          type: string
-          example: QC.Doc06
-        description:
-          type: string
-          example: All code repositories MUST have a README file
-        evidence:
-          type: string
-          description: Claim about the result of checking the subcriterion
-          example: README file does not exist
-        valid:
-          type: boolean
-          description: <true> if the subcriterion is valid
-          example: false
     AssessmentOutputValidator:
       type: object
       properties:
+        valid:
+          type: boolean
+          description: <true> if the subcriterion is valid
+        message:
+          type: string
+          description: Evidence message
+          example: README file does not exist
         plugin:
           type: object
           properties:
@@ -1199,12 +1189,21 @@ components:
           $ref: '#/components/schemas/AssessmentOutputValidatorTool'
         standard:
           $ref: '#/components/schemas/AssessmentOutputValidatorStandard'
-        subcriteria:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssessmentOutputValidatorSubcriterion'
         data_unstructured:
           type: object
+    AssessmentOutputSubcriteria:
+      type: object
+      properties:
+        description:
+          type: string
+          example: All code repositories MUST have a README file
+        valid:
+          type: boolean
+          description: <true> if the subcriterion is valid
+        evidence:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssessmentOutputValidator'
     BadgeAssertion:
       type: object
       properties:
@@ -1277,10 +1276,10 @@ components:
               valid:
                 type: boolean
                 default: false
-              validator_data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AssessmentOutputValidator'
+              subcriteria:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AssessmentOutputSubcriteria'
         badge:
           type: object
           properties:

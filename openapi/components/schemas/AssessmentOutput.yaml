@@ -9,10 +9,10 @@ properties:
         valid:
           type: boolean
           default: false
-        validator_data:
-          type: array
-          items:
-            $ref: './AssessmentOutputValidator.yaml'
+        subcriteria:
+          type: object
+          additionalProperties:
+            $ref: './AssessmentOutputSubcriteria.yaml'
   badge:
     type: object
     properties:
