@@ -1276,6 +1276,13 @@ components:
               valid:
                 type: boolean
                 default: false
+              filtered_reason:
+                description: Contains the reason why the criterion was filtered out
+                type: array
+                default: []
+                items:
+                  type: string
+                  default: null
               subcriteria:
                 type: object
                 additionalProperties:
