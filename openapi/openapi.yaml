@@ -3,8 +3,8 @@ info:
   title: SQAaaS API
   description: OpenAPI specification for the Software and Service Quality Assurance as a Service (SQAaaS) component.
   license:
-    name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    name: GPLv3
+    url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
   version: 2.0.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
