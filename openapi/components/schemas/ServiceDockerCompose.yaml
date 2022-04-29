@@ -26,10 +26,6 @@ additionalProperties:
           properties:
             push:
               type: boolean
-            url:
-              type: string
-              format: uri
-              example: https://hub.docker.com/
             credential_id:
               type: string
               example: my-dockerhub-cred
