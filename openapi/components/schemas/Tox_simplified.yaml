@@ -1,4 +1,5 @@
 type: object
+description: Details about Python's tox configuration
 properties:
   testenv:
     type: array

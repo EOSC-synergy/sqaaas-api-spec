@@ -1,4 +1,5 @@
 type: object
+description: Details about the Jenkins Pipeline as Code
 properties:
   stages:
     type: array

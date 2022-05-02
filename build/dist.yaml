@@ -788,6 +788,9 @@ components:
         - description
     Tool:
       type: object
+      description: >-
+        Details about the tooling metadata (see
+        https://github.com/eosc-synergy/sqaaas-tooling)
       properties:
         name:
           type: string
@@ -849,19 +852,23 @@ components:
       properties:
         repo:
           type: string
+          description: URL of the repository
           format: uri
           example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
         branch:
           type: string
+          description: Branch name
           example: master
     Creds_user_pass:
       type: object
       properties:
         id:
           type: string
+          description: Credential ID (as defined in Jenkins)
           example: my-dockerhub-token
         type:
           type: string
+          description: Credential type
           enum:
             - username_password
         username_var:
@@ -876,6 +883,7 @@ components:
         - password_var
     Commands_simplified:
       type: array
+      description: List of commands to execute
       items:
         type: string
         minLength: 1
@@ -883,6 +891,7 @@ components:
         - 'mvn checkstyle:check'
     Tox_simplified:
       type: object
+      description: Details about Python's tox configuration
       properties:
         testenv:
           type: array
@@ -917,21 +926,30 @@ components:
       type: boolean
     CriterionBuild:
       type: object
+      description: Definition of software and service criteria to be run by the pipeline
       additionalProperties:
         type: object
+        description: ID of the criterion
         minProperties: 1
         properties:
           repos:
             type: array
+            description: >-
+              List of repositories (from config:project_repos) for which the
+              given criterion will be checked
             items:
               type: object
               properties:
                 repo_url:
                   type: string
+                  description: URL of the repository
                   format: uri
                   example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
                 container:
                   type: string
+                  description: >-
+                    Container name as defined in the JePL composer's file (i.e.
+                    docker-compose.yml)
                   example: testing
                 commands:
                   $ref: '#/components/schemas/Commands_simplified'
@@ -941,6 +959,10 @@ components:
                   $ref: '#/components/schemas/Tool'
               additionalProperties: false
           when:
+            type: object
+            description: >-
+              Requirements that should take into account to execute the
+              pipeline, such as branch/tags names
             properties:
               branch:
                 $ref: '#/components/schemas/When_branch'
@@ -951,6 +973,7 @@ components:
           - repos
     Environment:
       type: object
+      description: Environment variables to be used at pipeline runtime
       additionalProperties:
         type: string
       example:
@@ -958,25 +981,35 @@ components:
         JPL_DOCKERPUSH: docs service1 service4
     JePL_config:
       type: object
+      description: Properties for a single JePL's config.yml file
       properties:
         config:
           type: object
+          description: JePL's main configuration
           properties:
             project_repos:
               type: array
+              description: >-
+                Set of repositories to be fetched by the pipeline (may exclude
+                the repository where the pipeline is stored)
               items:
                 $ref: '#/components/schemas/Repository'
             credentials:
               type: array
+              description: >-
+                List of credentials required to access successfuly to the
+                resources (such as repositories) managed by the pipeline
               items:
                 $ref: '#/components/schemas/Creds_user_pass'
         sqa_criteria:
           type: object
+          description: List of software and service criteria to be run by the pipeline
           $ref: '#/components/schemas/CriterionBuild'
         environment:
           $ref: '#/components/schemas/Environment'
         timeout:
           type: integer
+          description: Maximum timeframe for the pipeline execution
           minimum: 1
     ServiceDockerCompose:
       type: object
@@ -1040,6 +1073,9 @@ components:
             default: true
     JePL_composer:
       type: object
+      description: >-
+        Details about the composition of the services required for the pipeline
+        execution
       properties:
         version:
           type: string
@@ -1049,6 +1085,7 @@ components:
           $ref: '#/components/schemas/ServiceDockerCompose'
     JePL_jenkinsfile:
       type: object
+      description: Details about the Jenkins Pipeline as Code
       properties:
         stages:
           type: array
@@ -1090,10 +1127,12 @@ components:
           example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
         name:
           type: string
+          description: Name that identifies the pipeline
           format: '[A-Za-z0-9_.-]'
           example: sqaaas-api-spec
         config_data:
           type: array
+          description: Details about the pipeline configuration
           items:
             $ref: '#/components/schemas/JePL_config'
         composer_data:
@@ -1308,7 +1347,6 @@ components:
           type: object
           properties:
             software:
-              description: Software's badging data
               $ref: '#/components/schemas/Badge'
             services:
               $ref: '#/components/schemas/Badge'

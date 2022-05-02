@@ -1,4 +1,5 @@
 type: object
+description: Details about the composition of the services required for the pipeline execution
 properties:
   version:
     type: string

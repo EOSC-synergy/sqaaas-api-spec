@@ -6,10 +6,12 @@ properties:
     example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
   name:
     type: string
+    description: Name that identifies the pipeline
     format: '[A-Za-z0-9_.-]'
     example: sqaaas-api-spec
   config_data:
     type: array
+    description: Details about the pipeline configuration
     items:
       $ref: './JePL_config.yaml'
   composer_data:

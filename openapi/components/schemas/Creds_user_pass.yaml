@@ -2,9 +2,11 @@ type: object
 properties:
   id:
     type: string
+    description: Credential ID (as defined in Jenkins)
     example: 'my-dockerhub-token'
   type:
     type: string
+    description: Credential type
     enum: [username_password]
   username_var:
     type: string
