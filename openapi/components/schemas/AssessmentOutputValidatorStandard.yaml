@@ -1,12 +1,16 @@
 type: object
+description: Details about the quality standard that defines the given subcriterion
 properties:
   title:
     type: string
+    description: Standard title
     example: A set of Common Software Quality Assurance Baseline Criteria for Research Projects
   version:
     type: string
+    description: Standard version
     example: v4.0
   url:
     type: string
+    description: URL containing the standard's specification
     format: uri
     example: https://indigo-dc.github.io/sqa-baseline/

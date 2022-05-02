@@ -1,19 +1,24 @@
 type: object
+description: Definition of software and service criteria to be run by the pipeline
 additionalProperties:
   type: object
+  description: ID of the criterion
   minProperties: 1
   properties:
     repos:
       type: array
+      description: List of repositories (from config:project_repos) for which the given criterion will be checked
       items:
         type: object
         properties:
           repo_url:
             type: string
+            description: URL of the repository
             format: uri
             example: https://github.com/eosc-synergy/sqaaas-api-spec
           container:
             type: string
+            description: Container name as defined in the JePL composer's file (i.e. docker-compose.yml)
             example: testing
           commands:
             $ref: './Commands_simplified.yaml'
@@ -23,6 +28,8 @@ additionalProperties:
             $ref: './Tool.yaml'
         additionalProperties: false
     when:
+      type: object
+      description: Requirements that should take into account to execute the pipeline, such as branch/tags names
       properties:
         branch:
           $ref: './When_branch.yaml'

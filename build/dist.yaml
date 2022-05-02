@@ -788,6 +788,9 @@ components:
         - description
     Tool:
       type: object
+      description: >-
+        Details about the tooling metadata (see
+        https://github.com/eosc-synergy/sqaaas-tooling)
       properties:
         name:
           type: string
@@ -827,41 +830,51 @@ components:
       properties:
         id:
           type: string
+          description: ID of the criterion
           example: QC.Sty
         description:
           type: object
+          description: Details about the criterion
           properties:
             msg:
               type: string
+              description: Short statemente about the criterion's goal
             improves:
               type: string
+              description: >-
+                Comma-separated list of software/service characteristics
+                addressed by the given criterion
             docs:
               type: string
+              description: URL with additional information about the criterion
               format: uri
         tools:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/Tool'
+          type: array
+          description: Set of tools that are supported for the given criterion
+          items:
+            $ref: '#/components/schemas/Tool'
     Repository:
       type: object
       properties:
         repo:
           type: string
+          description: URL of the repository
           format: uri
           example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
         branch:
           type: string
+          description: Branch name
           example: master
     Creds_user_pass:
       type: object
       properties:
         id:
           type: string
+          description: Credential ID (as defined in Jenkins)
           example: my-dockerhub-token
         type:
           type: string
+          description: Credential type
           enum:
             - username_password
         username_var:
@@ -876,6 +889,7 @@ components:
         - password_var
     Commands_simplified:
       type: array
+      description: List of commands to execute
       items:
         type: string
         minLength: 1
@@ -883,6 +897,7 @@ components:
         - 'mvn checkstyle:check'
     Tox_simplified:
       type: object
+      description: Details about Python's tox configuration
       properties:
         testenv:
           type: array
@@ -917,21 +932,30 @@ components:
       type: boolean
     CriterionBuild:
       type: object
+      description: Definition of software and service criteria to be run by the pipeline
       additionalProperties:
         type: object
+        description: ID of the criterion
         minProperties: 1
         properties:
           repos:
             type: array
+            description: >-
+              List of repositories (from config:project_repos) for which the
+              given criterion will be checked
             items:
               type: object
               properties:
                 repo_url:
                   type: string
+                  description: URL of the repository
                   format: uri
                   example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
                 container:
                   type: string
+                  description: >-
+                    Container name as defined in the JePL composer's file (i.e.
+                    docker-compose.yml)
                   example: testing
                 commands:
                   $ref: '#/components/schemas/Commands_simplified'
@@ -941,6 +965,10 @@ components:
                   $ref: '#/components/schemas/Tool'
               additionalProperties: false
           when:
+            type: object
+            description: >-
+              Requirements that should take into account to execute the
+              pipeline, such as branch/tags names
             properties:
               branch:
                 $ref: '#/components/schemas/When_branch'
@@ -951,6 +979,7 @@ components:
           - repos
     Environment:
       type: object
+      description: Environment variables to be used at pipeline runtime
       additionalProperties:
         type: string
       example:
@@ -958,16 +987,24 @@ components:
         JPL_DOCKERPUSH: docs service1 service4
     JePL_config:
       type: object
+      description: Properties for a single JePL's config.yml file
       properties:
         config:
           type: object
+          description: JePL's main configuration
           properties:
             project_repos:
               type: array
+              description: >-
+                Set of repositories to be fetched by the pipeline (may exclude
+                the repository where the pipeline is stored)
               items:
                 $ref: '#/components/schemas/Repository'
             credentials:
               type: array
+              description: >-
+                List of credentials required to access successfuly to the
+                resources (such as repositories) managed by the pipeline
               items:
                 $ref: '#/components/schemas/Creds_user_pass'
         sqa_criteria:
@@ -977,6 +1014,7 @@ components:
           $ref: '#/components/schemas/Environment'
         timeout:
           type: integer
+          description: Maximum timeframe for the pipeline execution
           minimum: 1
     ServiceDockerCompose:
       type: object
@@ -1040,6 +1078,9 @@ components:
             default: true
     JePL_composer:
       type: object
+      description: >-
+        Details about the composition of the services required for the pipeline
+        execution
       properties:
         version:
           type: string
@@ -1049,6 +1090,7 @@ components:
           $ref: '#/components/schemas/ServiceDockerCompose'
     JePL_jenkinsfile:
       type: object
+      description: Details about the Jenkins Pipeline as Code
       properties:
         stages:
           type: array
@@ -1086,14 +1128,17 @@ components:
       properties:
         id:
           type: string
+          description: ID of the criterion
           readOnly: true
           example: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
         name:
           type: string
+          description: Name that identifies the pipeline
           format: '[A-Za-z0-9_.-]'
           example: sqaaas-api-spec
         config_data:
           type: array
+          description: Details about the pipeline configuration
           items:
             $ref: '#/components/schemas/JePL_config'
         composer_data:
@@ -1111,55 +1156,63 @@ components:
         - repo_code
     AssessmentOutputToolCI:
       type: object
+      description: Details of the CI build where the tool was executed
       properties:
         name:
           type: string
-          description: name of the stage the tool was executed
+          description: Name of the stage the tool was executed
         status:
           type: string
+          description: Exit status of the stage where the tool ran
           enum:
             - SUCCESS
             - FAILURE
-          description: string-like exit status of the stage where the tool ran
         stdout_command:
           type: array
+          description: List of commands executed in the stage
           items:
             type: string
-          description: list of commands executed in the stage
         stdout_text:
+          description: Output of the tool execution
           type: string
-          description: string containing the output of the tool execution
         url:
           type: string
+          description: URL of the build's stage output
           format: uri
-          description: URL of the stage
     AssessmentOutputValidatorTool:
       type: object
+      description: Details about the tool
       properties:
         name:
           type: string
+          description: Name of the tool
           example: licensee
         ci:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
         level:
           type: string
+          description: Level of criticality of the tool
           enum:
             - REQUIRED
             - RECOMMENDED
             - OPTIONAL
     AssessmentOutputValidatorStandard:
       type: object
+      description: Details about the quality standard that defines the given subcriterion
       properties:
         title:
           type: string
+          description: Standard title
           example: >-
             A set of Common Software Quality Assurance Baseline Criteria for
             Research Projects
         version:
           type: string
+          description: Standard version
           example: v4.0
         url:
           type: string
+          description: URL containing the standard's specification
           format: uri
           example: 'https://indigo-dc.github.io/sqa-baseline/'
     AssessmentOutputValidator:
@@ -1167,18 +1220,21 @@ components:
       properties:
         valid:
           type: boolean
-          description: <true> if the subcriterion is valid
+          description: Validity of the subcriterion according to the tool
         message:
           type: string
-          description: Evidence message
+          description: Short statement about the evidence found
           example: README file does not exist
         plugin:
           type: object
+          description: Details about the tool's validator plugin being executed
           properties:
             name:
+              description: Name of the plugin
               type: string
               example: report2sqaaas-plugin-licensee
             version:
+              description: Version of the plugin
               type: string
               example: 1.0.0
         tool:
@@ -1187,21 +1243,26 @@ components:
           $ref: '#/components/schemas/AssessmentOutputValidatorStandard'
         data_unstructured:
           type: object
+          description: Any unstructured data provided by the tool
     AssessmentOutputSubcriteria:
       type: object
+      description: ID of the subcriterion
       properties:
         description:
           type: string
+          description: Short statement about the goal of the given subcriterion
           example: All code repositories MUST have a README file
         valid:
           type: boolean
-          description: <true> if the subcriterion is valid
+          description: Overall validity of the subcriterion
         evidence:
           type: array
+          description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
     BadgeAssertion:
       type: object
+      description: Badge data as obtained from Open Badge's Badgr implementation
       properties:
         openBadgeID:
           type: string
@@ -1256,9 +1317,11 @@ components:
           $ref: '#/components/schemas/BadgeAssertion'
         share:
           type: string
+          description: Badge's HTML block that can be embedded in websites
           example: <html>..</html>
         verification_url:
           type: string
+          description: URL the portal where the badge can be verified
           format: uri
     AssessmentOutput:
       type: object
@@ -1270,10 +1333,13 @@ components:
             type: object
             properties:
               valid:
+                description: Overall validity of the criterion
                 type: boolean
                 default: false
               filtered_reason:
-                description: Contains the reason why the criterion was filtered out
+                description: >-
+                  Contains the reason why the criterion was filtered out (if
+                  applicable)
                 type: array
                 default: []
                 items:
