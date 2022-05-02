@@ -1,12 +1,15 @@
 type: object
+description: ID of the subcriterion
 properties:
   description:
     type: string
+    description: Short statement about the goal of the given subcriterion
     example: All code repositories MUST have a README file
   valid:
     type: boolean
-    description: <true> if the subcriterion is valid
+    description: Overall validity of the subcriterion
   evidence:
     type: array
+    description: Evidence obtained by the tools for the given subcriterion
     items:
       $ref: './AssessmentOutputValidator.yaml'

@@ -1,21 +1,22 @@
 type: object
+description: Details of the CI build where the tool was executed
 properties:
   name:
     type: string
-    description: name of the stage the tool was executed
+    description: Name of the stage the tool was executed
   status:
     type: string
+    description: Exit status of the stage where the tool ran
     enum: [SUCCESS, FAILURE]
-    description: string-like exit status of the stage where the tool ran
   stdout_command:
     type: array
+    description: List of commands executed in the stage
     items:
       type: string
-    description: list of commands executed in the stage
   stdout_text:
+    description: Output of the tool execution
     type: string
-    description: string containing the output of the tool execution
   url:
     type: string
+    description: URL of the build's stage output
     format: uri
-    description: URL of the stage

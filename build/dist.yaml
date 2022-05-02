@@ -1111,55 +1111,63 @@ components:
         - repo_code
     AssessmentOutputToolCI:
       type: object
+      description: Details of the CI build where the tool was executed
       properties:
         name:
           type: string
-          description: name of the stage the tool was executed
+          description: Name of the stage the tool was executed
         status:
           type: string
+          description: Exit status of the stage where the tool ran
           enum:
             - SUCCESS
             - FAILURE
-          description: string-like exit status of the stage where the tool ran
         stdout_command:
           type: array
+          description: List of commands executed in the stage
           items:
             type: string
-          description: list of commands executed in the stage
         stdout_text:
+          description: Output of the tool execution
           type: string
-          description: string containing the output of the tool execution
         url:
           type: string
+          description: URL of the build's stage output
           format: uri
-          description: URL of the stage
     AssessmentOutputValidatorTool:
       type: object
+      description: Details about the tool
       properties:
         name:
           type: string
+          description: Name of the tool
           example: licensee
         ci:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
         level:
           type: string
+          description: Level of criticality of the tool
           enum:
             - REQUIRED
             - RECOMMENDED
             - OPTIONAL
     AssessmentOutputValidatorStandard:
       type: object
+      description: Details about the quality standard that defines the given subcriterion
       properties:
         title:
           type: string
+          description: Standard title
           example: >-
             A set of Common Software Quality Assurance Baseline Criteria for
             Research Projects
         version:
           type: string
+          description: Standard version
           example: v4.0
         url:
           type: string
+          description: URL containing the standard's specification
           format: uri
           example: 'https://indigo-dc.github.io/sqa-baseline/'
     AssessmentOutputValidator:
@@ -1167,18 +1175,21 @@ components:
       properties:
         valid:
           type: boolean
-          description: <true> if the subcriterion is valid
+          description: Validity of the subcriterion according to the tool
         message:
           type: string
-          description: Evidence message
+          description: Short statement about the evidence found
           example: README file does not exist
         plugin:
           type: object
+          description: Details about the tool's validator plugin being executed
           properties:
             name:
+              description: Name of the plugin
               type: string
               example: report2sqaaas-plugin-licensee
             version:
+              description: Version of the plugin
               type: string
               example: 1.0.0
         tool:
@@ -1187,21 +1198,26 @@ components:
           $ref: '#/components/schemas/AssessmentOutputValidatorStandard'
         data_unstructured:
           type: object
+          description: Any unstructured data provided by the tool
     AssessmentOutputSubcriteria:
       type: object
+      description: ID of the subcriterion
       properties:
         description:
           type: string
+          description: Short statement about the goal of the given subcriterion
           example: All code repositories MUST have a README file
         valid:
           type: boolean
-          description: <true> if the subcriterion is valid
+          description: Overall validity of the subcriterion
         evidence:
           type: array
+          description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
     BadgeAssertion:
       type: object
+      description: Badge data as obtained from Open Badge's Badgr implementation
       properties:
         openBadgeID:
           type: string
@@ -1256,9 +1272,11 @@ components:
           $ref: '#/components/schemas/BadgeAssertion'
         share:
           type: string
+          description: Badge's HTML block that can be embedded in websites
           example: <html>..</html>
         verification_url:
           type: string
+          description: URL the portal where the badge can be verified
           format: uri
     AssessmentOutput:
       type: object
@@ -1270,10 +1288,13 @@ components:
             type: object
             properties:
               valid:
+                description: Overall validity of the criterion
                 type: boolean
                 default: false
               filtered_reason:
-                description: Contains the reason why the criterion was filtered out
+                description: >-
+                  Contains the reason why the criterion was filtered out (if
+                  applicable)
                 type: array
                 default: []
                 items:
@@ -1287,6 +1308,7 @@ components:
           type: object
           properties:
             software:
+              description: Software's badging data
               $ref: '#/components/schemas/Badge'
             services:
               $ref: '#/components/schemas/Badge'

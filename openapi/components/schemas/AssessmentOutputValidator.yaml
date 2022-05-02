@@ -2,18 +2,21 @@ type: object
 properties:
   valid:
     type: boolean
-    description: <true> if the subcriterion is valid
+    description: Validity of the subcriterion according to the tool
   message:
     type: string
-    description: Evidence message
+    description: Short statement about the evidence found
     example: README file does not exist
   plugin:
     type: object
+    description: Details about the tool's validator plugin being executed
     properties:
       name:
+        description: Name of the plugin
         type: string
         example: report2sqaaas-plugin-licensee
       version:
+        description: Version of the plugin
         type: string
         example: 1.0.0
   tool:
@@ -22,3 +25,4 @@ properties:
     $ref: './AssessmentOutputValidatorStandard.yaml'
   data_unstructured:
     type: object
+    description: Any unstructured data provided by the tool
