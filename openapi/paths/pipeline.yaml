@@ -4,6 +4,15 @@ post:
   description: >
     Provides a ready-to-use Jenkins pipeline based on the v2 series of
     jenkins-pipeline-library.
+  parameters:
+    - in: query
+      name: report_to_stdout
+      description: Flag to indicate whether the pipeline shall print via
+        via stdout the reports produced by the tools (required by QAA module)
+      required: false
+      schema:
+        type: boolean
+        default: false
   requestBody:
     required: true
     content:
@@ -31,6 +40,8 @@ post:
           description: >
             The `id` value returned in the response can be used as
             the `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+    '400':
+      description: Request failed validation
 get:
   operationId: get_pipelines
   summary: Gets pipeline IDs.

@@ -24,9 +24,14 @@ get:
               build_status:
                 type: string
                 enum: [success, failure, aborted, not_built, unstable, waiting_scan_org]
+              openbadge_id:
+                type: string
+                format: uri
     '400':
       description: Invalid pipeline ID supplied
     '404':
       description: Pipeline not found
+    '422':
+      description: Pipeline has not been executed
     '502':
       $ref: '../components/responses/BadGateway.yaml'

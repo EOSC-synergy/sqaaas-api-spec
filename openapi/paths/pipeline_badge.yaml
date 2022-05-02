@@ -1,0 +1,25 @@
+get:
+  operationId: get_badge
+  summary: Gets badge data associated with the given pipeline
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  description: >
+    Returns the badge data associated with the pipeline.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Badge.yaml'
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '422':
+      description: Badge not issued

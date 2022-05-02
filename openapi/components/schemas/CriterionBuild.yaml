@@ -1,24 +1,33 @@
 type: object
 additionalProperties:
   type: object
-  additionalProperties:
-    type: object
-    properties:
-      repos:
-        type: object
-        additionalProperties:
-          type: object
-          properties:
-            container:
-              type: string
-          additionalProperties:
-            anyOf:
-              - $ref: './Commands.yaml'
-              - $ref: './Tox.yaml'
-example:
-  qc_style:
+  minProperties: 1
+  properties:
     repos:
-      simple-java-maven-app:
-        container: checkstyle
-        commands:
-        - mvn checkstyle:check
+      type: array
+      items:
+        type: object
+        properties:
+          repo_url:
+            type: string
+            format: uri
+            example: https://github.com/eosc-synergy/sqaaas-api-spec
+          container:
+            type: string
+            example: testing
+          commands:
+            $ref: './Commands_simplified.yaml'
+          tox:
+            $ref: './Tox_simplified.yaml'
+          tool:
+            $ref: './Tool.yaml'
+        additionalProperties: false
+    when:
+      properties:
+        branch:
+          $ref: './When_branch.yaml'
+        building_tag:
+          $ref: './When_building_tag.yaml'
+      additionalProperties: false
+  required:
+    - repos

@@ -1,0 +1,8 @@
+type: object
+properties:
+  repo_code:
+    $ref: './Repository.yaml'
+  repo_docs:
+    $ref: './Repository.yaml'
+required:
+  - repo_code

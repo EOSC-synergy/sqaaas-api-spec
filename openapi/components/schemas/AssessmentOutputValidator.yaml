@@ -1,0 +1,24 @@
+type: object
+properties:
+  valid:
+    type: boolean
+    description: <true> if the subcriterion is valid
+  message:
+    type: string
+    description: Evidence message
+    example: README file does not exist
+  plugin:
+    type: object
+    properties:
+      name:
+        type: string
+        example: report2sqaaas-plugin-licensee
+      version:
+        type: string
+        example: 1.0.0
+  tool:
+    $ref: './AssessmentOutputValidatorTool.yaml'
+  standard:
+    $ref: './AssessmentOutputValidatorStandard.yaml'
+  data_unstructured:
+    type: object

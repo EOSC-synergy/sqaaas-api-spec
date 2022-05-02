@@ -1,0 +1,33 @@
+get:
+  operationId: get_pipeline_jenkinsfile_jepl
+  summary: Gets Jenkins configuration for the given pipeline.
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  description: >
+    Returns the content of Jenkinsfile file for the given pipeline.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_name:
+                type: string
+                example:
+                  file_name: Jenkinsfile
+              content:
+                type: string
+            example:
+              file_name: Jenkinsfile
+              content: "@Library(['github.com/indigo-dc/jenkins-pipeline-library@release/2.1.0']) _\n\ndef projectConfig\n\npipeline {\n    agent any\n\n    stages {\n        stage('SQA baseline criterion: QC.Sty') {\n            when {\n                branch pattern: 'sqaaas', comparator: ''\n            }\n            steps {\n                script {\n                    projectConfig = pipelineConfig(\n                        configFile: '.sqa/config.yml',\n                        scmConfigs: [ localBranch: true ]\n                    )\n                    buildStages(projectConfig)\n                }\n            }\n            post {\n                cleanup {\n                    cleanWs()\n                }\n            }\n        }\n        stage('SQA baseline criterion: QC.Doc') {\n            when {\n                branch pattern: 'build', comparator: ''\n            }\n            steps {\n                script {\n                    projectConfig = pipelineConfig(\n                        configFile: '.sqa/config.snappy-peach-chicken.yml',\n                        scmConfigs: [ localBranch: true ]\n                    )\n                    buildStages(projectConfig)\n                }\n            }\n            post {\n                cleanup {\n                    cleanWs()\n                }\n            }\n        }\n    }\n}"
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found

@@ -1,0 +1,38 @@
+type: object
+properties:
+  type:
+    type: string
+    enum: [subcommand, positional, optional]
+    description: type of argument
+  description:
+    type: string
+    description: hint about what the command does
+    example: Detect the license of the given project
+  value:
+    description: Value for the argument (can be of any type)
+    example: detect
+  option:
+    type: string
+    description: Name of the option, in the event of optional arguments
+  summary:
+    type: string
+    description: very brief (2/3 words) description (to be rendered by web clients)
+  format:
+    type: string
+    enum: [string, array]
+    description: The value format (to be rendered by web clients)
+  selectable:
+    type: boolean
+    description: Whether the argument can be selected by the user (to be rendered by web clients)
+    default: true
+  repeatable:
+    type: boolean
+    description: Whether the argument can be repeated (to be rendered by web clients)
+    default: false
+  args:
+    type: array
+    items:
+      $ref: './ToolArg.yaml'
+required:
+  - type
+  - description

@@ -1,0 +1,33 @@
+get:
+  operationId: get_pipeline_output
+  summary: Get output from pipeline execution
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+    - in: query
+      name: validate
+      description: Flag to indicate whether the returned output shall be validate using sqaaas-reporting tool
+      required: false
+      schema:
+        type: boolean
+        default: false
+  description: >
+    Returns the console output from the pipeline execution.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '../components/schemas/CriterionOutput.yaml'
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '422':
+      description: Pipeline has not been executed

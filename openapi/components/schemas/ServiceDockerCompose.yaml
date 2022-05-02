@@ -2,10 +2,42 @@ type: object
 additionalProperties:
   type: object
   properties:
+    build:
+      type: object
+      properties:
+        context:
+          type: string
+          example: ./dir
+        dockerfile:
+          type: string
+          example: Dockerfile-alternate
+        args:
+          type: object
+          additionalProperties:
+            type: string
     image:
-      type: string
+      type: object
+      properties:
+        name:
+          type: string
+          example: eoscsynergy/sqaaas-api-spec:1.0.0
+        registry:
+          type: object
+          properties:
+            push:
+              type: boolean
+            url:
+              type: string
+              format: uri
+              example: https://hub.docker.com/
+            credential_id:
+              type: string
+              example: my-dockerhub-cred
+      required:
+        - name
     hostname:
       type: string
+      example: sqaaas-host
     volumes:
       type: array
       items:
@@ -16,16 +48,15 @@ additionalProperties:
             enum: [bind]
           source:
             type: string
+            example: ./
           target:
             type: string
+            example: ./sqaaas-build
     command:
       type: string
-example:
-  checkstyle:
-    image: checkstyle/maven-builder-image
-    hostname: checkstyle-host
-    volumes:
-    - source: ./
-      target: ./simple-java-app
-      type: bind
-    command: sleep 600000
+      example: sleep 600000
+    environment:
+      $ref: './Environment.yaml'
+    oneshot:
+      type: boolean
+      default: true

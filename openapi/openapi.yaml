@@ -3,9 +3,9 @@ info:
   title: SQAaaS API
   description: OpenAPI specification for the Software and Service Quality Assurance as a Service (SQAaaS) component.
   license:
-    name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 1.0.0
+    name: GPLv3
+    url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
+  version: 2.0.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
     description: 'Main (production) API server'
@@ -14,16 +14,30 @@ servers:
   - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
     description: 'Development API server (mock server)'
 paths:
+  /criteria:
+    $ref: paths/criteria.yaml
   /pipeline:
     $ref: paths/pipeline.yaml
+  /pipeline/assessment:
+    $ref: paths/pipeline_assessment.yaml
+  /pipeline/assessment/{pipeline_id}/output:
+    $ref: paths/pipeline_assessment_output.yaml
   /pipeline/{pipeline_id}:
     $ref: paths/pipeline_by_id.yaml
   /pipeline/{pipeline_id}/config:
     $ref: paths/pipeline_config.yaml
+  /pipeline/{pipeline_id}/config/jepl:
+    $ref: paths/pipeline_config_jepl.yaml
+  /pipeline/{pipeline_id}/config/scripts:
+    $ref: paths/pipeline_commands_scripts.yaml
   /pipeline/{pipeline_id}/composer:
     $ref: paths/pipeline_composer.yaml
+  /pipeline/{pipeline_id}/composer/jepl:
+    $ref: paths/pipeline_composer_jepl.yaml
   /pipeline/{pipeline_id}/jenkinsfile:
     $ref: paths/pipeline_jenkinsfile.yaml
+  /pipeline/{pipeline_id}/jenkinsfile/jepl:
+    $ref: paths/pipeline_jenkinsfile_jepl.yaml
   /pipeline/{pipeline_id}/run:
     $ref: paths/pipeline_run.yaml
   /pipeline/{pipeline_id}/status:
@@ -32,3 +46,7 @@ paths:
     $ref: paths/pipeline_pull_request.yaml
   /pipeline/{pipeline_id}/compressed_files:
     $ref: paths/pipeline_compressed_files.yaml
+  /pipeline/{pipeline_id}/badge:
+    $ref: paths/pipeline_badge.yaml
+  /pipeline/{pipeline_id}/output:
+    $ref: paths/pipeline_output.yaml

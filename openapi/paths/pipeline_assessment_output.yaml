@@ -1,0 +1,26 @@
+get:
+  operationId: get_output_for_assessment
+  summary: Get the assessment output (QAA module)
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+  description: >
+    Returns the reporting and badging data from the execution of the assessment pipeline.
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '../components/schemas/AssessmentOutput.yaml'
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '422':
+      description: Pipeline has not been executed

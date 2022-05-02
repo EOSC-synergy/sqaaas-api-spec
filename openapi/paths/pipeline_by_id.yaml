@@ -19,6 +19,39 @@ get:
       description: Invalid pipeline ID supplied
     '404':
       description: Pipeline not found
+put:
+  operationId: update_pipeline_by_id
+  summary: Update pipeline by ID
+  parameters:
+    - in: path
+      name: pipeline_id
+      description: ID of the pipeline to get
+      required: true
+      schema:
+        type: string
+    - in: query
+      name: report_to_stdout
+      description: Flag to indicate whether the pipeline shall print via
+        via stdout the reports produced by the tools (required by QAA module)
+      required: false
+      schema:
+        type: boolean
+        default: false
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Pipeline.yaml'
+  responses:
+    '204':
+      description: Pipeline successfully updated
+    '400':
+      description: Invalid pipeline ID supplied
+    '404':
+      description: Pipeline not found
+    '502':
+      $ref: '../components/responses/BadGateway.yaml'
 delete:
   operationId: delete_pipeline_by_id
   summary: Delete pipeline by ID
@@ -33,7 +66,7 @@ delete:
     '204':
       description: Pipeline successfully deleted
     '400':
-      description: Invalid pipeline ID supplied
+      description: Request failed validation
     '404':
       description: Pipeline not found
     '502':

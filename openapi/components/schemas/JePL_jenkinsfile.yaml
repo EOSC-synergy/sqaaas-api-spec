@@ -24,7 +24,7 @@ properties:
               example: 'master'
             base_branch:
               type: string
-              example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+              example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
             credentials_id:
               type: string
               example: 'userpass_dockerhub'

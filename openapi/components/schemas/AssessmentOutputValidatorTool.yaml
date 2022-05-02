@@ -1,0 +1,10 @@
+type: object
+properties:
+  name:
+    type: string
+    example: licensee
+  ci:
+    $ref: './AssessmentOutputToolCI.yaml'
+  level:
+    type: string
+    enum: [REQUIRED, RECOMMENDED, OPTIONAL]
