@@ -4,6 +4,10 @@ properties:
     type: string
     description: ID of the criterion
     example: QC.Sty
+  type:
+    type: string
+    description: Type of criterion
+    enum: [software, service, fair]
   description:
     type: object
     description: Details about the criterion
