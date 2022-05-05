@@ -548,6 +548,13 @@ paths:
           required: false
           schema:
             type: string
+        - in: query
+          name: keepgoing
+          description: Flag to indicate that the pipeline will run until the end
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         '204':
           description: Successful operation
