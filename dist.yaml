@@ -5,9 +5,9 @@ info:
     OpenAPI specification for the Software and Service Quality Assurance as a
     Service (SQAaaS) component.
   license:
-    name: Apache 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 1.1.0
+    name: GPLv3
+    url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
+  version: 2.0.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
@@ -47,6 +47,16 @@ paths:
       description: >
         Provides a ready-to-use Jenkins pipeline based on the v2 series of
         jenkins-pipeline-library.
+      parameters:
+        - in: query
+          name: report_to_stdout
+          description: >-
+            Flag to indicate whether the pipeline shall print via via stdout the
+            reports produced by the tools (required by QAA module)
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         required: true
         content:
@@ -90,6 +100,78 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Pipeline'
+  /pipeline/assessment:
+    post:
+      operationId: add_pipeline_for_assessment
+      summary: Creates a pipeline for assessment (QAA module).
+      description: |
+        Creates a pipeline for assessment (QAA module).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pipeline_assessment'
+      parameters:
+        - in: query
+          name: optional_tools
+          description: Optional tools that shall be accounted
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: UUID identifying the pipeline
+              example:
+                id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+          links:
+            get_pipeline_by_pipeline_id:
+              operationId: get_pipeline_by_id
+              parameters:
+                pipeline_id: $response.body#/id
+              description: >
+                The `id` value returned in the response can be used as the
+                `pipeline_id` parameter in `GET /pipeline/{pipeline_id}`.
+        '400':
+          description: Request failed validation
+  '/pipeline/assessment/{pipeline_id}/output':
+    get:
+      operationId: get_output_for_assessment
+      summary: Get the assessment output (QAA module)
+      parameters:
+        - in: path
+          name: pipeline_id
+          description: ID of the pipeline to get
+          required: true
+          schema:
+            type: string
+      description: >
+        Returns the reporting and badging data from the execution of the
+        assessment pipeline.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/AssessmentOutput'
+        '400':
+          description: Invalid pipeline ID supplied
+        '404':
+          description: Pipeline not found
+        '422':
+          description: Pipeline has not been executed
   '/pipeline/{pipeline_id}':
     get:
       operationId: get_pipeline_by_id
@@ -122,6 +204,15 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: report_to_stdout
+          description: >-
+            Flag to indicate whether the pipeline shall print via via stdout the
+            reports produced by the tools (required by QAA module)
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         required: true
         content:
@@ -242,8 +333,7 @@ paths:
                   properties:
                     file_name:
                       type: string
-                      example:
-                        file_name: script.sh
+                      example: script.sh
                     content:
                       type: string
                       example: |-
@@ -554,7 +644,7 @@ paths:
                     type: string
                     format: uri
               example:
-                pull_request_url: 'https://github.com/EOSC-synergy/sqaaas-api-spec/pull/23'
+                pull_request_url: 'https://github.com/eosc-synergy/sqaaas-api-spec/pull/23'
         '400':
           description: Invalid pipeline ID supplied
         '404':
@@ -587,11 +677,9 @@ paths:
         '404':
           description: Pipeline not found
   '/pipeline/{pipeline_id}/badge':
-    post:
-      operationId: issue_badge
-      summary: Issues a quality badge.
-      description: |
-        Uses Badgr API to issue a badge after successful pipeline execution.
+    get:
+      operationId: get_badge
+      summary: Gets badge data associated with the given pipeline
       parameters:
         - in: path
           name: pipeline_id
@@ -599,6 +687,8 @@ paths:
           required: true
           schema:
             type: string
+      description: |
+        Returns the badge data associated with the pipeline.
       responses:
         '200':
           description: Successful operation
@@ -611,12 +701,11 @@ paths:
         '404':
           description: Pipeline not found
         '422':
-          description: Pipeline has not been successfully executed
-        '502':
-          $ref: '#/components/responses/BadGateway'
+          description: Badge not issued
+  '/pipeline/{pipeline_id}/output':
     get:
-      operationId: get_badge
-      summary: Gets badge data associated with the given pipeline
+      operationId: get_pipeline_output
+      summary: Get output from pipeline execution
       parameters:
         - in: path
           name: pipeline_id
@@ -625,30 +714,30 @@ paths:
           schema:
             type: string
         - in: query
-          name: share
-          description: Returns the shared version of the badge in a specific format
+          name: validate
+          description: >-
+            Flag to indicate whether the returned output shall be validate using
+            sqaaas-reporting tool
           required: false
           schema:
-            type: string
-            enum:
-              - html
+            type: boolean
+            default: false
       description: |
-        Returns the badge data associated with the pipeline.
+        Returns the console output from the pipeline execution.
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Badge'
+                type: object
+                $ref: '#/components/schemas/CriterionOutput'
         '400':
           description: Invalid pipeline ID supplied
         '404':
           description: Pipeline not found
         '422':
-          description: Badge not issued
+          description: Pipeline has not been executed
 components:
   schemas:
     ToolArg:
@@ -664,8 +753,10 @@ components:
         description:
           type: string
           description: hint about what the command does
+          example: Detect the license of the given project
         value:
           description: Value for the argument (can be of any type)
+          example: detect
         option:
           type: string
           description: 'Name of the option, in the event of optional arguments'
@@ -695,16 +786,6 @@ components:
       required:
         - type
         - description
-      example:
-        type: subcommand
-        description: Detect the license of the given project
-        value: detect
-        selectable: false
-        repeatable: false
-        args:
-          description: Path to project's license
-          format: string
-          value: .
     Tool:
       type: object
       properties:
@@ -769,7 +850,7 @@ components:
         repo:
           type: string
           format: uri
-          example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
         branch:
           type: string
           example: master
@@ -856,10 +937,8 @@ components:
                   $ref: '#/components/schemas/Commands_simplified'
                 tox:
                   $ref: '#/components/schemas/Tox_simplified'
-                tools:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Tool'
+                tool:
+                  $ref: '#/components/schemas/Tool'
               additionalProperties: false
           when:
             properties:
@@ -909,8 +988,10 @@ components:
             properties:
               context:
                 type: string
+                example: ./dir
               dockerfile:
                 type: string
+                example: Dockerfile-alternate
               args:
                 type: object
                 additionalProperties:
@@ -920,6 +1001,7 @@ components:
             properties:
               name:
                 type: string
+                example: 'eoscsynergy/sqaaas-api-spec:1.0.0'
               registry:
                 type: object
                 properties:
@@ -928,12 +1010,15 @@ components:
                   url:
                     type: string
                     format: uri
+                    example: 'https://hub.docker.com/'
                   credential_id:
                     type: string
+                    example: my-dockerhub-cred
             required:
               - name
           hostname:
             type: string
+            example: sqaaas-host
           volumes:
             type: array
             items:
@@ -945,34 +1030,18 @@ components:
                     - bind
                 source:
                   type: string
+                  example: ./
                 target:
                   type: string
+                  example: ./sqaaas-build
           command:
             type: string
+            example: sleep 600000
           environment:
             $ref: '#/components/schemas/Environment'
           oneshot:
             type: boolean
             default: true
-      example:
-        checkstyle:
-          build:
-            context: ./dir
-            dockerfile: Dockerfile-alternate
-            args:
-              buildno: 1
-          image:
-            name: checkstyle/maven-builder-image
-            registry:
-              push: true
-              url: 'https://hub.docker.com/'
-              credential_id: my-dockerhub-cred
-          hostname: checkstyle-host
-          volumes:
-            - source: ./
-              target: ./simple-java-app
-              type: bind
-          command: sleep 600000
     JePL_composer:
       type: object
       properties:
@@ -1009,7 +1078,7 @@ components:
                     example: master
                   base_branch:
                     type: string
-                    example: 'https://github.com/jenkins-docs/simple-java-maven-app'
+                    example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
                   credentials_id:
                     type: string
                     example: userpass_dockerhub
@@ -1035,39 +1104,138 @@ components:
           $ref: '#/components/schemas/JePL_composer'
         jenkinsfile_data:
           $ref: '#/components/schemas/JePL_jenkinsfile'
-    UpstreamError:
+    Pipeline_assessment:
       type: object
       properties:
-        upstream_status:
-          type: integer
-        upstream_reason:
-          type: string
+        repo_code:
+          $ref: '#/components/schemas/Repository'
+        repo_docs:
+          $ref: '#/components/schemas/Repository'
       required:
-        - upstream_status
-        - upstream_reason
-    Badge:
+        - repo_code
+    AssessmentOutputToolCI:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the stage the tool was executed
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+          description: string-like exit status of the stage where the tool ran
+        stdout_command:
+          type: array
+          items:
+            type: string
+          description: list of commands executed in the stage
+        stdout_text:
+          type: string
+          description: string containing the output of the tool execution
+        url:
+          type: string
+          format: uri
+          description: URL of the stage
+    AssessmentOutputValidatorTool:
+      type: object
+      properties:
+        name:
+          type: string
+          example: licensee
+        ci:
+          $ref: '#/components/schemas/AssessmentOutputToolCI'
+        level:
+          type: string
+          enum:
+            - REQUIRED
+            - RECOMMENDED
+            - OPTIONAL
+    AssessmentOutputValidatorStandard:
+      type: object
+      properties:
+        title:
+          type: string
+          example: >-
+            A set of Common Software Quality Assurance Baseline Criteria for
+            Research Projects
+        version:
+          type: string
+          example: v4.0
+        url:
+          type: string
+          format: uri
+          example: 'https://indigo-dc.github.io/sqa-baseline/'
+    AssessmentOutputValidator:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: <true> if the subcriterion is valid
+        message:
+          type: string
+          description: Evidence message
+          example: README file does not exist
+        plugin:
+          type: object
+          properties:
+            name:
+              type: string
+              example: report2sqaaas-plugin-licensee
+            version:
+              type: string
+              example: 1.0.0
+        tool:
+          $ref: '#/components/schemas/AssessmentOutputValidatorTool'
+        standard:
+          $ref: '#/components/schemas/AssessmentOutputValidatorStandard'
+        data_unstructured:
+          type: object
+    AssessmentOutputSubcriteria:
+      type: object
+      properties:
+        description:
+          type: string
+          example: All code repositories MUST have a README file
+        valid:
+          type: boolean
+          description: <true> if the subcriterion is valid
+        evidence:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssessmentOutputValidator'
+    BadgeAssertion:
       type: object
       properties:
         openBadgeID:
           type: string
           format: uri
+          example: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw'
         createdAt:
           type: string
           format: date-time
+          example: 2021-04-07T10:34:02.960Z
         createdBy:
           type: string
+          example: e3h49VVbQRKQphuAAmxpgQ
         badgeClass:
           type: string
+          example: sBS3EsJQRAC0ENTmvETtQw
         issuer:
           type: string
+          example: aS1lWKgIR4u8bGjPZUzAyg
         image:
           type: string
           format: uri
+          example: >-
+            https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image
         recipient:
           type: object
           properties:
             identity:
               type: string
+              example: >-
+                sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
             hashed:
               type: boolean
             type:
@@ -1079,24 +1247,105 @@ components:
                 - url
             plaintextIdentity:
               type: string
+              example: >-
+                https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
         issuedOn:
           type: string
           format: date-time
+          example: 2021-04-07T10:07:00.000Z
+    Badge:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BadgeAssertion'
+        share:
+          type: string
+          example: <html>..</html>
+        verification_url:
+          type: string
+          format: uri
+    AssessmentOutput:
+      type: object
+      properties:
+        report:
+          type: object
+          additionalProperties:
+            description: ID of the criterion
+            type: object
+            properties:
+              valid:
+                type: boolean
+                default: false
+              filtered_reason:
+                description: Contains the reason why the criterion was filtered out
+                type: array
+                default: []
+                items:
+                  type: string
+                  default: null
+              subcriteria:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AssessmentOutputSubcriteria'
+        badge:
+          type: object
+          properties:
+            software:
+              $ref: '#/components/schemas/Badge'
+            services:
+              $ref: '#/components/schemas/Badge'
+            fair:
+              $ref: '#/components/schemas/Badge'
+    UpstreamError:
+      type: object
+      properties:
+        upstream_status:
+          type: integer
+        upstream_reason:
+          type: string
+      required:
+        - upstream_status
+        - upstream_reason
+    CriterionOutput:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - SUCCESS
+                - FAILED
+            stdout_command:
+              type: string
+            stdout_text:
+              type: string
+            tool:
+              type: string
+            validator:
+              type: string
+            validation:
+              type: object
+              properties:
+                valid:
+                  type: boolean
+                data_unstructured:
+                  type: object
       example:
-        openBadgeId: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw'
-        createdAt: 2021-04-07T10:34:02.960Z
-        createdBy: e3h49VVbQRKQphuAAmxpgQ
-        badgeclass: sBS3EsJQRAC0ENTmvETtQw
-        issuer: aS1lWKgIR4u8bGjPZUzAyg
-        image: 'https://api.eu.badgr.io/public/assertions/KSwijifTQ_-I1lb9FtX1bw/image'
-        recipient:
-          identity: >-
-            sha256$5cb2939f3ae83961b31407fbfd2978e5c642177e50227eb0c7f550c0653803dc
-          hashed: true
-          type: url
-          plaintextIdentity: >-
-            https://github.com/EOSC-synergy/test-sqaaas-web.sqaaas/commit/41a4a73505f407d57e7ed600dd5de7cf963feda3
-        issuedOn: 2021-04-07T10:07:00.000Z
+        QC.Lic:
+          - status: SUCCESS
+            stdout_command: >-
+              + docker-compose -f .sqa/docker-compose.yml --project-directory
+              /jenkins/workspace/ava-maven-app.assess.sqaaas_main/ exec -T
+              qc.lic_boozy-smalt-maltese /usr/bin/env sh
+              .sqa/script.paltry-taupe-reindeer.sh
+            tool: licensee
+            validator: licensee
+            validation:
+              valid: true
+              data_unstructured: {}
   responses:
     BadGateway:
       description: |
