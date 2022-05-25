@@ -1,4 +1,5 @@
 type: array
+description: List of commands to execute
 items:
   type: string
   minLength: 1

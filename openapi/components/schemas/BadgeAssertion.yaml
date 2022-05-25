@@ -1,4 +1,5 @@
 type: object
+description: Badge data as obtained from Open Badge's Badgr implementation
 properties:
   openBadgeID:
     type: string

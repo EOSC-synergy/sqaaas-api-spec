@@ -1,4 +1,5 @@
 type: object
+description: Environment variables to be used at pipeline runtime
 additionalProperties:
   type: string
 example:

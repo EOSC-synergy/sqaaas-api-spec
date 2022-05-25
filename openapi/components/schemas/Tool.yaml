@@ -1,4 +1,5 @@
 type: object
+description: Details about the tooling metadata (see https://github.com/eosc-synergy/sqaaas-tooling)
 properties:
   name:
     type: string

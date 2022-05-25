@@ -1,10 +1,13 @@
 type: object
+description: Details about the tool
 properties:
   name:
     type: string
+    description: Name of the tool
     example: licensee
   ci:
     $ref: './AssessmentOutputToolCI.yaml'
   level:
     type: string
+    description: Level of criticality of the tool
     enum: [REQUIRED, RECOMMENDED, OPTIONAL]

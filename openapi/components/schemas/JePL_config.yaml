@@ -1,14 +1,18 @@
 type: object
+description: Properties for a single JePL's config.yml file
 properties:
   config:
     type: object
+    description: JePL's main configuration
     properties:
       project_repos:
         type: array
+        description: Set of repositories to be fetched by the pipeline (may exclude the repository where the pipeline is stored)
         items:
           $ref: './Repository.yaml'
       credentials:
         type: array
+        description: List of credentials required to access successfuly to the resources (such as repositories) managed by the pipeline
         items:
           $ref: './Creds_user_pass.yaml'
   sqa_criteria:
@@ -18,4 +22,5 @@ properties:
     $ref: './Environment.yaml'
   timeout:
     type: integer
+    description: Maximum timeframe for the pipeline execution
     minimum: 1

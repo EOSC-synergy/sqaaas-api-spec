@@ -2,20 +2,28 @@ type: object
 properties:
   id:
     type: string
+    description: ID of the criterion
     example: QC.Sty
+  type:
+    type: string
+    description: Type of criterion
+    enum: [software, service, fair]
   description:
     type: object
+    description: Details about the criterion
     properties:
       msg:
         type: string
+        description: Short statemente about the criterion's goal
       improves:
         type: string
+        description: Comma-separated list of software/service characteristics addressed by the given criterion
       docs:
         type: string
+        description: URL with additional information about the criterion
         format: uri
   tools:
-    type: object
-    additionalProperties:
-      type: array
-      items:
-        $ref: './Tool.yaml'
+    type: array
+    description: Set of tools that are supported for the given criterion
+    items:
+      $ref: './Tool.yaml'

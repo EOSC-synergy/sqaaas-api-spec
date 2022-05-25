@@ -4,7 +4,9 @@ properties:
     $ref: './BadgeAssertion.yaml'
   share:
     type: string
+    description: Badge's HTML block that can be embedded in websites
     example: '<html>..</html>'
   verification_url:
     type: string
+    description: URL the portal where the badge can be verified
     format: uri

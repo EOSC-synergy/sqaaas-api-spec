@@ -2,8 +2,10 @@ type: object
 properties:
   repo:
     type: string
+    description: URL of the repository
     format: uri
     example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
   branch:
     type: string
+    description: Branch name
     example: 'master'
