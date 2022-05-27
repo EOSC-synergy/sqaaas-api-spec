@@ -3,8 +3,16 @@ description: Details about the tooling metadata (see https://github.com/eosc-syn
 properties:
   name:
     type: string
+    description: Name of the tool
+    example: flake8
   lang:
     type: string
+    description: Language that the tool is aligned with
+    example: Python
+  version:
+    type: string
+    description: Version of the tool
+    example: 4.0.1
   jepl_support:
     type: boolean
   docs:
