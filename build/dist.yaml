@@ -801,8 +801,16 @@ components:
       properties:
         name:
           type: string
+          description: Name of the tool
+          example: flake8
         lang:
           type: string
+          description: Language that the tool is aligned with
+          example: Python
+        version:
+          type: string
+          description: Version of the tool
+          example: 4.0.1
         jepl_support:
           type: boolean
         docs:
@@ -1200,7 +1208,19 @@ components:
         name:
           type: string
           description: Name of the tool
-          example: licensee
+          example: flake8
+        lang:
+          type: string
+          description: Language that the tool is aligned with
+          example: Python
+        version:
+          type: string
+          description: Version of the tool
+          example: 4.0.1
+        docker:
+          type: string
+          description: Docker image used ('dockerfile' otherwise)
+          example: 'pipelinecomponents/flake8:0.9.0'
         ci:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
         level:
