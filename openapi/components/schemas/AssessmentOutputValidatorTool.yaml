@@ -14,9 +14,18 @@ properties:
     description: Version of the tool
     example: 4.0.1
   docker:
-    type: string
-    description: Docker image used ('dockerfile' otherwise)
-    example: pipelinecomponents/flake8:0.9.0
+    type: object
+    properties:
+      image:
+        type: string
+      dockerfile:
+        type: string
+      reviewed:
+        type: string
+        format: date
+      oneshot:
+        type: boolean
+        default: true
   ci:
     $ref: './AssessmentOutputToolCI.yaml'
   level:
