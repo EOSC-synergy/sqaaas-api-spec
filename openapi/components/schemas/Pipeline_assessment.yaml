@@ -4,5 +4,7 @@ properties:
     $ref: './Repository.yaml'
   repo_docs:
     $ref: './Repository.yaml'
+  repo_deploy:
+    $ref: './Repository.yaml'
 required:
   - repo_code

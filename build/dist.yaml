@@ -1174,6 +1174,8 @@ components:
           $ref: '#/components/schemas/Repository'
         repo_docs:
           $ref: '#/components/schemas/Repository'
+        repo_deploy:
+          $ref: '#/components/schemas/Repository'
       required:
         - repo_code
     AssessmentOutputToolCI:
