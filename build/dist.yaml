@@ -1167,6 +1167,13 @@ components:
           $ref: '#/components/schemas/JePL_composer'
         jenkinsfile_data:
           $ref: '#/components/schemas/JePL_jenkinsfile'
+    AssessmentDeployment:
+      type: object
+      properties:
+        repo_deploy:
+          $ref: '#/components/schemas/Repository'
+        deploy_tool:
+          $ref: '#/components/schemas/Tool'
     Pipeline_assessment:
       type: object
       properties:
@@ -1174,8 +1181,8 @@ components:
           $ref: '#/components/schemas/Repository'
         repo_docs:
           $ref: '#/components/schemas/Repository'
-        repo_deploy:
-          $ref: '#/components/schemas/Repository'
+        deployment:
+          $ref: '#/components/schemas/AssessmentDeployment'
       required:
         - repo_code
     AssessmentOutputToolCI:
