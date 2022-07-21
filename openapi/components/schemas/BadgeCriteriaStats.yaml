@@ -1,0 +1,22 @@
+type: object
+description: Criteria-fulfillment stats for a badge class
+properties:
+  to_fulfill:
+    type: array
+    default: []
+    items:
+      type: string
+      default: null
+      example: criterion_id
+  missing:
+    type: array
+    default: []
+    items:
+      type: string
+      default: null
+  fulfilled:
+    type: array
+    default: []
+    items:
+      type: string
+      default: null
