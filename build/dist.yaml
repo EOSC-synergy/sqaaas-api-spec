@@ -1312,6 +1312,11 @@ components:
           description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
+        required_for_next_level_badge:
+          type: boolean
+          description: >-
+            Whether current subcriterion is required for the next level of
+            badging
     BadgeCriteriaStats:
       type: object
       description: Criteria-fulfillment stats for a badge class
@@ -1428,6 +1433,21 @@ components:
                 type: object
                 additionalProperties:
                   $ref: '#/components/schemas/AssessmentOutputSubcriteria'
+              coverage:
+                type: object
+                properties:
+                  percentage:
+                    description: Overall percentage of criterion coverage
+                    type: number
+                    example: 60
+                  total_subcriteria:
+                    description: Number of total subcriteria assessed for the criterion
+                    type: integer
+                    example: 5
+                  success_subcriteria:
+                    description: Number of subcriteria evaluates as success
+                    type: integer
+                    example: 0
         badge:
           type: object
           properties:
