@@ -1433,6 +1433,21 @@ components:
                 type: object
                 additionalProperties:
                   $ref: '#/components/schemas/AssessmentOutputSubcriteria'
+              coverage:
+                type: object
+                properties:
+                  percentage:
+                    description: Overall percentage of criterion coverage
+                    type: number
+                    example: 60
+                  total_subcriteria:
+                    description: Number of total subcriteria assessed for the criterion
+                    type: integer
+                    example: 5
+                  success_subcriteria:
+                    description: Number of subcriteria evaluates as success
+                    type: integer
+                    example: 0
         badge:
           type: object
           properties:
