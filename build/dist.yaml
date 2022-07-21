@@ -1312,6 +1312,11 @@ components:
           description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
+        required_for_next_level_badge:
+          type: boolean
+          description: >-
+            Whether current subcriterion is required for the next level of
+            badging
     BadgeCriteriaStats:
       type: object
       description: Criteria-fulfillment stats for a badge class
