@@ -1312,6 +1312,29 @@ components:
           description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
+    BadgeCriteriaStats:
+      type: object
+      description: Criteria-fulfillment stats for a badge class
+      properties:
+        to_fulfill:
+          type: array
+          default: []
+          items:
+            type: string
+            default: null
+            example: criterion_id
+        missing:
+          type: array
+          default: []
+          items:
+            type: string
+            default: null
+        fulfilled:
+          type: array
+          default: []
+          items:
+            type: string
+            default: null
     BadgeAssertion:
       type: object
       description: Badge data as obtained from Open Badge's Badgr implementation
@@ -1365,6 +1388,10 @@ components:
     Badge:
       type: object
       properties:
+        criteria:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BadgeCriteriaStats'
         data:
           $ref: '#/components/schemas/BadgeAssertion'
         share:
