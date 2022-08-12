@@ -9,6 +9,11 @@ properties:
     type: string
     format: uri
     example: https://github.com/eosc-synergy/sqaaas-api-spec
+  avatar_url:
+    description: Avatar URL for the repository
+    type: string
+    format: uri
+    example: https://avatars.githubusercontent.com/u/57723286?v=4
   description:
     description: One-liner containing the repository's purpose
     type: string
