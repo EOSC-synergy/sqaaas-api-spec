@@ -1,0 +1,14 @@
+type: object
+properties:
+  pid:
+    description: Persistent identifier of the dataset
+    type: string
+    example: 10.5281/zenodo.4014740
+  tool:
+    description: FAIR tool to use
+    type: string
+    example: FAIR-eva
+  badge_matchmaking_url:
+    description: URL that points to the matchmaking rules for badge issuance
+    type: string
+    format: uri
