@@ -4,3 +4,5 @@ properties:
     $ref: './Repository.yaml'
   deploy_tool:
     $ref: './Tool.yaml'
+  environment:
+    $ref: './Environment.yaml'

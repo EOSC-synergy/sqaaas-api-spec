@@ -1174,6 +1174,8 @@ components:
           $ref: '#/components/schemas/Repository'
         deploy_tool:
           $ref: '#/components/schemas/Tool'
+        environment:
+          $ref: '#/components/schemas/Environment'
     Pipeline_assessment:
       type: object
       properties:
