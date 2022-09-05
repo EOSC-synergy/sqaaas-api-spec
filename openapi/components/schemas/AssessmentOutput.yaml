@@ -1,5 +1,9 @@
 type: object
 properties:
+  repository:
+    type: array
+    items:
+      $ref: './AssessmentOutputRepository.yaml'
   report:
     type: object
     additionalProperties:
