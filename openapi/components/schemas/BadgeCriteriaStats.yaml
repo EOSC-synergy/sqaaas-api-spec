@@ -1,7 +1,8 @@
 type: object
-description: Criteria-fulfillment stats for a badge class
+description: Identifier of the badge class (e.g. bronze)
 properties:
   to_fulfill:
+    description: List of criteria codes to be fulfilled for the given badge class
     type: array
     default: []
     items:
@@ -9,12 +10,14 @@ properties:
       default: null
       example: criterion_id
   missing:
+    description: List of missing criteria codes for the badge class to be granted
     type: array
     default: []
     items:
       type: string
       default: null
   fulfilled:
+    description: List of fulfilled criteria codes for the given badge class
     type: array
     default: []
     items:
