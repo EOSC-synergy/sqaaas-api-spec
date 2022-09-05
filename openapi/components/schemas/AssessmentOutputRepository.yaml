@@ -1,0 +1,50 @@
+type: object
+properties:
+  name:
+    description: (nick) Name of the repository
+    type: string
+    example: sqaaas-api-spec
+  url:
+    description: URL of the repository
+    type: string
+    format: uri
+    example: https://github.com/eosc-synergy/sqaaas-api-spec
+  avatar_url:
+    description: Avatar URL for the repository
+    type: string
+    format: uri
+    example: https://avatars.githubusercontent.com/u/57723286?v=4
+  description:
+    description: One-liner containing the repository's purpose
+    type: string
+    example: OpenAPI specification for the SQA as a Service
+  language:
+    description: Programming language used
+    type: string
+    example: Shell
+  tag:
+    description: Git tag that corresponds to the current version
+    type: string
+    example: 2.5.0
+  topics:
+    description: Labels that characterize the repository
+    type: array
+    items:
+      type: string
+    example: [openapi, sqaaas]
+  stargazers_count:
+    description: (GitHub only) Number of stars
+    type: number
+    example: 2
+  watchers_count:
+    description: (GitHub only) Number of watchers
+    type: number
+    example: 2
+  contributors_count:
+    description: (GitHub only) Number of contributors
+    type: number
+    example: 2
+  forks_count:
+    description: (GitHub only) Number of forks
+    type: number
+    example: 2

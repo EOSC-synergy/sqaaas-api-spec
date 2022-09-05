@@ -1167,6 +1167,13 @@ components:
           $ref: '#/components/schemas/JePL_composer'
         jenkinsfile_data:
           $ref: '#/components/schemas/JePL_jenkinsfile'
+    AssessmentDeployment:
+      type: object
+      properties:
+        repo_deploy:
+          $ref: '#/components/schemas/Repository'
+        deploy_tool:
+          $ref: '#/components/schemas/Tool'
     Pipeline_assessment:
       type: object
       properties:
@@ -1174,8 +1181,63 @@ components:
           $ref: '#/components/schemas/Repository'
         repo_docs:
           $ref: '#/components/schemas/Repository'
+        deployment:
+          $ref: '#/components/schemas/AssessmentDeployment'
       required:
         - repo_code
+    AssessmentOutputRepository:
+      type: object
+      properties:
+        name:
+          description: (nick) Name of the repository
+          type: string
+          example: sqaaas-api-spec
+        url:
+          description: URL of the repository
+          type: string
+          format: uri
+          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
+        avatar_url:
+          description: Avatar URL for the repository
+          type: string
+          format: uri
+          example: 'https://avatars.githubusercontent.com/u/57723286?v=4'
+        description:
+          description: One-liner containing the repository's purpose
+          type: string
+          example: OpenAPI specification for the SQA as a Service
+        language:
+          description: Programming language used
+          type: string
+          example: Shell
+        tag:
+          description: Git tag that corresponds to the current version
+          type: string
+          example: 2.5.0
+        topics:
+          description: Labels that characterize the repository
+          type: array
+          items:
+            type: string
+          example:
+            - openapi
+            - sqaaas
+        stargazers_count:
+          description: (GitHub only) Number of stars
+          type: number
+          example: 2
+        watchers_count:
+          description: (GitHub only) Number of watchers
+          type: number
+          example: 2
+        contributors_count:
+          description: (GitHub only) Number of contributors
+          type: number
+          example: 2
+        forks_count:
+          description: (GitHub only) Number of forks
+          type: number
+          example: 2
     AssessmentOutputToolCI:
       type: object
       description: Details of the CI build where the tool was executed
@@ -1303,6 +1365,37 @@ components:
           description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
+        required_for_next_level_badge:
+          type: boolean
+          description: >-
+            Whether current subcriterion is required for the next level of
+            badging
+    BadgeCriteriaStats:
+      type: object
+      description: Identifier of the badge class (e.g. bronze)
+      properties:
+        to_fulfill:
+          description: List of criteria codes to be fulfilled for the given badge class
+          type: array
+          default: []
+          items:
+            type: string
+            default: null
+            example: criterion_id
+        missing:
+          description: List of missing criteria codes for the badge class to be granted
+          type: array
+          default: []
+          items:
+            type: string
+            default: null
+        fulfilled:
+          description: List of fulfilled criteria codes for the given badge class
+          type: array
+          default: []
+          items:
+            type: string
+            default: null
     BadgeAssertion:
       type: object
       description: Badge data as obtained from Open Badge's Badgr implementation
@@ -1356,6 +1449,10 @@ components:
     Badge:
       type: object
       properties:
+        criteria:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BadgeCriteriaStats'
         data:
           $ref: '#/components/schemas/BadgeAssertion'
         share:
@@ -1369,6 +1466,10 @@ components:
     AssessmentOutput:
       type: object
       properties:
+        repository:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssessmentOutputRepository'
         report:
           type: object
           additionalProperties:
@@ -1392,6 +1493,21 @@ components:
                 type: object
                 additionalProperties:
                   $ref: '#/components/schemas/AssessmentOutputSubcriteria'
+              coverage:
+                type: object
+                properties:
+                  percentage:
+                    description: Overall percentage of criterion coverage
+                    type: number
+                    example: 60
+                  total_subcriteria:
+                    description: Number of total subcriteria assessed for the criterion
+                    type: integer
+                    example: 5
+                  success_subcriteria:
+                    description: Number of subcriteria evaluates as success
+                    type: integer
+                    example: 0
         badge:
           type: object
           properties:

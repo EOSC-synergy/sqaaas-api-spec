@@ -1,0 +1,6 @@
+type: object
+properties:
+  repo_deploy:
+    $ref: './Repository.yaml'
+  deploy_tool:
+    $ref: './Tool.yaml'

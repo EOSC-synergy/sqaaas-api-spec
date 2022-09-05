@@ -1,5 +1,9 @@
 type: object
 properties:
+  repository:
+    type: array
+    items:
+      $ref: './AssessmentOutputRepository.yaml'
   report:
     type: object
     additionalProperties:
@@ -21,6 +25,21 @@ properties:
           type: object
           additionalProperties:
             $ref: './AssessmentOutputSubcriteria.yaml'
+        coverage:
+          type: object
+          properties:
+            percentage:
+              description: Overall percentage of criterion coverage
+              type: number
+              example: 60
+            total_subcriteria:
+              description: Number of total subcriteria assessed for the criterion
+              type: integer
+              example: 5
+            success_subcriteria:
+              description: Number of subcriteria evaluates as success
+              type: integer
+              example: 0
   badge:
     type: object
     properties:
