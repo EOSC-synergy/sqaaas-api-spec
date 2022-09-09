@@ -18,10 +18,12 @@ properties:
     description: One-liner containing the repository's purpose
     type: string
     example: OpenAPI specification for the SQA as a Service
-  language:
+  languages:
     description: Programming language used
-    type: string
-    example: Shell
+    type: array
+    items:
+      type: string
+      example: Shell
   tag:
     description: Git tag that corresponds to the current version
     type: string
