@@ -1452,9 +1452,7 @@ components:
       type: object
       properties:
         criteria:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/BadgeCriteriaStats'
+          $ref: '#/components/schemas/BadgeCriteriaStats'
         data:
           $ref: '#/components/schemas/BadgeAssertion'
         share:
