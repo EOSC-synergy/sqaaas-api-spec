@@ -1367,6 +1367,9 @@ components:
           description: Evidence obtained by the tools for the given subcriterion
           items:
             $ref: '#/components/schemas/AssessmentOutputValidator'
+        hint:
+          type: string
+          description: Provide hints to fulfill the current subcriterion
         required_for_next_level_badge:
           type: boolean
           description: >-
