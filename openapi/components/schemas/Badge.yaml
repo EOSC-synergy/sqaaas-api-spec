@@ -1,7 +1,9 @@
 type: object
 properties:
   criteria:
-    $ref: './BadgeCriteriaStats.yaml'
+    type: object
+    additionalProperties:
+      $ref: './BadgeCriteriaStats.yaml'
   data:
     $ref: './BadgeAssertion.yaml'
   share:
