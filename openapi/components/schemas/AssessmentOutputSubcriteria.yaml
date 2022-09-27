@@ -16,6 +16,8 @@ properties:
   hint:
     type: string
     description: Provide hints to fulfill the current subcriterion
+    example: |
+      The Open Source Initiative (OSI) sets out the requirements for software to be legally declared as open source. Use one of the <a href="https://opensource.org/licenses">OSI popular licenses</a> for this check to be successful.
   required_for_next_level_badge:
     type: boolean
     description: Whether current subcriterion is required for the next level of badging

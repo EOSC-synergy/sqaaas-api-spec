@@ -7,7 +7,7 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 2.0.0
+  version: 2.5.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
@@ -1370,6 +1370,11 @@ components:
         hint:
           type: string
           description: Provide hints to fulfill the current subcriterion
+          example: >
+            The Open Source Initiative (OSI) sets out the requirements for
+            software to be legally declared as open source. Use one of the <a
+            href="https://opensource.org/licenses">OSI popular licenses</a> for
+            this check to be successful.
         required_for_next_level_badge:
           type: boolean
           description: >-
