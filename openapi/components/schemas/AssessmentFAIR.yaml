@@ -1,0 +1,29 @@
+type: object
+properties:
+  persistent_identifier:
+    type: string
+    description: Persistent identifier for the dataset
+    example: https://doi.org/10.5281/zenodo.5993188
+  metadata_protocol:
+    type: string
+    description: Protocol for metadata harvesting
+    example: oai-pmh
+  metadata_endpoint:
+    type: string
+    format: uri
+    description: URL of the metadata protocol interface
+    example: http://digital.csic.es/dspace-oai/request
+  evaluator_tool:
+    type: string
+    description: Name of the evaluator tool
+    example: fair-eva
+  evaluator_endpoint:
+    type: string
+    format: uri
+    description: URL of the endpoint where the evaluator is accessible
+    example: http://localhost:9090/v1.0/rda/rda_all
+  badge_policy_url:
+    type: string
+    format: uri
+    description: URL where the badge policies are defined 
+    example: https://example.org/badge-matchmaking-policies.ini
