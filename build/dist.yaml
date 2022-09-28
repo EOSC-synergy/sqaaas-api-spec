@@ -1373,8 +1373,8 @@ components:
           example: >
             The Open Source Initiative (OSI) sets out the requirements for
             software to be legally declared as open source. Use one of the <a
-            href="https://opensource.org/licenses">OSI popular licenses</a> for
-            this check to be successful.
+            href="https://opensource.org/licenses" target="_blank">OSI popular
+            licenses</a> for this check to be successful.
         required_for_next_level_badge:
           type: boolean
           description: >-
