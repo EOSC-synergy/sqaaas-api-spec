@@ -1328,6 +1328,10 @@ components:
               default: true
         ci:
           $ref: '#/components/schemas/AssessmentOutputToolCI'
+        build_repo:
+          type: string
+          format: uri
+          example: 'https://github.com/EOSC-synergy/saps-catalog.assess.sqaaas'
         level:
           type: string
           description: Level of criticality of the tool
