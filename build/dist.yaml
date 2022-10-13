@@ -1215,8 +1215,6 @@ components:
           $ref: '#/components/schemas/AssessmentDeployment'
         fair:
           $ref: '#/components/schemas/AssessmentFAIR'
-      required:
-        - repo_code
     AssessmentOutputRepository:
       type: object
       properties:

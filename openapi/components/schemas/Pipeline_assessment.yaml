@@ -8,5 +8,3 @@ properties:
     $ref: './AssessmentDeployment.yaml'
   fair:
     $ref: './AssessmentFAIR.yaml'
-required:
-  - repo_code
