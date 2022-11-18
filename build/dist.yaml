@@ -27,6 +27,15 @@ paths:
           required: false
           schema:
             type: string
+        - in: query
+          name: assessment
+          description: >-
+            Flag to indicate whether the criteria shall consider only
+            assessment-related tools
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: Successful operation
