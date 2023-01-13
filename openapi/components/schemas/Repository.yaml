@@ -9,3 +9,6 @@ properties:
     type: string
     description: Branch name
     example: 'master'
+  credential_id:
+    description: Credentials to use (if any)
+    $ref: './Creds_user_pass.yaml'
