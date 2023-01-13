@@ -884,18 +884,6 @@ components:
           description: Set of tools that are supported for the given criterion
           items:
             $ref: '#/components/schemas/Tool'
-    Repository:
-      type: object
-      properties:
-        repo:
-          type: string
-          description: URL of the repository
-          format: uri
-          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
-        branch:
-          type: string
-          description: Branch name
-          example: master
     Creds_user_pass:
       type: object
       properties:
@@ -918,6 +906,21 @@ components:
         - id
         - username_var
         - password_var
+    Repository:
+      type: object
+      properties:
+        repo:
+          type: string
+          description: URL of the repository
+          format: uri
+          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
+        branch:
+          type: string
+          description: Branch name
+          example: master
+        credential_id:
+          description: Credentials to use (if any)
+          $ref: '#/components/schemas/Creds_user_pass'
     Commands_simplified:
       type: array
       description: List of commands to execute
