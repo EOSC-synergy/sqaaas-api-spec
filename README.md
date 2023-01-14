@@ -2,6 +2,15 @@
 
 This repository contains the OpenAPI specification of the SQAaaS platform.
 
+<img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-SYNERGY.png" height="80">
+
+## Institutions owning the result
+<p float="left">
+    <img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-LIP.png" height="80">
+    <img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-csic.png" height="80">
+    <img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-UPV.png" height="80">
+</p>
+
 ## API documentation
 
 The documented API can be accessed here: [https://eosc-synergy.github.io/sqaaas-api-spec/](https://eosc-synergy.github.io/sqaaas-api-spec/)
