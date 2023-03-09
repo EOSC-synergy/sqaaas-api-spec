@@ -906,6 +906,25 @@ components:
         - id
         - username_var
         - password_var
+    AssessmentCreds:
+      type: object
+      properties:
+        secret_id:
+          type: string
+          description: Secret ID (required by Vault)
+          example: my_gitlab_secret
+        user_id:
+          type: string
+          description: >-
+            Account name to be used for authentication (required by GitLab,
+            GitHub)
+          example: my_gitlab_user
+        token:
+          type: string
+          description: >-
+            Temporary (short-lived) token for authentication (required by
+            GitLab, GitHub)
+          example: my_gitlab_token
     Repository:
       type: object
       properties:
@@ -920,7 +939,9 @@ components:
           example: master
         credential_id:
           description: Credentials to use (if any)
-          $ref: '#/components/schemas/Creds_user_pass'
+          oneOf:
+            - $ref: '#/components/schemas/Creds_user_pass'
+            - $ref: '#/components/schemas/AssessmentCreds'
     Commands_simplified:
       type: array
       description: List of commands to execute

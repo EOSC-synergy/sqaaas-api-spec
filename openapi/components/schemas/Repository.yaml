@@ -11,4 +11,6 @@ properties:
     example: 'master'
   credential_id:
     description: Credentials to use (if any)
-    $ref: './Creds_user_pass.yaml'
+    oneOf:
+      - $ref: './Creds_user_pass.yaml'
+      - $ref: './AssessmentCreds.yaml'
