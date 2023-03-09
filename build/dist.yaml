@@ -884,6 +884,46 @@ components:
           description: Set of tools that are supported for the given criterion
           items:
             $ref: '#/components/schemas/Tool'
+    AssessmentCreds:
+      type: object
+      properties:
+        secret_id:
+          type: string
+          description: Secret ID (required by Vault)
+          example: my_gitlab_secret
+        user_id:
+          type: string
+          description: >-
+            Account name to be used for authentication (required by GitLab,
+            GitHub)
+          example: my_gitlab_user
+        token:
+          type: string
+          description: >-
+            Temporary (short-lived) token for authentication (required by
+            GitLab, GitHub)
+          example: my_gitlab_token
+    Creds_CI:
+      type: string
+      description: Credential ID as defined in the CI server
+      example: my_credential_id
+    Repository:
+      type: object
+      properties:
+        repo:
+          type: string
+          description: URL of the repository
+          format: uri
+          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
+        branch:
+          type: string
+          description: Branch name
+          example: master
+        credentials_id:
+          description: Credentials to use (if any)
+          oneOf:
+            - $ref: '#/components/schemas/AssessmentCreds'
+            - $ref: '#/components/schemas/Creds_CI'
     Creds_user_pass:
       type: object
       properties:
@@ -906,42 +946,6 @@ components:
         - id
         - username_var
         - password_var
-    AssessmentCreds:
-      type: object
-      properties:
-        secret_id:
-          type: string
-          description: Secret ID (required by Vault)
-          example: my_gitlab_secret
-        user_id:
-          type: string
-          description: >-
-            Account name to be used for authentication (required by GitLab,
-            GitHub)
-          example: my_gitlab_user
-        token:
-          type: string
-          description: >-
-            Temporary (short-lived) token for authentication (required by
-            GitLab, GitHub)
-          example: my_gitlab_token
-    Repository:
-      type: object
-      properties:
-        repo:
-          type: string
-          description: URL of the repository
-          format: uri
-          example: 'https://github.com/eosc-synergy/sqaaas-api-spec'
-        branch:
-          type: string
-          description: Branch name
-          example: master
-        credential_id:
-          description: Credentials to use (if any)
-          oneOf:
-            - $ref: '#/components/schemas/Creds_user_pass'
-            - $ref: '#/components/schemas/AssessmentCreds'
     Commands_simplified:
       type: array
       description: List of commands to execute

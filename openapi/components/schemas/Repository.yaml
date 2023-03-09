@@ -9,8 +9,8 @@ properties:
     type: string
     description: Branch name
     example: 'master'
-  credential_id:
+  credentials_id:
     description: Credentials to use (if any)
     oneOf:
-      - $ref: './Creds_user_pass.yaml'
       - $ref: './AssessmentCreds.yaml'
+      - $ref: './Creds_CI.yaml'
