@@ -884,7 +884,7 @@ components:
           description: Set of tools that are supported for the given criterion
           items:
             $ref: '#/components/schemas/Tool'
-    AssessmentCreds:
+    Creds_input:
       type: object
       properties:
         secret_id:
@@ -922,7 +922,7 @@ components:
         credentials_id:
           description: Credentials to use (if any)
           oneOf:
-            - $ref: '#/components/schemas/AssessmentCreds'
+            - $ref: '#/components/schemas/Creds_input'
             - $ref: '#/components/schemas/Creds_CI'
     Creds_user_pass:
       type: object

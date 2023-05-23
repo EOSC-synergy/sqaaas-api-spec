@@ -12,5 +12,5 @@ properties:
   credentials_id:
     description: Credentials to use (if any)
     oneOf:
-      - $ref: './AssessmentCreds.yaml'
+      - $ref: './Creds_input.yaml'
       - $ref: './Creds_CI.yaml'
