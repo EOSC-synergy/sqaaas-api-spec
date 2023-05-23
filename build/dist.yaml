@@ -886,6 +886,7 @@ components:
             $ref: '#/components/schemas/Tool'
     Creds_input:
       type: object
+      description: Credentials provided directly to the API
       properties:
         secret_id:
           type: string

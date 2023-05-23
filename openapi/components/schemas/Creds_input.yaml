@@ -1,4 +1,5 @@
 type: object
+description: Credentials provided directly to the API
 properties:
   secret_id:
     type: string
