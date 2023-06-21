@@ -1,0 +1,15 @@
+type: object
+description: Credentials provided directly to the API
+properties:
+  secret_id:
+    type: string
+    description: Secret ID (required by Vault)
+    example: 'my_gitlab_secret'
+  user_id:
+    type: string
+    description: Account name to be used for authentication (required by GitLab, GitHub)
+    example: 'my_gitlab_user'
+  token:
+    type: string
+    description: Temporary (short-lived) token for authentication (required by GitLab, GitHub)
+    example: 'my_gitlab_token'
