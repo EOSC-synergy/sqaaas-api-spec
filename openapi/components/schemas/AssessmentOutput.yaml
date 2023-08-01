@@ -1,6 +1,10 @@
 type: object
 properties:
+  version:
+    description: Version of the API spec the generated report payload is based on
+    type: string
   repository:
+    description: Details about the (code, data) repository
     type: array
     items:
       $ref: './AssessmentOutputRepository.yaml'
