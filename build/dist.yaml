@@ -120,7 +120,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pipeline_assessment'
+              $ref: '#/components/schemas/Assessment'
       parameters:
         - in: query
           name: optional_tools
@@ -1242,7 +1242,7 @@ components:
           format: uri
           description: URL where the badge policies are defined
           example: 'https://example.org/badge-matchmaking-policies.ini'
-    Pipeline_assessment:
+    Assessment:
       type: object
       properties:
         repo_code:

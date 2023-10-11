@@ -8,7 +8,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../components/schemas/Pipeline_assessment.yaml'
+          $ref: '../components/schemas/Assessment.yaml'
   parameters:
     - in: query
       name: optional_tools
