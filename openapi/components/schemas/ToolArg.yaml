@@ -4,6 +4,9 @@ properties:
     type: string
     enum: [subcommand, positional, optional]
     description: type of argument
+  id:
+    description: Identifier of the argument
+    type: string
   description:
     type: string
     description: hint about what the command does
@@ -36,3 +39,4 @@ properties:
 required:
   - type
   - description
+  - value
