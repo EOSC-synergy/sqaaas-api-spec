@@ -8,3 +8,7 @@ properties:
     $ref: './AssessmentDeployment.yaml'
   fair:
     $ref: './AssessmentFAIR.yaml'
+  criteria_workflow:
+    type: array
+    items:
+      $ref: './CriterionWorkflow.yaml'
