@@ -1,8 +1,15 @@
 type: object
 properties:
-  version:
-    description: Version of the API spec the generated report payload is based on
-    type: string
+  meta:
+    type: object
+    properties:
+      version:
+        description: Version of the API spec the generated report payload is based on
+        type: string
+      report_json_url:
+        description: location in the build repository with the resultant assessment report (JSON format)
+        type: string
+        format: uri
   repository:
     description: Details about the (code, data) repository
     type: array
