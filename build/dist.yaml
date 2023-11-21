@@ -120,7 +120,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pipeline_assessment'
+              $ref: '#/components/schemas/Assessment'
       parameters:
         - in: query
           name: optional_tools
@@ -766,6 +766,9 @@ components:
             - positional
             - optional
           description: type of argument
+        id:
+          description: Identifier of the argument
+          type: string
         description:
           type: string
           description: hint about what the command does
@@ -802,6 +805,7 @@ components:
       required:
         - type
         - description
+        - value
     Tool:
       type: object
       description: >-
@@ -846,9 +850,6 @@ components:
             $ref: '#/components/schemas/ToolArg'
       required:
         - name
-        - lang
-        - docs
-        - docker
     Criterion:
       type: object
       properties:
@@ -1242,7 +1243,44 @@ components:
           format: uri
           description: URL where the badge policies are defined
           example: 'https://example.org/badge-matchmaking-policies.ini'
-    Pipeline_assessment:
+    Agent:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - docker_compose
+          description: Orchestration technology to deploy the pipeline stages
+        name:
+          type: string
+          description: Container name
+        template:
+          type: string
+          description: Relative path (in the repository) to the container definition
+    Step:
+      type: object
+      properties:
+        tools:
+          description: set of tools to be used in the step
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+    CriterionWorkflow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the criterion
+          example: QC.Sty
+        agent:
+          description: agent node characterisation
+          $ref: '#/components/schemas/Agent'
+        steps:
+          description: steps containing the workflow to validate a given criterion
+          type: array
+          items:
+            $ref: '#/components/schemas/Step'
+    Assessment:
       type: object
       properties:
         repo_code:
@@ -1253,6 +1291,10 @@ components:
           $ref: '#/components/schemas/AssessmentDeployment'
         fair:
           $ref: '#/components/schemas/AssessmentFAIR'
+        criteria_workflow:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriterionWorkflow'
     AssessmentOutputRepository:
       type: object
       properties:

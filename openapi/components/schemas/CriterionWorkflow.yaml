@@ -1,0 +1,15 @@
+
+type: object
+properties:
+  id:
+    type: string
+    description: ID of the criterion
+    example: QC.Sty
+  agent:
+    description: agent node characterisation
+    $ref: './Agent.yaml'
+  steps:
+    description: steps containing the workflow to validate a given criterion
+    type: array
+    items:
+      $ref: './Step.yaml'
