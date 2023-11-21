@@ -10,7 +10,7 @@ get:
         type: string
     - in: query
       name: validate
-      description: Flag to indicate whether the returned output shall be validate using sqaaas-reporting tool
+      description: Flag to indicate whether the returned output shall be validated using sqaaas-reporting tool
       required: false
       schema:
         type: boolean
