@@ -7,7 +7,7 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 2.6.0
+  version: 2.10.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
@@ -732,8 +732,8 @@ paths:
         - in: query
           name: validate
           description: >-
-            Flag to indicate whether the returned output shall be validate using
-            sqaaas-reporting tool
+            Flag to indicate whether the returned output shall be validated
+            using sqaaas-reporting tool
           required: false
           schema:
             type: boolean
@@ -1544,7 +1544,20 @@ components:
     AssessmentOutput:
       type: object
       properties:
+        meta:
+          type: object
+          properties:
+            version:
+              description: Version of the API spec the generated report payload is based on
+              type: string
+            report_json_url:
+              description: >-
+                location in the build repository with the resultant assessment
+                report (JSON format)
+              type: string
+              format: uri
         repository:
+          description: 'Details about the (code, data) repository'
           type: array
           items:
             $ref: '#/components/schemas/AssessmentOutputRepository'
