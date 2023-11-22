@@ -8,8 +8,8 @@ properties:
   agent:
     description: agent node characterisation
     $ref: './Agent.yaml'
-  steps:
-    description: steps containing the workflow to validate a given criterion
+  tools:
+    description: tools to run as workflow steps for the given criterion
     type: array
     items:
-      $ref: './Step.yaml'
+      $ref: './Tool.yaml'

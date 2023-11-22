@@ -1257,14 +1257,6 @@ components:
         template:
           type: string
           description: Relative path (in the repository) to the container definition
-    Step:
-      type: object
-      properties:
-        tools:
-          description: set of tools to be used in the step
-          type: array
-          items:
-            $ref: '#/components/schemas/Tool'
     CriterionWorkflow:
       type: object
       properties:
@@ -1275,11 +1267,11 @@ components:
         agent:
           description: agent node characterisation
           $ref: '#/components/schemas/Agent'
-        steps:
-          description: steps containing the workflow to validate a given criterion
+        tools:
+          description: tools to run as workflow steps for the given criterion
           type: array
           items:
-            $ref: '#/components/schemas/Step'
+            $ref: '#/components/schemas/Tool'
     Assessment:
       type: object
       properties:
