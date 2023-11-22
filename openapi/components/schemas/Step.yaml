@@ -1,7 +1,0 @@
-type: object
-properties:
-  tools:
-    description: set of tools to be used in the step
-    type: array
-    items:
-      $ref: './Tool.yaml'
