@@ -1243,20 +1243,6 @@ components:
           format: uri
           description: URL where the badge policies are defined
           example: 'https://example.org/badge-matchmaking-policies.ini'
-    Agent:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - docker_compose
-          description: Orchestration technology to deploy the pipeline stages
-        name:
-          type: string
-          description: Container name
-        template:
-          type: string
-          description: Relative path (in the repository) to the container definition
     CriterionWorkflow:
       type: object
       properties:
@@ -1264,9 +1250,6 @@ components:
           type: string
           description: ID of the criterion
           example: QC.Sty
-        agent:
-          description: agent node characterisation
-          $ref: '#/components/schemas/Agent'
         tools:
           description: tools to run as workflow steps for the given criterion
           type: array

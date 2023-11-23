@@ -5,9 +5,6 @@ properties:
     type: string
     description: ID of the criterion
     example: QC.Sty
-  agent:
-    description: agent node characterisation
-    $ref: './Agent.yaml'
   tools:
     description: tools to run as workflow steps for the given criterion
     type: array
