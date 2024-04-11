@@ -11,3 +11,8 @@ repos:
     - id: end-of-file-fixer
     - id: check-yaml
     - id: check-added-large-files
+- repo: https://github.com/python-openapi/openapi-spec-validator
+  rev: 0.5.5 # The version to use or 'master' for latest
+  hooks:
+    - id: openapi-spec-validator
+      files: .*build.*\.(json|yaml|yml)
