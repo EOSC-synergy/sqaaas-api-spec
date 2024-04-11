@@ -2,13 +2,13 @@
 
 This repository contains the OpenAPI specification of the SQAaaS platform.
 
-<img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-SYNERGY.png" height="80">
+<img src="images/logo-SYNERGY.png" height="80">
 
 ## Institutions owning the result
 <p float="left">
-    <img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-LIP.png" height="80">
-    <img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-csic.png" height="80">
-    <img src="https://github.com/EOSC-synergy/service-qa-baseline/blob/master/content/images/logo-UPV.png" height="80">
+    <img src="images/logo-LIP.png" height="80">
+    <img src="images/logo-csic.png" height="80">
+    <img src="images/logo-UPV.png" height="80">
 </p>
 
 ## API documentation
@@ -19,7 +19,7 @@ The API docs are automatically rebuilt on master branch changes, by means of [Je
 
 ## Structure
 
-The API definition is organized in a folder structure to avoid the existence of a single-file definition, which 
+The API definition is organized in a folder structure to avoid the existence of a single-file definition, which
 can be unmanageable at the long term. Hence, the `$ref` syntax is used in order to point to definitions located
 in separated files within such folder structure.
 
@@ -32,7 +32,7 @@ project
 │   └───paths
 │       │   <path-one>.yaml
 │       │   <path-two>.yaml
-│       │   .. 
+│       │   ..
 │   └───components
 |       └───schemas
 │           │   <schema-one>.yaml
