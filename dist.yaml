@@ -7,7 +7,7 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 2.10.0
+  version: 3.1.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
@@ -120,7 +120,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pipeline_assessment'
+              $ref: '#/components/schemas/Assessment'
       parameters:
         - in: query
           name: optional_tools
@@ -766,6 +766,9 @@ components:
             - positional
             - optional
           description: type of argument
+        id:
+          description: Identifier of the argument
+          type: string
         description:
           type: string
           description: hint about what the command does
@@ -802,6 +805,7 @@ components:
       required:
         - type
         - description
+        - value
     Tool:
       type: object
       description: >-
@@ -846,9 +850,6 @@ components:
             $ref: '#/components/schemas/ToolArg'
       required:
         - name
-        - lang
-        - docs
-        - docker
     Criterion:
       type: object
       properties:
@@ -1242,7 +1243,19 @@ components:
           format: uri
           description: URL where the badge policies are defined
           example: 'https://example.org/badge-matchmaking-policies.ini'
-    Pipeline_assessment:
+    CriterionWorkflow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the criterion
+          example: QC.Sty
+        tools:
+          description: tools to run as workflow steps for the given criterion
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+    Assessment:
       type: object
       properties:
         repo_code:
@@ -1253,6 +1266,10 @@ components:
           $ref: '#/components/schemas/AssessmentDeployment'
         fair:
           $ref: '#/components/schemas/AssessmentFAIR'
+        criteria_workflow:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriterionWorkflow'
     AssessmentOutputRepository:
       type: object
       properties:
@@ -1458,7 +1475,6 @@ components:
           default: []
           items:
             type: string
-            default: null
             example: criterion_id
         missing:
           description: List of missing criteria codes for the badge class to be granted
@@ -1466,14 +1482,12 @@ components:
           default: []
           items:
             type: string
-            default: null
         fulfilled:
           description: List of fulfilled criteria codes for the given badge class
           type: array
           default: []
           items:
             type: string
-            default: null
     BadgeAssertion:
       type: object
       description: Badge data as obtained from Open Badge's Badgr implementation
