@@ -7,7 +7,6 @@ properties:
     default: []
     items:
       type: string
-      default: null
       example: criterion_id
   missing:
     description: List of missing criteria codes for the badge class to be granted
@@ -15,11 +14,9 @@ properties:
     default: []
     items:
       type: string
-      default: null
   fulfilled:
     description: List of fulfilled criteria codes for the given badge class
     type: array
     default: []
     items:
       type: string
-      default: null

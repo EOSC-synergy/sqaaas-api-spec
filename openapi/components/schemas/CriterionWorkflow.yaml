@@ -1,0 +1,12 @@
+
+type: object
+properties:
+  id:
+    type: string
+    description: ID of the criterion
+    example: QC.Sty
+  tools:
+    description: tools to run as workflow steps for the given criterion
+    type: array
+    items:
+      $ref: './Tool.yaml'

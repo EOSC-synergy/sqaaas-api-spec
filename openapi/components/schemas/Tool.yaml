@@ -39,6 +39,3 @@ properties:
       $ref: './ToolArg.yaml'
 required:
   - name
-  - lang
-  - docs
-  - docker
