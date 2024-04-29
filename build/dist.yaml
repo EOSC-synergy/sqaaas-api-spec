@@ -815,15 +815,15 @@ components:
         name:
           type: string
           description: Name of the tool
-          example: flake8
+          example: fair-eva
         lang:
           type: string
           description: Language that the tool is aligned with
-          example: Python
+          example: fair
         version:
           type: string
           description: Version of the tool
-          example: 4.0.1
+          example: 2.0.0
         jepl_support:
           type: boolean
         docs:
