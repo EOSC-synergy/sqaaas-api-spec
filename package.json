@@ -11,7 +11,7 @@
     "start": "openapi preview-docs",
     "build": "openapi bundle -o build/dist && redoc-cli bundle build/dist.yaml --output build/index.html",
     "test": "openapi lint",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build --repo=git@github.com:eosc-synergy/sqaaas-api-spec"
   },
   "homepage": "https://eosc-synergy.github.io/sqaaas-api-spec"
 }
