@@ -926,6 +926,10 @@ components:
           oneOf:
             - $ref: '#/components/schemas/Creds_input'
             - $ref: '#/components/schemas/Creds_CI'
+        subfolder:
+          type: string
+          description: Subfolder name
+          example: src
     Creds_user_pass:
       type: object
       properties:
