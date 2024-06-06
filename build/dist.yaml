@@ -7,7 +7,7 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 3.1.1
+  version: 3.2.0
 servers:
   - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
@@ -926,6 +926,10 @@ components:
           oneOf:
             - $ref: '#/components/schemas/Creds_input'
             - $ref: '#/components/schemas/Creds_CI'
+        subfolder:
+          type: string
+          description: Subfolder name
+          example: src
     Creds_user_pass:
       type: object
       properties:
