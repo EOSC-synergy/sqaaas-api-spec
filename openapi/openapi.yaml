@@ -5,7 +5,7 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 3.2.0
+  version: 3.5.0
 servers:
   - url: 'https://api.sqaaas.eosc-synergy.eu/v1'
     description: 'Main (production) API server'
@@ -22,6 +22,8 @@ paths:
     $ref: paths/pipeline_assessment.yaml
   /pipeline/assessment/{pipeline_id}/output:
     $ref: paths/pipeline_assessment_output.yaml
+  /pipeline/assessment/custom:
+    $ref: paths/pipeline_assessment_custom.yaml
   /pipeline/{pipeline_id}:
     $ref: paths/pipeline_by_id.yaml
   /pipeline/{pipeline_id}/config:

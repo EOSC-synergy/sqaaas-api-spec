@@ -18,6 +18,13 @@ post:
         type: array
         items:
           type: string
+    - in: query
+      name: run_criteria_workflow_only 
+      description: Boolean that triggers only the assessment of the criteria passed under criteria_workflow
+      required: false
+      schema:
+        type: boolean
+        default: false
   responses:
     '201':
       description: Created
