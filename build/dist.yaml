@@ -7,7 +7,7 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 3.5.0
+  version: 3.6.0
 servers:
   - url: 'https://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
