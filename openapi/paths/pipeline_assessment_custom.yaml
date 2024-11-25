@@ -1,0 +1,26 @@
+post:
+  operationId: add_pipeline_for_assessment_custom
+  summary: Creates a pipeline for a custom assessment (QAA module).
+  description: >
+    Creates a pipeline for a custom assessment (QAA module).
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Assessment.yaml'
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: UUID identifying the pipeline
+          example:
+            id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+    '400':
+      description: Request failed validation

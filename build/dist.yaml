@@ -7,11 +7,11 @@ info:
   license:
     name: GPLv3
     url: 'https://www.gnu.org/licenses/gpl-3.0.txt'
-  version: 3.2.0
+  version: 3.6.0
 servers:
-  - url: 'http://api.sqaaas.eosc-synergy.eu/v1'
+  - url: 'https://api.sqaaas.eosc-synergy.eu/v1'
     description: Main (production) API server
-  - url: 'https://api-staging.sqaaas.eosc-synergy.eu'
+  - url: 'https://api-staging.sqaaas.eosc-synergy.eu/v1'
     description: Staging API server for testing
   - url: 'https://api-dev.sqaaas.eosc-synergy.eu'
     description: Development API server (mock server)
@@ -130,6 +130,15 @@ paths:
             type: array
             items:
               type: string
+        - in: query
+          name: run_criteria_workflow_only
+          description: >-
+            Boolean that triggers only the assessment of the criteria passed
+            under criteria_workflow
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         '201':
           description: Created
@@ -181,6 +190,33 @@ paths:
           description: Pipeline not found
         '422':
           description: Pipeline has not been executed
+  /pipeline/assessment/custom:
+    post:
+      operationId: add_pipeline_for_assessment_custom
+      summary: Creates a pipeline for a custom assessment (QAA module).
+      description: |
+        Creates a pipeline for a custom assessment (QAA module).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Assessment'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: UUID identifying the pipeline
+              example:
+                id: dd7d8481-81a3-407f-95f0-a2f1cb382a4b
+        '400':
+          description: Request failed validation
   '/pipeline/{pipeline_id}':
     get:
       operationId: get_pipeline_by_id
